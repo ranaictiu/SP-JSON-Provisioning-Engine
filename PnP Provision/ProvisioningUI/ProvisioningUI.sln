@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvisioningUI", "ProvisioningUI\ProvisioningUI.csproj", "{4CA9D579-248D-4908-9A39-FD79A0E03EF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{02F0F3A9-C14D-4345-A9DC-3A6E8B62D455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvisioningApp", "ProvisioningApp\ProvisioningApp.csproj", "{42545A24-D92D-4274-8622-D94E472C0B64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CA9D579-248D-4908-9A39-FD79A0E03EF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA9D579-248D-4908-9A39-FD79A0E03EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA9D579-248D-4908-9A39-FD79A0E03EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA9D579-248D-4908-9A39-FD79A0E03EF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42545A24-D92D-4274-8622-D94E472C0B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42545A24-D92D-4274-8622-D94E472C0B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42545A24-D92D-4274-8622-D94E472C0B64}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{42545A24-D92D-4274-8622-D94E472C0B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42545A24-D92D-4274-8622-D94E472C0B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42545A24-D92D-4274-8622-D94E472C0B64}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{42545A24-D92D-4274-8622-D94E472C0B64} = {02F0F3A9-C14D-4345-A9DC-3A6E8B62D455}
+	EndGlobalSection
+EndGlobal

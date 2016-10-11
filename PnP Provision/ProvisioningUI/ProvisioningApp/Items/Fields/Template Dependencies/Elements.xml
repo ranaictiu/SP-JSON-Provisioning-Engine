@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">  
+  <Field
+       ID="{6a65aa41-b7b8-40ec-b412-8630a7565e9f}"
+       Name="TemplateDependencies"
+       DisplayName="Template Dependencies"
+       Type="LookupMulti"
+       List="Lists/Templates"
+       Required="FALSE"
+       ShowField="Title"
+       Group="Provisioning App">
+  </Field>
+</Elements>

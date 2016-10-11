@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">  
+  <Field
+       ID="{98a99efc-e98b-4ced-8cb6-20fed24e2549}"
+       Name="TemplateDescription"
+       DisplayName="Template Description"
+       Type="Note"
+       Required="FALSE"
+       Group="Provisioning App">
+  </Field>
+</Elements>
