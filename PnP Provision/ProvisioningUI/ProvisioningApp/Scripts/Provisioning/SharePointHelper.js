@@ -208,6 +208,61 @@ define(["require", "exports"], function (require, exports) {
         return Utils;
     }());
     exports.Utils = Utils;
+    var UI = (function () {
+        function UI() {
+        }
+        UI.showDialog = function (header, msg) {
+            var _this = this;
+            SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.showModalDialog', function () {
+                if (_this.dialog) {
+                    _this.closeDialog();
+                }
+                _this.dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose(header, msg, 150, 550);
+            });
+        };
+        ;
+        UI.closeDialog = function () {
+            if (this.dialog) {
+                this.dialog.close(SP.UI.DialogResult.invalid);
+            }
+        };
+        ;
+        UI.clearAllNotification = function () {
+            SP.UI.Status.removeAllStatus(true);
+        };
+        ;
+        UI.showNotification = function (title, msg, isError) {
+            SP.UI.Status.removeAllStatus(true);
+            var notificationId = SP.UI.Status.addStatus(title, msg);
+            if (isError)
+                SP.UI.Status.setStatusPriColor(notificationId, 'red');
+            else
+                SP.UI.Status.setStatusPriColor(notificationId, 'green');
+            setTimeout(function () { SP.UI.Status.removeStatus(notificationId); }, 10000);
+        };
+        ;
+        UI.showStickyNotification = function (title, msg, isError) {
+            SP.UI.Status.removeAllStatus(true);
+            var notificationId = SP.UI.Status.addStatus(title, msg);
+            if (isError)
+                SP.UI.Status.setStatusPriColor(notificationId, 'red');
+            else
+                SP.UI.Status.setStatusPriColor(notificationId, 'green');
+        };
+        ;
+        UI.showShortNotification = function (msg, isError) {
+            SP.UI.Status.removeAllStatus(true);
+            var notificationId = SP.UI.Status.addStatus(msg);
+            if (isError)
+                SP.UI.Status.setStatusPriColor(notificationId, 'red');
+            else
+                SP.UI.Status.setStatusPriColor(notificationId, 'green');
+            setTimeout(function () { SP.UI.Status.removeStatus(notificationId); }, 2000);
+        };
+        ;
+        return UI;
+    }());
+    exports.UI = UI;
     var SpHelper = (function () {
         function SpHelper(ctx, logger) {
             if (logger === void 0) { logger = Logger; }

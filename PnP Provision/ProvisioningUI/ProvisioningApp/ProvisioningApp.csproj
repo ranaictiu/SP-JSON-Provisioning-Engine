@@ -82,10 +82,10 @@
     <None Include="Items\Fields\TemplateType\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{afa086ed-0658-48af-9f38-13f63efc89bc}</SharePointProjectItemId>
     </None>
-    <None Include="Items\Lists\Templates\SharePointProjectItem.spdata">
+    <None Include="Items\Lists\ListTemplates\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{c832a37e-3fd2-4586-98c3-b2c3e886cd2b}</SharePointProjectItemId>
     </None>
-    <None Include="Items\Lists\Templates\TemplatesInstance\SharePointProjectItem.spdata">
+    <None Include="Items\Lists\ListTemplates\TemplatesInstance\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{2e17cb2b-b87a-4d79-9e64-57b6d0ff1155}</SharePointProjectItemId>
     </None>
     <None Include="Items\Templates\FeatureTemplate.json" />
@@ -108,13 +108,13 @@
     <Content Include="Items\Fields\Template ID\Elements.xml" />
     <Content Include="Items\Fields\TemplateDescription\Elements.xml" />
     <Content Include="Items\Fields\TemplateType\Elements.xml" />
-    <Content Include="Items\Lists\Templates\EditDlg.htm" />
-    <Content Include="Items\Lists\Templates\Elements.xml" />
-    <Content Include="Items\Lists\Templates\FileDlg.htm" />
-    <Content Include="Items\Lists\Templates\Repair.aspx" />
-    <Content Include="Items\Lists\Templates\Schema.xml" />
-    <Content Include="Items\Lists\Templates\TemplatesInstance\Elements.xml" />
-    <Content Include="Items\Lists\Templates\Upload.aspx" />
+    <Content Include="Items\Lists\ListTemplates\EditDlg.htm" />
+    <Content Include="Items\Lists\ListTemplates\Elements.xml" />
+    <Content Include="Items\Lists\ListTemplates\FileDlg.htm" />
+    <Content Include="Items\Lists\ListTemplates\Repair.aspx" />
+    <Content Include="Items\Lists\ListTemplates\Schema.xml" />
+    <Content Include="Items\Lists\ListTemplates\TemplatesInstance\Elements.xml" />
+    <Content Include="Items\Lists\ListTemplates\Upload.aspx" />
     <Content Include="Items\Templates\Elements.xml" />
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />

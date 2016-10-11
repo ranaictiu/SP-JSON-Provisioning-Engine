@@ -223,7 +223,6 @@ export class Utils {
             }, "sp.js");
         }, "sp.runtime.js");
     };
-
     static loadPublishingScripts(callback) {
         ExecuteOrDelayUntilScriptLoaded(() => {
             ExecuteOrDelayUntilScriptLoaded(() => {
@@ -232,6 +231,51 @@ export class Utils {
             }, "sp.js");
         }, "sp.runtime.js");
     }
+}
+export class UI {
+    static dialog: SP.UI.ModalDialog;
+    static showDialog(header: string, msg: string) {
+        SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.showModalDialog', () => {
+            if (this.dialog) {
+                this.closeDialog();
+            }
+            this.dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose(header, msg, 150, 550);
+        });
+    };
+    static closeDialog() {
+        if (this.dialog) {
+            this.dialog.close(SP.UI.DialogResult.invalid);
+        }
+    };
+    static clearAllNotification() {
+        SP.UI.Status.removeAllStatus(true);
+    };
+    static showNotification(title: string, msg: string, isError?: boolean) {
+        SP.UI.Status.removeAllStatus(true);
+        var notificationId = SP.UI.Status.addStatus(title, msg);
+        if (isError)
+            SP.UI.Status.setStatusPriColor(notificationId, 'red');
+        else
+            SP.UI.Status.setStatusPriColor(notificationId, 'green');
+        setTimeout(() => { SP.UI.Status.removeStatus(notificationId); }, 10000);
+    };
+    static showStickyNotification(title: string, msg: string, isError?: boolean) {
+        SP.UI.Status.removeAllStatus(true);
+        var notificationId = SP.UI.Status.addStatus(title, msg);
+        if (isError)
+            SP.UI.Status.setStatusPriColor(notificationId, 'red');
+        else
+            SP.UI.Status.setStatusPriColor(notificationId, 'green');
+    };
+    static showShortNotification(msg: string, isError?: boolean) {
+        SP.UI.Status.removeAllStatus(true);
+        var notificationId = SP.UI.Status.addStatus(msg);
+        if (isError)
+            SP.UI.Status.setStatusPriColor(notificationId, 'red');
+        else
+            SP.UI.Status.setStatusPriColor(notificationId, 'green');
+        setTimeout(()=> { SP.UI.Status.removeStatus(notificationId); }, 2000);
+    };
 }
 
 export class SpHelper {
@@ -619,11 +663,11 @@ export class SpHelper {
             });
         }
         if (removeExistingContentTypes) {
-                promises = promises.then(()=> {
-                    var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : ko.utils.arrayFirst(pnpContentTypeBidnings,
-                        (c)=> {return c.default != null && c.default;});
-                    return this.removeAllContentTypesBut(listTitle, pnpContentTypeBidnings, defaultContentType);
-                });
+            promises = promises.then(() => {
+                var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : ko.utils.arrayFirst(pnpContentTypeBidnings,
+                    (c) => { return c.default != null && c.default; });
+                return this.removeAllContentTypesBut(listTitle, pnpContentTypeBidnings, defaultContentType);
+            });
 
 
         }

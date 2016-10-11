@@ -1,8 +1,8 @@
 ﻿require.config({
-    baseUrl: "",
+    baseUrl: "../scripts",
     paths: {
-        "jQuery": "lib/jquery-1.9.1.min.js",
-        "knockout": "lib/knockout-3.4.0.js"
+        "jQuery": "lib/jquery-1.9.1.min",
+        "knockout": "lib/knockout-3.4.0"
     }, shim: {
         "jQuery": {
             exports: "$"

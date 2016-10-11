@@ -15,7 +15,7 @@
     <SharePoint:ScriptLink Name="sp.DocumentManagement.js" runat="server" LoadAfterUI="true" Localizable="false" />
 
     <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="false" LoadAfterUI="true" Localizable="false" />
-
+     <script data-main="../Scripts/app" type="text/javascript" src="../Scripts/lib/require.js"></script>
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/bootstrap/bootstrap.min.css" />
 </asp:Content>
@@ -46,9 +46,9 @@
             </div>
             <div class="form-group">
                 <label class="control-label">
-                    Project Manager<span class="required">*</span>
+                    Site Template<span class="required">*</span>
                 </label>
-                <select data-bind="options: siteTemplates, optionsText: 'title', value: selectedTemplate"></select>
+                <select class="form-control" data-bind="options: siteTemplates, optionsText: 'title', value: selectedTemplate"></select>
             </div>
             <div class="form-group">
                 <a class="btn btn-success btn-lg" href="javascript:void(0)" data-bind="click: createSite">Create Site</a>
@@ -63,4 +63,7 @@
             </li>
         </ul>
     </div>
+    <script type="text/javascript">
+        require(['knockout','../scripts/models/SiteTemplateModel']);
+    </script>
 </asp:Content>

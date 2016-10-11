@@ -1,1 +1,5 @@
 ﻿/* Place custom styles below */
+#siteCreationContainer{ margin: 50px 0 0 0;}
+#siteCreationContainer input[type=text],#siteCreationContainer textarea,#siteCreationContainer select{ width: 350px; }
+#siteCreationContainer span.required{ color: red;margin: 0 0 0 5px;}
+

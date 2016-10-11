@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<List xmlns:ows="Microsoft SharePoint" Title="Templates" Direction="$Resources:Direction;" Url="Templates" BaseType="1" xmlns="http://schemas.microsoft.com/sharepoint/" EnableContentTypes="TRUE">
+<List xmlns:ows="Microsoft SharePoint" Title="ListTemplates" Direction="$Resources:Direction;" Url="ListTemplates" BaseType="1" xmlns="http://schemas.microsoft.com/sharepoint/" EnableContentTypes="TRUE">
   <MetaData>
     <ContentTypes>
       <ContentType ID="0x01010061237BECC2D44CFC98CA2B3781B36F31" Name="Site Feature Template" Group="Provisioning App" Description="Template Type - Feature or Site" Inherits="TRUE" Version="0">
