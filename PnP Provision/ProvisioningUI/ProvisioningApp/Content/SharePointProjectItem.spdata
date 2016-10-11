@@ -3,5 +3,18 @@
   <Files>
     <ProjectItemFile Source="Elements.xml" Target="Content\" Type="ElementManifest" />
     <ProjectItemFile Source="App.css" Target="Content\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap.min.css.map" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap.min.css" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap.css.map" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap.css" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap-theme.min.css.map" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap-theme.min.css" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap-theme.css.map" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\bootstrap-theme.css" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\glyphicons-halflings-regular.woff2" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\glyphicons-halflings-regular.woff" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\glyphicons-halflings-regular.ttf" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\glyphicons-halflings-regular.svg" Target="Content\bootstrap\" Type="ElementFile" />
+    <ProjectItemFile Source="bootstrap\glyphicons-halflings-regular.eot" Target="Content\bootstrap\" Type="ElementFile" />
   </Files>
 </ProjectItem>

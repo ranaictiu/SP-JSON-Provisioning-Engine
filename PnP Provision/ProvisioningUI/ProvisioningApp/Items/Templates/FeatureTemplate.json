@@ -1,7 +1,7 @@
 ﻿{
   "$schema": "./pnp-schema.json",
-  "Title": "CMail Template",
-  "Id": "Cmail",
+  "Title": "Feature Template",
+  "Id": "FeatureTemplate",
   "Templates": [
     {
       "Description": "Create site groups, activate features and lists used in lookup or lists without any lookup fields",
@@ -58,20 +58,20 @@
       "SiteFields": [
         {
           "ID": "{136C79BA-E70E-4985-AA06-13C2EE4FBF47}",
-          "Name": "AustalCmailTemplateLookup",
+          "Name": "SofTractFeatureTemplateLookup",
           "DisplayName": "Correspondence Template",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "Lookup",
           "List": "Lists/CorrespondenceTemplates",
           "ShowField": "Title",
-          "JSLink": "~siteCollection/_catalogs/masterpage/Austal/Scripts/CSR_Cmail.js"
+          "JSLink": "~siteCollection/_catalogs/masterpage/SofTract/Scripts/CSR_Feature.js"
         }
       ],
       "ContentTypes": [
         {
           "ParentID": "0x010100C0D2066864CA4A11942B175F78E9782F",
           "Name": "Correspondence",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "Correspondence",
           "FieldRefs": [
             {
@@ -85,39 +85,39 @@
             },
             {
               "ID": "{EC02D10D-839A-4021-94F9-39117B89317A}",
-              "Name": "AustalCorsPndncFrom",
+              "Name": "SofTractCorsPndncFrom",
               "Required": true
             },
             {
               "ID": "{AD6364E0-91B8-48B6-B2DA-D2540A73B034}",
-              "Name": "AustalCorsPndncTo",
+              "Name": "SofTractCorsPndncTo",
               "Required": true
             },
             {
               "ID": "{136C79BA-E70E-4985-AA06-13C2EE4FBF47}",
-              "Name": "AustalCmailTemplateLookup",
+              "Name": "SofTractFeatureTemplateLookup",
               "Required": false
             },
             {
               "ID": "{1D95E296-1A8E-4EF8-AACE-BE98E99467F1}",
-              "Name": "AustalCorsPndncMessage",
+              "Name": "SofTractCorsPndncMessage",
               "Required": true
             },
             {
               "ID": "{5B419DC4-B5B9-4CD9-A0E1-C482874310B8}",
-              "Name": "AustalCorsPndnStatus",
+              "Name": "SofTractCorsPndnStatus",
               "Required": false,
               "Hidden": false
             },
             {
               "ID": "{9B657A4B-1D5F-451B-AB82-8B5947AA7F65}",
-              "Name": "AustalCMailSentBy",
+              "Name": "SofTractFeatureSentBy",
               "Required": false,
               "Hidden": false
             },
             {
               "ID": "{163F0727-9C9B-4C6C-82D8-63380AA88820}",
-              "Name": "AustalCMailSentDate",
+              "Name": "SofTractFeatureSentDate",
               "Required": false,
               "Hidden": false
             }
@@ -162,7 +162,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "DocIcon", "LinkFilename", "AustalCorsPndncFrom", "AustalCorsPndncTo", "AustalCorsPndnStatus", "AustalCMailSentDate", "AustalCMailViewDate" ],
+              "ViewFields": [ "DocIcon", "LinkFilename", "SofTractCorsPndncFrom", "SofTractCorsPndncTo", "SofTractCorsPndnStatus", "SofTractFeatureSentDate", "SofTractFeatureViewDate" ],
               "FieldRefs": [
                 {
                   "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
@@ -189,7 +189,7 @@
           "Url": "Lists/EmailTemplates",
           "DataRows": [
             {
-              "_url": "Lists/Templates/CMailEmailTemplates.xml",
+              "_url": "Lists/Templates/FeatureEmailTemplates.xml",
               "_type": "xml"
             }
           ]
@@ -199,7 +199,7 @@
         "SiteCustomActions": [],
         "WebCustomActions": [
           {
-            "Url": "Lists/Templates/CMailRibbon.xml"
+            "Url": "Lists/Templates/FeatureRibbon.xml"
           }
         ]
       }

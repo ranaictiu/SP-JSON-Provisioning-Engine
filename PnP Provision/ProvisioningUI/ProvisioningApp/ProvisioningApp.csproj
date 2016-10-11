@@ -1,6 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -44,6 +59,14 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap\bootstrap-theme.min.css.map" />
+    <None Include="Content\bootstrap\bootstrap.css.map" />
+    <None Include="Content\bootstrap\bootstrap.min.css.map" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.woff" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.woff2" />
     <None Include="Items\ContentTypes\SiteFeatureTemplate\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{3a438ee7-d386-4350-934b-14f09e61cbb5}</SharePointProjectItemId>
     </None>
@@ -74,6 +97,12 @@
     <None Include="Pages\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{9f04b5dc-95de-4912-88d0-f7855b2a4689}</SharePointProjectItemId>
     </None>
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Elements.xml" />
+    <Content Include="Content\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="Items\ContentTypes\SiteFeatureTemplate\Elements.xml" />
     <Content Include="Items\Fields\Template Dependencies\Elements.xml" />
     <Content Include="Items\Fields\Template ID\Elements.xml" />
@@ -89,20 +118,24 @@
     <Content Include="Items\Templates\Elements.xml" />
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />
+    <None Include="SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{12680fa7-197b-42e8-905a-964e6c97cde6}</SharePointProjectItemId>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{47eedfe5-728e-4e26-a911-19db3bf6cea7}</SharePointProjectItemId>
     </None>
     <Content Include="Pages\SiteTemplate.aspx" />
+    <Content Include="Scripts\lib\bootstrap.min.js" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\App.js" />
-    <Content Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\lib\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\lib\knockout-3.4.0.js" />
+    <Content Include="Scripts\Models\SiteTemplateModel.js" />
     <Content Include="Scripts\Provisioning\SharePointHelper.js" />
     <Content Include="Scripts\Provisioning\TemplateManager.js" />
+    <Content Include="Scripts\lib\require.js" />
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>
@@ -140,10 +173,10 @@
       <SubType>Designer</SubType>
     </AppManifestFile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Scripts\Models\" />
-  </ItemGroup>
-  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\app.ts" />
+    <TypeScriptCompile Include="Scripts\Models\SiteTemplateModel.ts" />
     <TypeScriptCompile Include="Scripts\Provisioning\SharePointHelper.ts" />
     <TypeScriptCompile Include="Scripts\Provisioning\TemplateManager.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
@@ -151,6 +184,7 @@
     <TypeScriptCompile Include="Scripts\typings\knockout\tests\jasmine.extensions.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\microsoft-ajax\microsoft.ajax.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\ProvisioningApp.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\sharepoint\SharePoint.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

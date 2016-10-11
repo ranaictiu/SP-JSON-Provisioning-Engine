@@ -1,4 +1,4 @@
-require.config({
+﻿require.config({
     baseUrl: "",
     paths: {
         "jQuery": "lib/jquery-1.9.1.min.js",
@@ -8,5 +8,4 @@ require.config({
             exports: "$"
         }
     }
-});
-//# sourceMappingURL=app.js.map
+})

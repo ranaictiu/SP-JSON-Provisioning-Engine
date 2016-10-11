@@ -287,7 +287,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitle", "AustalCDRLAbbreviation" ]
+              "ViewFields": [ "LinkTitle", "SofTractCDRLAbbreviation" ]
             }
           ],
           "FieldRefs": [
@@ -470,43 +470,43 @@
           ],
           "DataRows": [
             {
-              "AustalSiteConfigKey": "ServiceEndPoint",
-              "AustalSiteConfigValue": "https://austalservice.azurewebsites.net",
+              "SofTractSiteConfigKey": "ServiceEndPoint",
+              "SofTractSiteConfigValue": "https://SofTractservice.azurewebsites.net",
               "Title": "Azure Service Endpoint"
             },
             {
-              "AustalSiteConfigKey": "ProjectName",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "ProjectName",
+              "SofTractSiteConfigValue": "",
               "Title": "Project Name"
             },
             {
-              "AustalSiteConfigKey": "CustomerAdminGroupId",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "CustomerAdminGroupId",
+              "SofTractSiteConfigValue": "",
               "Title": "Customers Group Id "
             },
             {
-              "AustalSiteConfigKey": "CustomerUserGroupId",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "CustomerUserGroupId",
+              "SofTractSiteConfigValue": "",
               "Title": "Customer User Group Id (Not used)"
             },
             {
-              "AustalSiteConfigKey": "PMGroupId",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "PMGroupId",
+              "SofTractSiteConfigValue": "",
               "Title": "Project Manager Group Id "
             },
             {
-              "AustalSiteConfigKey": "Environment",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "Environment",
+              "SofTractSiteConfigValue": "",
               "Title": "Environemnt (Dev/Test/Prod)"
             },
             {
-              "AustalSiteConfigKey": "PMEmail",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "PMEmail",
+              "SofTractSiteConfigValue": "",
               "Title": "Project Manager Email"
             },
             {
-              "AustalSiteConfigKey": "PMSignature",
-              "AustalSiteConfigValue": "",
+              "SofTractSiteConfigKey": "PMSignature",
+              "SofTractSiteConfigValue": "",
               "Title": "Project Manager Signature",
               "_Attachments": [
                 {
@@ -632,7 +632,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitleNoMenu", "AustalPlainDescription", "AustalVcrmOcdlToFps" ]
+              "ViewFields": [ "LinkTitleNoMenu", "SofTractPlainDescription", "SofTractVcrmOcdlToFps" ]
             }
           ]
         },
@@ -862,9 +862,9 @@
       "SiteFields": [
         {
           "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-          "Name": "AustalCDRLLookup",
+          "Name": "SofTractCDRLLookup",
           "DisplayName": "CDRL",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "Lookup",
           "List": "Lists/CDRLs",
           "Required": true,
@@ -872,70 +872,70 @@
         },
         {
           "ID": "{DE42175C-3FB3-47DD-8DC6-C925B1A4EB26}",
-          "Name": "AustalSDRLLookup",
+          "Name": "SofTractSDRLLookup",
           "DisplayName": "SDRL",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "Lookup",
           "List": "Lists/SDRLs",
           "ShowField": "Title"
         },
         {
           "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
-          "Name": "AustalWFStatusLookup",
+          "Name": "SofTractWFStatusLookup",
           "DisplayName": "Workflow Status",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "Lookup",
           "List": "Lists/WorkflowStatus",
           "ShowField": "Title",
           "DependentLookupFields": [
             {
               "DisplayName": "Peer Review Status",
-              "ShowField": "AustalWFStatusPR"
+              "ShowField": "SofTractWFStatusPR"
             },
             {
               "DisplayName": "PM Approval Status",
-              "ShowField": "AustalWFStatusPMA"
+              "ShowField": "SofTractWFStatusPMA"
             },
             {
               "DisplayName": "COA Submission Status",
-              "ShowField": "AustalWFStatusCOA"
+              "ShowField": "SofTractWFStatusCOA"
             }
           ]
         },
         {
           "ID": "{6C6E5ADF-EC79-4736-80E5-293372615292}",
-          "Name": "AustalOCDLLookup",
+          "Name": "SofTractOCDLLookup",
           "DisplayName": "OCDLs",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "LookupMulti",
           "List": "Lists/OCDLs",
           "ShowField": "Title",
-          "JSLink": "~siteCollection/_catalogs/masterpage/Austal/Scripts/CSR_VCRM.js"
+          "JSLink": "~siteCollection/_catalogs/masterpage/SofTract/Scripts/CSR_VCRM.js"
         },
         {
           "ID": "{35FF43FA-0631-464B-9B33-C80D8D0D95D7}",
-          "Name": "AustalFPSLookup",
+          "Name": "SofTractFPSLookup",
           "DisplayName": "FPS",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "LookupMulti",
           "List": "Lists/FPSs",
           "ShowField": "Title",
-          "JSLink": "~siteCollection/_catalogs/masterpage/Austal/Scripts/CSR_VCRM.js"
+          "JSLink": "~siteCollection/_catalogs/masterpage/SofTract/Scripts/CSR_VCRM.js"
         },
         {
           "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-          "Name": "AustalMSSLLookup",
+          "Name": "SofTractMSSLLookup",
           "DisplayName": "MSSs",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "LookupMulti",
           "List": "Lists/MSSs",
           "ShowField": "Title"
         },
         {
           "ID": "{287D43F6-E17A-485D-AACB-B590FDE4060C}",
-          "Name": "AustalTestPlanLLookup",
+          "Name": "SofTractTestPlanLLookup",
           "DisplayName": "Test Plan",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Type": "LookupMulti",
           "List": "Lists/TestPlans",
           "ShowField": "Title"
@@ -945,7 +945,7 @@
         {
           "ParentID": "0x010800440874A0E71F4BE7A2F09DE230DC3DBE",
           "Name": "CDRL Task",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "CDRL Task Content Type",
           "FieldRefs": [
             {
@@ -983,27 +983,27 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "AustalCDRLLookup",
+              "Name": "SofTractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{B03829BB-0C33-4A99-A71B-EEF9DFB33CE9}",
-              "Name": "AustalTaskDocNo"
+              "Name": "SofTractTaskDocNo"
             },
             {
               "ID": "{429DCF87-8271-4C67-810F-3173FE9AED47}",
-              "Name": "AustalTaskDIDDocNo"
+              "Name": "SofTractTaskDIDDocNo"
             },
             {
               "ID": "{916D684C-AF66-4040-BA3F-90AE880F3554}",
-              "Name": "AustalTaskDelivery"
+              "Name": "SofTractTaskDelivery"
             }
           ]
         },
         {
           "ParentID": "0x0101007352B54274B2476E925990286BFF1D9E",
           "Name": "SDRL",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "SDRL Document",
           "FieldRefs": [
             {
@@ -1016,19 +1016,19 @@
             },
             {
               "ID": "{DE42175C-3FB3-47DD-8DC6-C925B1A4EB26}",
-              "Name": "AustalSDRLLookup",
+              "Name": "SofTractSDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "AustalAssetHierarchy"
+              "Name": "SofTractAssetHierarchy"
             }
           ]
         },
         {
           "ParentID": "0x01010020783B76E0D34E6DBA0FCE40BAC982E2",
           "Name": "Asset Hierarchies",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "Asset Hierarchies Document",
           "FieldRefs": [
             {
@@ -1041,12 +1041,12 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "AustalCDRLLookup",
+              "Name": "SofTractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "AustalAssetHierarchy"
+              "Name": "SofTractAssetHierarchy"
             }
 
           ]
@@ -1054,7 +1054,7 @@
         {
           "ParentID": "0x01010006EFA81ACDC148349F81F669B27A4AC6",
           "Name": "Miscellaneous",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "Miscellaneous Document",
           "FieldRefs": [
             {
@@ -1067,19 +1067,19 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "AustalCDRLLookup",
+              "Name": "SofTractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "AustalAssetHierarchy"
+              "Name": "SofTractAssetHierarchy"
             }
           ]
         },
         {
           "ParentID": "0x0100ECCB789EADDB4F45951DA9B5E6C15482",
           "Name": "FPS",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "FPS",
           "FieldRefs": [
             {
@@ -1088,19 +1088,19 @@
             },
             {
               "ID": "{27545995-BE93-478A-A726-5DB12B0E109E}",
-              "Name": "AustalPlainDescription"
+              "Name": "SofTractPlainDescription"
             },
             {
               "ID": "{0F787965-8691-466A-BBEA-FD9844C02FEA}",
-              "Name": "AustalOcdlInLinks"
+              "Name": "SofTractOcdlInLinks"
             },
             {
               "ID": "{95558EB2-EF86-47B6-B1DB-ABD63CD56D7E}",
-              "Name": "AustalVcrmFpsToMss"
+              "Name": "SofTractVcrmFpsToMss"
             },
             {
               "ID": "{6C6E5ADF-EC79-4736-80E5-293372615292}",
-              "Name": "AustalOCDLLookup",
+              "Name": "SofTractOCDLLookup",
               "Required": true
             }
           ]
@@ -1108,7 +1108,7 @@
         {
           "ParentID": "0x01009EBA3FE1E8D146D8938E163E0E473D6B",
           "Name": "MSS",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "MSS",
           "FieldRefs": [
             {
@@ -1118,31 +1118,31 @@
             },
             {
               "ID": "{A9ECD81E-5FEC-4FF5-B7A4-175A6B1970FE}",
-              "Name": "AustalRtmSystemHeading"
+              "Name": "SofTractRtmSystemHeading"
             },
             {
               "ID": "{27545995-BE93-478A-A726-5DB12B0E109E}",
-              "Name": "AustalPlainDescription"
+              "Name": "SofTractPlainDescription"
             },
             {
               "ID": "{8D658C8A-DF5E-4E1B-A0A7-714D4B1F571C}",
-              "Name": "AustalVcrmVerificationMethod"
+              "Name": "SofTractVcrmVerificationMethod"
             },
             {
               "ID": "{B71BF472-96B0-4B62-83D8-DB222738605C}",
-              "Name": "AustalVcrmAuthority"
+              "Name": "SofTractVcrmAuthority"
             },
             {
               "ID": "{4881216C-4EEE-4C2C-B2C0-34F8B0602185}",
-              "Name": "AustalVcrmMSSType"
+              "Name": "SofTractVcrmMSSType"
             },
             {
               "ID": "{98F98161-1F37-43E8-B57A-75227C0F17E2}",
-              "Name": "AustalRTMTaxField"
+              "Name": "SofTractRTMTaxField"
             },
             {
               "ID": "{35FF43FA-0631-464B-9B33-C80D8D0D95D7}",
-              "Name": "AustalFPSLookup",
+              "Name": "SofTractFPSLookup",
               "Required": true
             }
           ]
@@ -1150,7 +1150,7 @@
         {
           "ParentID": "0x010100DD640FA3D60149EDBEF10FBFFBFA31D9",
           "Name": "Test Plan",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "Test Plan",
           "FieldRefs": [
             {
@@ -1163,55 +1163,55 @@
             },
             {
               "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-              "Name": "AustalMSSLLookup",
+              "Name": "SofTractMSSLLookup",
               "Required": false
             },
             {
               "ID": "{4977F45D-1472-4D95-882F-1E80D1EB60D0}",
-              "Name": "AustalVcrmStandard"
+              "Name": "SofTractVcrmStandard"
             },
             {
               "ID": "{4A437D06-F8AE-4D57-9655-34E0FB4D272A}",
-              "Name": "AustalVcrmApplicability"
+              "Name": "SofTractVcrmApplicability"
             },
             {
               "ID": "{81EFFCD9-5A54-4B26-B887-02144CC07D25}",
-              "Name": "AustalVcrmResponsibility"
+              "Name": "SofTractVcrmResponsibility"
             },
             {
               "ID": "{65979DE8-F278-4295-AFE9-64A0379F2215}",
-              "Name": "AustalVcrmSystem"
+              "Name": "SofTractVcrmSystem"
             },
             {
               "ID": "{F7A71C0B-B55C-4497-A4AD-1D567262C804}",
-              "Name": "AustalVcrmPhase"
+              "Name": "SofTractVcrmPhase"
             },
             {
               "ID": "{22808C2F-FCE6-4596-823D-2E99DD55FBAE}",
-              "Name": "AustalVcrmVerifArtefact"
+              "Name": "SofTractVcrmVerifArtefact"
             },
             {
               "ID": "{EDBA60C7-760F-43AE-BA4E-4361AB8E5BF5}",
-              "Name": "AustalVcrmVerifMethodDesc"
+              "Name": "SofTractVcrmVerifMethodDesc"
             },
             {
               "ID": "{C1C1B1FF-348F-4F2C-B782-6E5041FEAC29}",
-              "Name": "AustalVcrmDrawingNo"
+              "Name": "SofTractVcrmDrawingNo"
             },
             {
               "ID": "{1ACBE700-4AA7-4896-962F-697306F37C71}",
-              "Name": "AustalVcrmDocRefNo"
+              "Name": "SofTractVcrmDocRefNo"
             },
             {
               "ID": "{12A60127-E490-4F8A-B01A-4FD3F6460251}",
-              "Name": "AustalVcrmInspectionProcedure"
+              "Name": "SofTractVcrmInspectionProcedure"
             }
           ]
         },
         {
           "ParentID": "0x0101002EB198CEC44D4A0AB8B2F971A2166EA8",
           "Name": "Test Result",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "Test Result",
           "FieldRefs": [
             {
@@ -1224,19 +1224,19 @@
             },
             {
               "ID": "{287D43F6-E17A-485D-AACB-B590FDE4060C}",
-              "Name": "AustalTestPlanLLookup",
+              "Name": "SofTractTestPlanLLookup",
               "Required": false
             },
             {
               "ID": "{8BB43C51-C259-42DB-9A42-D830DFCE3922}",
-              "Name": "AustalVcrmPassFailStatus"
+              "Name": "SofTractVcrmPassFailStatus"
             }
           ]
         },
         {
           "ParentID": "0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF",
           "Name": "CDRL",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "CDRL Document",
           "FieldRefs": [
             {
@@ -1249,23 +1249,23 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "AustalCDRLLookup",
+              "Name": "SofTractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
-              "Name": "AustalWFStatusLookup",
+              "Name": "SofTractWFStatusLookup",
               "Required": false,
               "Hidden": true
             },
             {
               "ID": "{0BC2FEB6-9FA5-44EB-9FF7-D461DCE3A9DF}",
-              "Name": "AustalCoAVersion",
+              "Name": "SofTractCoAVersion",
               "Required": false
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "AustalAssetHierarchy",
+              "Name": "SofTractAssetHierarchy",
               "Required": false
             }
           ]
@@ -1273,7 +1273,7 @@
         {
           "ParentID": "0x0120D52000DF7EEDA66222417CA6D69ADC1F6FA294",
           "Name": "CDRL Document Set",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "CDRL Document Set",
           "FieldRefs": [
             {
@@ -1287,17 +1287,17 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "AustalCDRLLookup",
+              "Name": "SofTractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "AustalAssetHierarchy",
+              "Name": "SofTractAssetHierarchy",
               "Required": false
             },
             {
               "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
-              "Name": "AustalWFStatusLookup",
+              "Name": "SofTractWFStatusLookup",
               "Required": false,
               "Hidden": true
             }
@@ -1324,21 +1324,21 @@
             "SharedFields": [
               {
                 "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-                "Name": "AustalAssetHierarchy"
+                "Name": "SofTractAssetHierarchy"
               },
               {
                 "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-                "Name": "AustalCDRLLookup"
+                "Name": "SofTractCDRLLookup"
               }
             ],
             "WelcomePageFields": [
               {
                 "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-                "Name": "AustalAssetHierarchy"
+                "Name": "SofTractAssetHierarchy"
               },
               {
                 "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-                "Name": "AustalCDRLLookup"
+                "Name": "SofTractCDRLLookup"
               }
             ]
           }
@@ -1346,7 +1346,7 @@
         {
           "ParentID": "0x0120D52000CBE51A31EE614A4E8E1E6967321374DB",
           "Name": "Test Result Document Set",
-          "Group": "Austal",
+          "Group": "SofTract",
           "Description": "Test Result Document Set",
           "FieldRefs": [
             {
@@ -1359,7 +1359,7 @@
             },
             {
               "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-              "Name": "AustalMSSLLookup",
+              "Name": "SofTractMSSLLookup",
               "Required": true
             }
           ],
@@ -1373,13 +1373,13 @@
             "SharedFields": [
               {
                 "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-                "Name": "AustalMSSLLookup"
+                "Name": "SofTractMSSLLookup"
               }
             ],
             "WelcomePageFields": [
               {
                 "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-                "Name": "AustalMSSLLookup"
+                "Name": "SofTractMSSLLookup"
               }
             ]
           }
@@ -1403,7 +1403,7 @@
             },
             {
               "ContentTypeId": "0x0108003365C4474CAE8C42BCE396314E88E51F0021D5C9C5C1C64AAABE2D8F0ABE9480B5",
-              "Name": "Austal Task",
+              "Name": "SofTract Task",
               "Default": false
             },
             {
@@ -1434,7 +1434,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitleNoMenu", "AustalPlainDescription", "AustalOCDLLookup", "AustalVcrmFpsToMss" ]
+              "ViewFields": [ "LinkTitleNoMenu", "SofTractPlainDescription", "SofTractOCDLLookup", "SofTractVcrmFpsToMss" ]
             }
           ]
         },
@@ -1459,7 +1459,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitleNoMenu", "AustalRtmSystemHeading", "AustalPlainDescription", "AustalVcrmVerificationMethod", "AustalVcrmAuthority", "AustalVcrmMSSType", "AustalFPSLookup" ]
+              "ViewFields": [ "LinkTitleNoMenu", "SofTractRtmSystemHeading", "SofTractPlainDescription", "SofTractVcrmVerificationMethod", "SofTractVcrmAuthority", "SofTractVcrmMSSType", "SofTractFPSLookup" ]
             }
           ]
         },
@@ -1552,7 +1552,7 @@
         "SiteCustomActions": [],
         "WebCustomActions": [
           {
-            "Url": "Lists/Templates/AustalRibbon.xml"
+            "Url": "Lists/Templates/SofTractRibbon.xml"
           }
         ]
       },
@@ -1583,7 +1583,7 @@
         {
           "Title": "Home",
           "SEOTitle": "{{SiteTitle}} Home",
-          "Layout": "CPort Home Page",
+          "Layout": "Site Home Page",
           "Url": "Pages/Home.aspx",
           "Overwrite": false
         }

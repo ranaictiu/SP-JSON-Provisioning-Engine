@@ -2,6 +2,7 @@
 import Template = provisioningApp.Template;
 import ListInfo = provisioningApp.ListInfo;
 import ListCreationInfo = provisioningApp.ListCreationInfo;
+import FeatureInfo = provisioningApp.FeatureInfo;
 
 //interface ProgressInterface {
 //    clearSteps: () => void;
@@ -79,7 +80,7 @@ class TemplateManager {
 
     private processFeatures(template: Template) {
         var promises = $.when(1);
-        let activatedWebFeatures: Array<provisioningApp.FeatureInfo>;
+        let activatedWebFeatures: Array<FeatureInfo>;
         var featuresToActivate;
         promises = promises.then(() => {
             return this.spHelper.getActivatedFeatures(true, (fs) => {
@@ -288,16 +289,16 @@ class TemplateManager {
         //if (template.Navigation == null) return {};
         //var promises = $.when(1);
         //promises = promises.then(()=> {
-        //    austal.progressSteps.setInProgress('Navigation', 'Preparing Navigation');
+        //    progressSteps.setInProgress('Navigation', 'Preparing Navigation');
         //    return {};
         //});
         //promises = promises.then(()=> {
         //    return {};
         //    //TODO: navigation is not processed 
-        //    return austal.spHelper.provisionNavigation(template.Navigation);
+        //    return spHelper.provisionNavigation(template.Navigation);
         //});
         //promises = promises.then(()=> {
-        //    austal.progressSteps.setSuccess('Navigation', 'Naviation Prepared');
+        //    progressSteps.setSuccess('Navigation', 'Naviation Prepared');
         //    return {};
         //});
         //return promises;

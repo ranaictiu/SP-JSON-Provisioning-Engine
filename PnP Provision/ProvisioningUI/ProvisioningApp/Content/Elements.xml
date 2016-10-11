@@ -2,5 +2,12 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <Module Name="Content">
     <File Path="Content\App.css" Url="Content/App.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\bootstrap.min.css" Url="Content/bootstrap/bootstrap.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\bootstrap-theme.min.css" Url="Content/bootstrap/bootstrap-theme.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\glyphicons-halflings-regular.woff2" Url="Content/bootstrap/glyphicons-halflings-regular.woff2" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\glyphicons-halflings-regular.woff" Url="Content/bootstrap/glyphicons-halflings-regular.woff" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\glyphicons-halflings-regular.ttf" Url="Content/bootstrap/glyphicons-halflings-regular.ttf" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\glyphicons-halflings-regular.svg" Url="Content/bootstrap/glyphicons-halflings-regular.svg" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap\glyphicons-halflings-regular.eot" Url="Content/bootstrap/glyphicons-halflings-regular.eot" ReplaceContent="TRUE" />
   </Module>
 </Elements>
