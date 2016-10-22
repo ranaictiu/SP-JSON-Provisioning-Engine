@@ -14,6 +14,14 @@ export class FeatureInfo {
     }
 }
 
+export class TemplateFile {
+    language: number;
+    timeZone: number;
+    useSamePermissionsAsParentSite: boolean;
+    webTemplateId: string;
+    templates: Array<Template>;
+}
+
 export class Template {
     features: {
         webFeatures: Array<FeatureInfo>;
@@ -108,6 +116,14 @@ export class ListCreationInfo {
     removeExistingContentTypes: boolean;
     contentTypeBindings: Array<ContentTypeBindingInfo>;
 }
+export class GroupCreationInfo {
+    title: string;
+    description: string;
+    onlyAllowMembersViewMembership: boolean;
+    allowMembersEditMembership: boolean;
+    allowRequestToJoinLeave: boolean;
+    autoAcceptRequestToJoinLeave: boolean;
+}
 export class DependentLookupFieldInfo {
     showField: string;
     displayName: string;
@@ -190,6 +206,15 @@ export interface LoggerInterface {
 export class WebSettings {
     welcomePage: string;
 }
+export class SiteCreationInfo {
+    title: string;
+    name: string;
+    description: string;
+    language: number;
+    useSamePermissionsAsParentSite: boolean;
+    webTemplateId: string;
+}
+
 
 class Logger implements LoggerInterface {
     log(msg: string, isError: boolean = false) {
@@ -230,6 +255,27 @@ export class Utils {
                 SP.SOD.executeFunc('sp.publishing.js', "SP.Publishing.PublishingWeb", callback);
             }, "sp.js");
         }, "sp.runtime.js");
+    }
+    static arrayFirst<T>(array: Array<T>, predicate: (p: T) => boolean, predicateOwner = null): T {
+        for (var i = 0, j = array.length; i < j; i++)
+            if (predicate.call(predicateOwner, array[i], i))
+                return array[i];
+        return null;
+    }
+    static arrayFilter<T>(array: Array<T>, predicate: (item:T, index:number) => boolean): Array<T> {
+        array = array || [];
+        var result = [];
+        for (var i = 0, j = array.length; i < j; i++)
+            if (predicate(array[i], i))
+                result.push(array[i]);
+        return result;
+    }
+    static arrayMap<T, TU>(array: Array<T>, mapping: (item: T, index: number) => TU): Array<TU> {
+        array = array || [];
+        var result = [];
+        for (var i = 0, j = array.length; i < j; i++)
+            result.push(mapping(array[i], i));
+        return result;
     }
 }
 export class UI {
@@ -274,7 +320,7 @@ export class UI {
             SP.UI.Status.setStatusPriColor(notificationId, 'red');
         else
             SP.UI.Status.setStatusPriColor(notificationId, 'green');
-        setTimeout(()=> { SP.UI.Status.removeStatus(notificationId); }, 2000);
+        setTimeout(() => { SP.UI.Status.removeStatus(notificationId); }, 2000);
     };
 }
 
@@ -286,6 +332,20 @@ export class SpHelper {
     constructor(ctx: SP.ClientObject | SP.ClientContext, logger = Logger) {
         this.webAvailableContentTypes = null;
         this._context = ctx;
+    }
+    static isCurrentContextWebApp() {
+        return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
+    }
+    getHelperContextFromUrl(fullUrl: string): SpHelper {
+        if (SpHelper.isCurrentContextWebApp()) {
+            var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
+            var factory = new SP.ProxyWebRequestExecutorFactory(_spPageContextInfo.webAbsoluteUrl);
+            context.set_webRequestExecutorFactory(factory);
+            var appContext = new SP.AppContextSite(context, fullUrl);
+            return new SpHelper(appContext);
+        } else {
+            return new SpHelper(new SP.ClientContext(fullUrl));
+        }
     }
     getExecuteContext(): SP.ClientContext {
         if (this._context instanceof SP.ClientContext) {
@@ -299,7 +359,7 @@ export class SpHelper {
         }
         return (<SP.AppContextSite>this._context).get_web();
     }
-    getSite(): SP.Site {
+    getSiteCollection(): SP.Site {
         if (this._context instanceof SP.ClientContext) {
             return (<SP.ClientContext>this._context).get_site();
         }
@@ -347,7 +407,7 @@ export class SpHelper {
         var web = this.getWeb();
 
         if (this.webAvailableContentTypes) { //first check cached content types 
-            contentType = ko.utils.arrayFirst(this.webAvailableContentTypes, c => (c.get_name() == contentTypeName));
+            contentType = Utils.arrayFirst<SP.ContentType>(this.webAvailableContentTypes, c => (c.get_name() == contentTypeName));
             if (contentType) {
                 callback(contentType);
                 d.resolve();
@@ -368,8 +428,9 @@ export class SpHelper {
 
         executeContext.executeQueryAsync(() => {
             this.webAvailableContentTypes = this.getEnumerationList<SP.ContentType>(availableContentTypes);
-            contentType = ko.utils.arrayFirst(this.webAvailableContentTypes, c => (c.get_name() ==
-                contentTypeName));
+            contentType = Utils.arrayFirst<SP.ContentType>(this.webAvailableContentTypes, c => {
+                return c.get_name() == contentTypeName;
+            });
             callback(contentType);
             d.resolve();
         },
@@ -397,7 +458,7 @@ export class SpHelper {
     getActivatedFeatures(isWebLevel: boolean, callback: (features: Array<FeatureInfo>) => any) {
         var deferred = $.Deferred();
         var web = this.getWeb();
-        var site = this.getSite();
+        var site = this.getSiteCollection();
         var self = this;
 
         var executeContext = this.getExecuteContext();
@@ -406,9 +467,10 @@ export class SpHelper {
         executeContext.executeQueryAsync(function () {
             var featuresInfo = new Array<FeatureInfo>();
             var features = self.getEnumerationList<SP.Feature>(frs);
-            ko.utils.arrayForEach(features, l => {
+            for (let l of features) {
                 featuresInfo.push(new FeatureInfo(l.get_definitionId().toString()));
-            });
+            }
+
             callback(featuresInfo);
             deferred.resolve(arguments);
         },
@@ -419,18 +481,18 @@ export class SpHelper {
             });
         return deferred;
     };
-    createGroup(pnpGroup, roleDefinitionName: string, callback: (group: SP.Group) => void) {
+    createGroup(pnpGroup: GroupCreationInfo, roleDefinitionName: string, callback: (group: SP.Group) => void) {
         var d = $.Deferred();
-        this._logger.log('creating group ' + pnpGroup.Title, false);
+        this._logger.log('creating group ' + pnpGroup.title, false);
         var groupCreationInfo = new SP.GroupCreationInformation();
-        groupCreationInfo.set_title(pnpGroup.Title);
-        groupCreationInfo.set_description(pnpGroup.Description);
+        groupCreationInfo.set_title(pnpGroup.title);
+        groupCreationInfo.set_description(pnpGroup.description);
         var web = this.getWeb();
         var group = web.get_siteGroups().add(groupCreationInfo);
-        group.set_onlyAllowMembersViewMembership(pnpGroup.OnlyAllowMembersViewMembership);
-        group.set_allowMembersEditMembership(pnpGroup.AllowMembersEditMembership);
-        group.set_allowRequestToJoinLeave(pnpGroup.AllowRequestToJoinLeave);
-        group.set_autoAcceptRequestToJoinLeave(pnpGroup.AutoAcceptRequestToJoinLeave);
+        group.set_onlyAllowMembersViewMembership(pnpGroup.onlyAllowMembersViewMembership);
+        group.set_allowMembersEditMembership(pnpGroup.allowMembersEditMembership);
+        group.set_allowRequestToJoinLeave(pnpGroup.allowRequestToJoinLeave);
+        group.set_autoAcceptRequestToJoinLeave(pnpGroup.autoAcceptRequestToJoinLeave);
         group.update();
         var executeContext = this.getExecuteContext();
 
@@ -452,6 +514,22 @@ export class SpHelper {
         });
         return d;
     }
+
+    createSite(siteInfo: SiteCreationInfo) {
+
+        var webCreationInfo = new SP.WebCreationInformation();
+        webCreationInfo.set_title(siteInfo.title);
+        webCreationInfo.set_url(siteInfo.name);
+        webCreationInfo.set_description(siteInfo.description);
+        webCreationInfo.set_language(siteInfo.language);
+        webCreationInfo.set_useSamePermissionsAsParentSite(siteInfo.useSamePermissionsAsParentSite);
+        webCreationInfo.set_webTemplate(siteInfo.webTemplateId);
+
+        var newWeb = this.getWeb().get_webs().add(webCreationInfo);
+        var executeContext = this.getExecuteContext();
+        executeContext.load(newWeb, 'ServerRelativeUrl', 'Created');
+        return this.executeQueryPromise();
+    }
     addUserToGroup(groupName: string, userKey: string) {
         var web = this.getWeb();
         var group = web.get_siteGroups().getByName(groupName);
@@ -461,7 +539,7 @@ export class SpHelper {
     }
     getAllSiteGroups(callback: (groups: SP.Group[]) => void) {
         var d = $.Deferred();
-        var site = this.getSite();
+        var site = this.getSiteCollection();
         var siteGroups = site.get_rootWeb().get_siteGroups();
         var executeContext = this.getExecuteContext();
         executeContext.load(siteGroups);
@@ -499,9 +577,9 @@ export class SpHelper {
         executeContext.executeQueryAsync(() => {
             var listInfo = [];
             var listArray = this.getEnumerationList<SP.List>(lists);
-            ko.utils.arrayForEach(listArray, l => {
+            for (let l of listArray) {
                 listInfo.push(new ListInfo(l));
-            });
+            }
             callback(listInfo);
             deferred.resolve();
         }, () => {
@@ -568,7 +646,7 @@ export class SpHelper {
         });
 
         promises = promises.then(() => {
-            var existingList = ko.utils.arrayFirst(allLists, l => (l.title.toLowerCase() == listCreationInfo.title.toLowerCase()));
+            var existingList = Utils.arrayFirst<ListInfo>(allLists, l => (l.title.toLowerCase() == listCreationInfo.title.toLowerCase()));
             if (existingList) {
                 list = existingList;
                 return {};
@@ -664,7 +742,7 @@ export class SpHelper {
         }
         if (removeExistingContentTypes) {
             promises = promises.then(() => {
-                var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : ko.utils.arrayFirst(pnpContentTypeBidnings,
+                var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : Utils.arrayFirst<ContentTypeBindingInfo>(pnpContentTypeBidnings,
                     (c) => { return c.default != null && c.default; });
                 return this.removeAllContentTypesBut(listTitle, pnpContentTypeBidnings, defaultContentType);
             });
@@ -688,7 +766,7 @@ export class SpHelper {
 
         for (let pnpf of pnpFields) {
             promises = promises.then(() => {
-                var listField = ko.utils.arrayFirst(listFields, (f) => {
+                var listField = Utils.arrayFirst<SP.Field>(listFields, (f) => {
                     return f.get_id().equals(new SP.Guid(pnpf.ID));
                 });
                 if (listField == null)
@@ -792,7 +870,7 @@ export class SpHelper {
             });
         });
         promises = promises.then(() => {
-            listContentType = ko.utils.arrayFirst(listContentTypes, (lct) => {
+            listContentType = Utils.arrayFirst<SP.ContentType>(listContentTypes, (lct) => {
                 return lct.get_name() == contentTypeName;
             });
 
@@ -829,7 +907,7 @@ export class SpHelper {
             //after adding the content type. Ref - https://social.msdn.microsoft.com/Forums/office/en-US/95a05ae0-5d3b-432f-81bf-1f4a03e9910b/rich-text-column-in-document-library?forum=sharepointcustomizationlegacy
             if (list.get_baseTemplate() == SP.ListTemplateType.documentLibrary) {
                 //if the content type inherits from document, then check if there's any rich text field that needs conversion from plain text to rich text
-                const noteFields = ko.utils.arrayFilter(listContentTypeFieldCollection, (f) => {
+                const noteFields = Utils.arrayFilter(listContentTypeFieldCollection, (f) => {
                     return f.get_typeAsString() == 'Note' && (<SP.FieldMultiLineText>executeContext.castTo(f, SP.FieldMultiLineText)).get_richText() == false;
                 });
 
@@ -896,7 +974,7 @@ export class SpHelper {
             });
             promises = promises.then(() => {
                 var listUrl = (webServerRelativeUrl + '/' + pnpField.list).toLowerCase();
-                var list = ko.utils.arrayFirst(lists, (l) => {
+                var list = Utils.arrayFirst<ListInfo>(lists, (l) => {
                     return l.rootFolderUrl.toLowerCase() == listUrl;
                 });
 
@@ -937,7 +1015,7 @@ export class SpHelper {
         promises = promises.then(() => {
             var web = this.getWeb();
             webContentTypes = web.get_contentTypes();
-            var parentContentType = this.getSite().get_rootWeb().get_availableContentTypes().getById(ctParentId);//considering parent content type is always from root web
+            var parentContentType = this.getSiteCollection().get_rootWeb().get_availableContentTypes().getById(ctParentId);//considering parent content type is always from root web
 
             var ctCreationInformation = new SP.ContentTypeCreationInformation();
             ctCreationInformation.set_name(ctName);
@@ -964,7 +1042,7 @@ export class SpHelper {
                     contentTypeCreated = this.getWeb().get_contentTypes().getById(contentTypeCreated.get_id().toString());
 
                     var fieldRefId = new SP.Guid(fr.id);
-                    var fieldExists = ko.utils.arrayFirst(fieldLinks, (fl) => {
+                    var fieldExists = Utils.arrayFirst<SP.FieldLink>(fieldLinks, (fl) => {
 
                         return fl.get_id().equals(fieldRefId);
                     }) != null;
@@ -994,7 +1072,7 @@ export class SpHelper {
             }
         }
         promises = promises.then(() => {
-            var reorderedFields = ko.utils.arrayMap(fieldRefs, (f) => {
+            var reorderedFields = Utils.arrayMap(fieldRefs, (f, i) => {
                 return f.name;
             });
             var fieldLinks = contentTypeCreated.get_fieldLinks();
@@ -1046,10 +1124,10 @@ export class SpHelper {
             //add contnet types
             for (var i = 0; i < pnpDocSetTemplate.allowedContentTypes.length; i++) {
                 var pnpAllowedCT = pnpDocSetTemplate.allowedContentTypes[i];
-                var ctDefinition = ko.utils.arrayFirst(webAvailableContentTypes, (ct) => {
+                var ctDefinition = Utils.arrayFirst<SP.ContentType>(webAvailableContentTypes, (ct) => {
                     return ct.get_name() == pnpAllowedCT.name;
                 });
-                var ctExistsInDocumentSet = ko.utils.arrayFirst(dsAllowedContentTypes, (act) => { //check if content type already exists in document set
+                var ctExistsInDocumentSet = Utils.arrayFirst(dsAllowedContentTypes, (act) => { //check if content type already exists in document set
                     return (<SP.ContentTypeId>act).get_stringValue().toLowerCase() == ctDefinition.get_id().get_stringValue().toLowerCase();
                 }) != null;
                 if (!ctExistsInDocumentSet) {
@@ -1060,11 +1138,11 @@ export class SpHelper {
             //remove content types not needed
             for (var a = 0; a < dsAllowedContentTypes.length; a++) {
                 var dsAllowedContentType = dsAllowedContentTypes[a];
-                var ctDefinition = ko.utils.arrayFirst(webAvailableContentTypes, (ct) => {
+                var ctDefinition = Utils.arrayFirst<SP.ContentType>(webAvailableContentTypes, (ct) => {
                     return ct.get_id().get_stringValue().toLowerCase() == (<SP.ContentTypeId>dsAllowedContentType).get_stringValue().toLowerCase();
                 });
 
-                var removeCT = ko.utils.arrayFirst(pnpDocSetTemplate.allowedContentTypes, (ct) => { //check if content type is allowed in document set
+                var removeCT = Utils.arrayFirst<ContentTypeNameId>(pnpDocSetTemplate.allowedContentTypes, (ct) => { //check if content type is allowed in document set
                     return ct.name == ctDefinition.get_name();
                 }) == null;
                 if (removeCT) {
@@ -1078,7 +1156,7 @@ export class SpHelper {
             for (var j = 0; j < pnpDocSetTemplate.sharedFields.length; j++) {
                 var sField = pnpDocSetTemplate.sharedFields[j];
                 var field = web.get_availableFields().getByInternalNameOrTitle(sField.name);
-                var fieldExists = ko.utils.arrayFirst(dsSharedFields, (sf) => {
+                var fieldExists = Utils.arrayFirst<SP.Field>(dsSharedFields, (sf) => {
                     return sf.get_internalName() == sField.name;
                 }) != null;
                 if (!fieldExists)
@@ -1088,7 +1166,7 @@ export class SpHelper {
             var dsWelcomePageFields = this.getEnumerationList<SP.Field>(welcomeFieldsResponse);
             for (var k = 0; k < pnpDocSetTemplate.welcomePageFields.length; k++) {
                 var wField = pnpDocSetTemplate.welcomePageFields[k];
-                var wfExists = ko.utils.arrayFirst(dsWelcomePageFields, (f) => {
+                var wfExists = Utils.arrayFirst<SP.Field>(dsWelcomePageFields, (f) => {
                     return f.get_internalName() == wField.name;
                 }) != null;
                 if (!wfExists) {
@@ -1124,16 +1202,16 @@ export class SpHelper {
             var listContentTypes = this.getEnumerationList<SP.ContentType>(listContentTypesObj);
 
             var reorderedListContentTypes = [];
-            var defaultContentType = ko.utils.arrayFirst(listContentTypes, (ct) => {
+            var defaultContentType = Utils.arrayFirst<SP.ContentType>(listContentTypes, (ct) => {
                 return ct.get_name() == pnpDeafultContentType.name;
             });
             reorderedListContentTypes.push(defaultContentType.get_id());
-            var nonDefaultContentTypes = ko.utils.arrayFilter(listContentTypes, (ct) => {
+            var nonDefaultContentTypes = Utils.arrayFilter(listContentTypes, (ct) => {
                 return ct.get_name() != pnpDeafultContentType.name && !ct.get_stringId().startsWith(Constants.folderContentTypeId);//ignore folder
             });
-            ko.utils.arrayForEach(nonDefaultContentTypes, (ct) => {
+            for (let ct of nonDefaultContentTypes) {
                 reorderedListContentTypes.push(ct.get_id());
-            });
+            }
 
             rootFolder.set_uniqueContentTypeOrder(reorderedListContentTypes);
             rootFolder.update();
@@ -1151,18 +1229,17 @@ export class SpHelper {
         promises = promises.then(() => {
             var listContentTypes = this.getEnumerationList<SP.ContentType>(listContentTypesObj);
 
-            var contentTypesToDelete = ko.utils.arrayFilter(listContentTypes, (lct) => {
-                return ko.utils.arrayFirst(pnpContentTypeBindings, (ctb) => {
+            var contentTypesToDelete = Utils.arrayFilter(listContentTypes, (lct) => {
+                return Utils.arrayFirst<ContentTypeBindingInfo>(pnpContentTypeBindings, (ctb) => {
                     return ctb.name == lct.get_name();
                 }) == null;
             });
-            contentTypesToDelete = ko.utils.arrayFilter(contentTypesToDelete, (ctb) => {//exclude folders
+            contentTypesToDelete = Utils.arrayFilter(contentTypesToDelete, (ctb) => {//exclude folders
                 return !ctb.get_stringId().startsWith('0x012000');
             });
-
-            ko.utils.arrayForEach(contentTypesToDelete, (ct) => {
-                ct.deleteObject();
-            });
+            for (let c of contentTypesToDelete) {
+                c.deleteObject();
+            }
             return this.executeQueryPromise();
         });
 
@@ -1175,7 +1252,7 @@ export class SpHelper {
         promises = promises.then(() => {
             var web = this.getWeb();
             var list = web.get_lists().getByTitle(listTitle);
-            var taxKeywordField = this.getSite().get_rootWeb().get_fields().getByInternalNameOrTitle('TaxKeyword');
+            var taxKeywordField = this.getSiteCollection().get_rootWeb().get_fields().getByInternalNameOrTitle('TaxKeyword');
 
             list.get_fields().add(taxKeywordField);
             return this.executeQueryPromise();
@@ -1198,7 +1275,7 @@ export class SpHelper {
                 if (ct.get_stringId().startsWith(Constants.folderContentTypeId))//no need to process folders
                     continue;
                 var fields = this.getEnumerationList<SP.Field>(ct.get_fields());
-                var fieldExistsInContentType = ko.utils.arrayFirst(fields, (f) => {
+                var fieldExistsInContentType = Utils.arrayFirst<SP.Field>(fields, (f) => {
                     return f.get_internalName() == 'TaxKeyword';
                 }) != null;
                 if (!fieldExistsInContentType) {
@@ -1300,7 +1377,7 @@ export class SpHelper {
     }
     getCurrentUser(callback: (user: SP.User) => void) {
         var d = $.Deferred();
-        var user = this.getSite().get_rootWeb().get_currentUser();
+        var user = this.getSiteCollection().get_rootWeb().get_currentUser();
         var executeContext = this.getExecuteContext();
         executeContext.load(user);
         executeContext.executeQueryAsync(() => {
@@ -1312,10 +1389,11 @@ export class SpHelper {
         });
         return d;
     }
-    getAllwebs(properties: string, callback: (webs: Array<SP.WebInformation>) => any) {
+    getAllwebs(parentWeb: SP.Web, properties: string, callback: (webs: Array<SP.WebInformation>) => any) {
         var d = $.Deferred();
-        var site = this.getSite();
-        var allWebs = site.get_rootWeb().get_webs();
+        //var site = this.getSite();
+        //var allWebs = site.get_rootWeb().get_webs();
+        var allWebs = parentWeb.get_webs();
         var executeContext = this.getExecuteContext();
         if (!properties.startsWith('Include(')) {
             properties = `Include(${properties})`;
@@ -1468,7 +1546,7 @@ export class SpHelper {
             var actions = this.getEnumerationList<SP.UserCustomAction>(customActions);
             for (var i = 0; i < customActionNodes.length; i++) {
                 var customActionName = $(customActionNodes[i]).attr('Id');
-                var existingAction = ko.utils.arrayFirst(actions, (a) => {
+                var existingAction = Utils.arrayFirst<SP.UserCustomAction>(actions, a => {
                     return a.get_name() == customActionName;
                 });
                 if (existingAction) {
@@ -1591,13 +1669,13 @@ export class SpHelper {
             });
         });
         promises = promises.then(() => {
-            historyList = ko.utils.arrayFirst(allLists, (l) => {
+            historyList = Utils.arrayFirst<ListInfo>(allLists, (l) => {
                 return l.title.toLowerCase() == pnpWFSubscription.historyListTitle.toLowerCase();
             });
-            taskList = ko.utils.arrayFirst(allLists, (l) => {
+            taskList = Utils.arrayFirst<ListInfo>(allLists, (l) => {
                 return l.title.toLowerCase() == pnpWFSubscription.taskListTitle.toLowerCase();
             });
-            var targetList = pnpWFSubscription.listTitle == null ? null : ko.utils.arrayFirst(allLists, (l) => {
+            var targetList = pnpWFSubscription.listTitle == null ? null : Utils.arrayFirst<ListInfo>(allLists, (l) => {
                 return l.title.toLowerCase() == pnpWFSubscription.listTitle.toLowerCase();
             });
             if (targetList) {
@@ -1670,7 +1748,7 @@ export class SpHelper {
         promises = promises.then(() => {
             if (targetListId == null) {
                 wfSubscriptions = this.getEnumerationList<SP.WorkflowServices.WorkflowSubscription>(wfSubscriptionCollection);
-                subscriptionExists = ko.utils.arrayFirst(wfSubscriptions, (s) => {
+                subscriptionExists = Utils.arrayFirst<SP.WorkflowServices.WorkflowSubscription>(wfSubscriptions, (s) => {
                     return s.get_name() == pnpWFSubscription.name;
                 }) != null;
 
@@ -1851,7 +1929,7 @@ export class SpHelper {
         let pageLayoutCollection: SP.ListItemCollection;
         let publishingPages: Array<SP.ListItem>;
         promises = promises.then(() => {
-            var masterPageGallery = this.getSite().get_rootWeb().get_lists().getByTitle('Master Page Gallery');
+            var masterPageGallery = this.getSiteCollection().get_rootWeb().get_lists().getByTitle('Master Page Gallery');
             var camlQuery = new SP.CamlQuery();
             var query = `<View><Query><Where><BeginsWith><FieldRef Name='ContentTypeId' /><Value Type='ContentTypeId'>${Constants.pageLayoutContentTypeId}</Value></BeginsWith></Where></Query><ViewFields><FieldRef Name='Title' /></ViewFields></View>`;
             camlQuery.set_viewXml(query);
@@ -1873,7 +1951,7 @@ export class SpHelper {
 
             promises = promises.then(() => {
                 var pageServerRelativeUrl = webServerRelativeUrl + '/' + pnpPage.url;
-                pageExists = ko.utils.arrayFirst(publishingPages, (pp) => {
+                pageExists = Utils.arrayFirst(publishingPages, (pp) => {
                     return pp.get_item('FileLeafRef').toLowerCase() == pageServerRelativeUrl.toLowerCase();
                 }) != null;
                 return {};
@@ -1885,7 +1963,7 @@ export class SpHelper {
                 var pubPageInfo = new SP.Publishing.PublishingPageInformation();
                 pubPageInfo.set_name(pnpPage.url);
 
-                var pageLayout = ko.utils.arrayFirst(pageLayouts, (pl) => {
+                var pageLayout = Utils.arrayFirst(pageLayouts, (pl) => {
                     return pl.get_item('Title') != null && pl.get_item('Title').toLowerCase() == pnpPage.layout.toLowerCase();
                 });
 
@@ -1966,12 +2044,12 @@ export class SpHelper {
                 var roleDefinition = web.get_roleDefinitions().getByName(roleDefinitionName);
 
                 //check role in current object
-                var existingRole = ko.utils.arrayFirst(roleAssignments, (ra) => {
+                var existingRole = Utils.arrayFirst(roleAssignments, (ra) => {
                     return ra.get_member().get_title().toLowerCase() == pnpRoleAssignment.principal.toLowerCase();
                 });
 
                 if (existingRole == null) {
-                    let newRole: SP.Principal = ko.utils.arrayFirst(siteGroups, (sg) => {
+                    let newRole: SP.Principal = Utils.arrayFirst(siteGroups, (sg) => {
                         return sg.get_loginName().toLowerCase() == pnpRoleAssignment.principal.toLowerCase();
                     });
                     if (newRole == null) {
@@ -1983,7 +2061,7 @@ export class SpHelper {
                 }
                 else {
                     var existingRoleBindings = this.getEnumerationList<SP.RoleDefinition>(existingRole.get_roleDefinitionBindings());
-                    var existingRoleBinding = ko.utils.arrayFirst(existingRoleBindings, (rdb) => {
+                    var existingRoleBinding = Utils.arrayFirst(existingRoleBindings, (rdb) => {
                         return rdb.get_name().toLowerCase() == roleDefinitionName.toLowerCase();
                     });
                     if (existingRoleBinding == null) {

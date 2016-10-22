@@ -11,5 +11,6 @@
     <File Path="Scripts\lib\jquery-1.9.1.min.js" Url="Scripts/lib/jquery-1.9.1.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\lib\bootstrap.min.js" Url="Scripts/lib/bootstrap.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\lib\knockout-3.4.0.js" Url="Scripts/lib/knockout-3.4.0.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProgressViewModel.ts" Url="Scripts/Models/ProgressViewModel.ts" ReplaceContent="TRUE" />
   </Module>
 </Elements>

@@ -1,8 +1,8 @@
 ﻿import * as provisioningApp from "./SharePointHelper"
 import Template = provisioningApp.Template;
 import ListInfo = provisioningApp.ListInfo;
-import ListCreationInfo = provisioningApp.ListCreationInfo;
 import FeatureInfo = provisioningApp.FeatureInfo;
+import Utils = provisioningApp.Utils;
 
 //interface ProgressInterface {
 //    clearSteps: () => void;
@@ -12,19 +12,35 @@ import FeatureInfo = provisioningApp.FeatureInfo;
 //    setFailed: (name: string, message?: string) => void;
 //}
 
-enum operationStatus {
+export enum OperationStatus {
     unknown,
+    pending,
     inProgress,
     success,
     failed
 }
 
-interface ProgressListenerInteface {
-    progressUpdate: (stepName: string, message: string, status: operationStatus) => void;
+export enum ProgressSteps {
+    SiteCreation,
+    Features,
+    SecurityGroups,
+    Columns,
+    ContentTypes,
+    Lists,
+    Pages,
+    Workflows,
+    Navigation,
+    CustomActions,
+    WebSettings,
+    Finalization
+}
+
+export interface ProgressListenerInteface {
+    progressUpdate: (stepName: ProgressSteps, message: string, status: OperationStatus) => void;
 }
 
 
-class TemplateManager {
+export class TemplateManager {
 
     private currentContext: SP.ClientContext | SP.ClientObject;
     private currentWeb: SP.Web;
@@ -89,8 +105,8 @@ class TemplateManager {
         });
         promises = promises.then(() => {
             var pnpFeatures = template.features != null && template.features.webFeatures != null ? template.features.webFeatures : null;
-            featuresToActivate = ko.utils.arrayFilter(pnpFeatures, (f) => {
-                return ko.utils.arrayFirst(activatedWebFeatures, (af) => {
+            featuresToActivate = Utils.arrayFilter(pnpFeatures, (f) => {
+                return Utils.arrayFirst(activatedWebFeatures, (af) => {
                     return f.definitionId.toLowerCase() == af.definitionId.toLowerCase();
                 }) == null;
             });
@@ -98,12 +114,12 @@ class TemplateManager {
         });
         promises = promises.then(() => {
             if (featuresToActivate == null || featuresToActivate.length == 0) return {};
-            this.progressListener.progressUpdate('FeatureActivation', 'Activating Features', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Features, 'Activating Features', OperationStatus.inProgress);
             return this.spHelper.activateDeactivateWebFeatures(featuresToActivate);
         });
         promises = promises.then(() => {
             if (featuresToActivate != null && featuresToActivate.length > 0) {
-                this.progressListener.progressUpdate('FeatureActivation', 'Features Activated', operationStatus.success);
+                this.progressListener.progressUpdate(ProgressSteps.Features, 'Features Activated', OperationStatus.success);
             }
             return {};
         });
@@ -116,7 +132,7 @@ class TemplateManager {
         var promises = $.when(1);
         let siteGroups: Array<SP.Group>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('SiteGroups', 'Creating Security Groups', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Creating Security Groups', OperationStatus.inProgress);
 
             return this.spHelper.getAllSiteGroups((groups) => {
                 siteGroups = groups;
@@ -127,7 +143,7 @@ class TemplateManager {
 
             promises = promises.then(() => {
                 var roleDefinitionName = this.getRoleDefinitionName(template, g.title);
-                var groupExists = ko.utils.arrayFirst(siteGroups, (grp) => {
+                var groupExists = Utils.arrayFirst(siteGroups, (grp) => {
                     return grp.get_title().toLowerCase() == g.title.toLowerCase();
                 }) != null;
 
@@ -140,7 +156,7 @@ class TemplateManager {
 
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('SiteGroups', 'Security Groups Created', operationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Security Groups Created', OperationStatus.success);
             return {};
         });
         return promises;
@@ -150,14 +166,14 @@ class TemplateManager {
         var promises = $.when(1);
         let availableFields: Array<SP.Field>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('FieldsCreation', 'Creating Site Fields', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Columns, 'Creating Site Fields', OperationStatus.inProgress);
             return this.spHelper.getAvailableFields('Id,InternalName', (flds) => {
                 availableFields = flds;
             });
         });
         for (let sf of template.siteFields) {
             promises = promises.then(() => {
-                var fieldExistsAlready = ko.utils.arrayFirst(availableFields, (f) => {
+                var fieldExistsAlready = Utils.arrayFirst(availableFields, (f) => {
                     return f.get_internalName() == sf.name;
                 }) != null;
                 if (fieldExistsAlready) {
@@ -167,7 +183,7 @@ class TemplateManager {
             });
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('FieldsCreation', 'Site Fields Created', operationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Columns, 'Site Fields Created', OperationStatus.success);
             return {};
         });
         return promises;
@@ -177,14 +193,14 @@ class TemplateManager {
         var promises = $.when(1);
         let availableContentTypes: Array<SP.ContentType>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('ContentTypesCreation', 'Creating ContentTypes', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'Creating ContentTypes', OperationStatus.inProgress);
             return this.spHelper.getAvailableContentTypes('Id,Name', (ctypes) => {
                 availableContentTypes = ctypes;
             });
         });
         for (let ct of template.contentTypes) {
             promises = promises.then(() => {
-                var ctExists = ko.utils.arrayFirst(availableContentTypes, (cti) => {
+                var ctExists = Utils.arrayFirst(availableContentTypes, (cti) => {
                     return ct.name == cti.get_name();
                 }) != null;
                 if (ctExists) {
@@ -194,7 +210,7 @@ class TemplateManager {
             });
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('ContentTypesCreation', 'ContentTypes Created', operationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'ContentTypes Created', OperationStatus.success);
             return {};
         });
         return promises;
@@ -203,7 +219,7 @@ class TemplateManager {
         if (template.pages == null || template.pages.length == 0) return {};
         var promises = $.when(1);
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('PagesCreation', 'Creating Pages', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Pages, 'Creating Pages', OperationStatus.inProgress);
             return {};
         });
         promises = promises.then(() => {
@@ -211,7 +227,7 @@ class TemplateManager {
         });
 
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('PagesCreation', 'Pages Created', operationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Pages, 'Pages Created', OperationStatus.success);
             return {};
         });
         return promises;
@@ -221,7 +237,7 @@ class TemplateManager {
         var promises = $.when(1);
         let allLists: Array<ListInfo>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('ListsCreation', 'Creating Lists', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Lists, 'Creating Lists', OperationStatus.inProgress);
             return {};
         });
 
@@ -257,7 +273,7 @@ class TemplateManager {
 
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('ListsCreation', 'Lists Created', operationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Lists, 'Lists Created', OperationStatus.success);
             return {};
         });
         return promises;
@@ -269,7 +285,7 @@ class TemplateManager {
 
         var promises = $.when(1);
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('WorkflowsCreation', 'Provisioning Workflows', operationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Provisioning Workflows', OperationStatus.inProgress);
             return {};
         });
         for (let wfs of template.workflows.subscriptions) {
@@ -279,7 +295,7 @@ class TemplateManager {
         }
 
         promises = promises.then(() => {
-            this.progressListener.progressUpdate('WorkflowsCreation', 'Workflows Provisioned', operationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Workflows Provisioned', OperationStatus.success);
             return {};
         });
         return promises;
@@ -327,7 +343,7 @@ class TemplateManager {
     getRoleDefinitionName(template: Template, groupName): string {
         if (template.security == null || template.security.siteSecurityPermissions == null ||
             template.security.siteSecurityPermissions.roleAssignments == null) return null;
-        var roleAssignment = ko.utils.arrayFirst(template.security.siteSecurityPermissions.roleAssignments,
+        var roleAssignment = Utils.arrayFirst(template.security.siteSecurityPermissions.roleAssignments,
             (r) => {
                 return r.principal.toLowerCase() == groupName.toLowerCase();
             });

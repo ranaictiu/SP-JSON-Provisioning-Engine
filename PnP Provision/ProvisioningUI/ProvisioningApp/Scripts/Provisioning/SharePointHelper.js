@@ -21,6 +21,12 @@ define(["require", "exports"], function (require, exports) {
         return FeatureInfo;
     }());
     exports.FeatureInfo = FeatureInfo;
+    var TemplateFile = (function () {
+        function TemplateFile() {
+        }
+        return TemplateFile;
+    }());
+    exports.TemplateFile = TemplateFile;
     var Template = (function () {
         function Template() {
         }
@@ -76,6 +82,12 @@ define(["require", "exports"], function (require, exports) {
         return ListCreationInfo;
     }());
     exports.ListCreationInfo = ListCreationInfo;
+    var GroupCreationInfo = (function () {
+        function GroupCreationInfo() {
+        }
+        return GroupCreationInfo;
+    }());
+    exports.GroupCreationInfo = GroupCreationInfo;
     var DependentLookupFieldInfo = (function () {
         function DependentLookupFieldInfo() {
         }
@@ -156,6 +168,12 @@ define(["require", "exports"], function (require, exports) {
         return WebSettings;
     }());
     exports.WebSettings = WebSettings;
+    var SiteCreationInfo = (function () {
+        function SiteCreationInfo() {
+        }
+        return SiteCreationInfo;
+    }());
+    exports.SiteCreationInfo = SiteCreationInfo;
     var Logger = (function () {
         function Logger() {
         }
@@ -204,6 +222,28 @@ define(["require", "exports"], function (require, exports) {
                     SP.SOD.executeFunc('sp.publishing.js', "SP.Publishing.PublishingWeb", callback);
                 }, "sp.js");
             }, "sp.runtime.js");
+        };
+        Utils.arrayFirst = function (array, predicate, predicateOwner) {
+            if (predicateOwner === void 0) { predicateOwner = null; }
+            for (var i = 0, j = array.length; i < j; i++)
+                if (predicate.call(predicateOwner, array[i], i))
+                    return array[i];
+            return null;
+        };
+        Utils.arrayFilter = function (array, predicate) {
+            array = array || [];
+            var result = [];
+            for (var i = 0, j = array.length; i < j; i++)
+                if (predicate(array[i], i))
+                    result.push(array[i]);
+            return result;
+        };
+        Utils.arrayMap = function (array, mapping) {
+            array = array || [];
+            var result = [];
+            for (var i = 0, j = array.length; i < j; i++)
+                result.push(mapping(array[i], i));
+            return result;
         };
         return Utils;
     }());
@@ -269,6 +309,21 @@ define(["require", "exports"], function (require, exports) {
             this.webAvailableContentTypes = null;
             this._context = ctx;
         }
+        SpHelper.isCurrentContextWebApp = function () {
+            return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
+        };
+        SpHelper.prototype.getHelperContextFromUrl = function (fullUrl) {
+            if (SpHelper.isCurrentContextWebApp()) {
+                var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
+                var factory = new SP.ProxyWebRequestExecutorFactory(_spPageContextInfo.webAbsoluteUrl);
+                context.set_webRequestExecutorFactory(factory);
+                var appContext = new SP.AppContextSite(context, fullUrl);
+                return new SpHelper(appContext);
+            }
+            else {
+                return new SpHelper(new SP.ClientContext(fullUrl));
+            }
+        };
         SpHelper.prototype.getExecuteContext = function () {
             if (this._context instanceof SP.ClientContext) {
                 return this._context;
@@ -281,7 +336,7 @@ define(["require", "exports"], function (require, exports) {
             }
             return this._context.get_web();
         };
-        SpHelper.prototype.getSite = function () {
+        SpHelper.prototype.getSiteCollection = function () {
             if (this._context instanceof SP.ClientContext) {
                 return this._context.get_site();
             }
@@ -325,7 +380,7 @@ define(["require", "exports"], function (require, exports) {
             var d = $.Deferred();
             var web = this.getWeb();
             if (this.webAvailableContentTypes) {
-                contentType = ko.utils.arrayFirst(this.webAvailableContentTypes, function (c) { return (c.get_name() == contentTypeName); });
+                contentType = Utils.arrayFirst(this.webAvailableContentTypes, function (c) { return (c.get_name() == contentTypeName); });
                 if (contentType) {
                     callback(contentType);
                     d.resolve();
@@ -344,8 +399,9 @@ define(["require", "exports"], function (require, exports) {
                 executeContext.load(availableContentTypes);
             executeContext.executeQueryAsync(function () {
                 _this.webAvailableContentTypes = _this.getEnumerationList(availableContentTypes);
-                contentType = ko.utils.arrayFirst(_this.webAvailableContentTypes, function (c) { return (c.get_name() ==
-                    contentTypeName); });
+                contentType = Utils.arrayFirst(_this.webAvailableContentTypes, function (c) {
+                    return c.get_name() == contentTypeName;
+                });
                 callback(contentType);
                 d.resolve();
             }, function () {
@@ -372,7 +428,7 @@ define(["require", "exports"], function (require, exports) {
         SpHelper.prototype.getActivatedFeatures = function (isWebLevel, callback) {
             var deferred = $.Deferred();
             var web = this.getWeb();
-            var site = this.getSite();
+            var site = this.getSiteCollection();
             var self = this;
             var executeContext = this.getExecuteContext();
             var frs = isWebLevel ? web.get_features() : site.get_features();
@@ -380,9 +436,10 @@ define(["require", "exports"], function (require, exports) {
             executeContext.executeQueryAsync(function () {
                 var featuresInfo = new Array();
                 var features = self.getEnumerationList(frs);
-                ko.utils.arrayForEach(features, function (l) {
+                for (var _i = 0, features_1 = features; _i < features_1.length; _i++) {
+                    var l = features_1[_i];
                     featuresInfo.push(new FeatureInfo(l.get_definitionId().toString()));
-                });
+                }
                 callback(featuresInfo);
                 deferred.resolve(arguments);
             }, function () {
@@ -395,16 +452,16 @@ define(["require", "exports"], function (require, exports) {
         ;
         SpHelper.prototype.createGroup = function (pnpGroup, roleDefinitionName, callback) {
             var d = $.Deferred();
-            this._logger.log('creating group ' + pnpGroup.Title, false);
+            this._logger.log('creating group ' + pnpGroup.title, false);
             var groupCreationInfo = new SP.GroupCreationInformation();
-            groupCreationInfo.set_title(pnpGroup.Title);
-            groupCreationInfo.set_description(pnpGroup.Description);
+            groupCreationInfo.set_title(pnpGroup.title);
+            groupCreationInfo.set_description(pnpGroup.description);
             var web = this.getWeb();
             var group = web.get_siteGroups().add(groupCreationInfo);
-            group.set_onlyAllowMembersViewMembership(pnpGroup.OnlyAllowMembersViewMembership);
-            group.set_allowMembersEditMembership(pnpGroup.AllowMembersEditMembership);
-            group.set_allowRequestToJoinLeave(pnpGroup.AllowRequestToJoinLeave);
-            group.set_autoAcceptRequestToJoinLeave(pnpGroup.AutoAcceptRequestToJoinLeave);
+            group.set_onlyAllowMembersViewMembership(pnpGroup.onlyAllowMembersViewMembership);
+            group.set_allowMembersEditMembership(pnpGroup.allowMembersEditMembership);
+            group.set_allowRequestToJoinLeave(pnpGroup.allowRequestToJoinLeave);
+            group.set_autoAcceptRequestToJoinLeave(pnpGroup.autoAcceptRequestToJoinLeave);
             group.update();
             var executeContext = this.getExecuteContext();
             var collRoleDefinitionBinding = SP.RoleDefinitionBindingCollection.newObject(executeContext);
@@ -424,6 +481,19 @@ define(["require", "exports"], function (require, exports) {
             });
             return d;
         };
+        SpHelper.prototype.createSite = function (siteInfo) {
+            var webCreationInfo = new SP.WebCreationInformation();
+            webCreationInfo.set_title(siteInfo.title);
+            webCreationInfo.set_url(siteInfo.name);
+            webCreationInfo.set_description(siteInfo.description);
+            webCreationInfo.set_language(siteInfo.language);
+            webCreationInfo.set_useSamePermissionsAsParentSite(siteInfo.useSamePermissionsAsParentSite);
+            webCreationInfo.set_webTemplate(siteInfo.webTemplateId);
+            var newWeb = this.getWeb().get_webs().add(webCreationInfo);
+            var executeContext = this.getExecuteContext();
+            executeContext.load(newWeb, 'ServerRelativeUrl', 'Created');
+            return this.executeQueryPromise();
+        };
         SpHelper.prototype.addUserToGroup = function (groupName, userKey) {
             var web = this.getWeb();
             var group = web.get_siteGroups().getByName(groupName);
@@ -434,7 +504,7 @@ define(["require", "exports"], function (require, exports) {
         SpHelper.prototype.getAllSiteGroups = function (callback) {
             var _this = this;
             var d = $.Deferred();
-            var site = this.getSite();
+            var site = this.getSiteCollection();
             var siteGroups = site.get_rootWeb().get_siteGroups();
             var executeContext = this.getExecuteContext();
             executeContext.load(siteGroups);
@@ -474,9 +544,10 @@ define(["require", "exports"], function (require, exports) {
             executeContext.executeQueryAsync(function () {
                 var listInfo = [];
                 var listArray = _this.getEnumerationList(lists);
-                ko.utils.arrayForEach(listArray, function (l) {
+                for (var _i = 0, listArray_1 = listArray; _i < listArray_1.length; _i++) {
+                    var l = listArray_1[_i];
                     listInfo.push(new ListInfo(l));
-                });
+                }
                 callback(listInfo);
                 deferred.resolve();
             }, function () {
@@ -544,7 +615,7 @@ define(["require", "exports"], function (require, exports) {
                 return _this.getAllLists(function (lsts) { allLists = lsts; });
             });
             promises = promises.then(function () {
-                var existingList = ko.utils.arrayFirst(allLists, function (l) { return (l.title.toLowerCase() == listCreationInfo.title.toLowerCase()); });
+                var existingList = Utils.arrayFirst(allLists, function (l) { return (l.title.toLowerCase() == listCreationInfo.title.toLowerCase()); });
                 if (existingList) {
                     list = existingList;
                     return {};
@@ -640,7 +711,7 @@ define(["require", "exports"], function (require, exports) {
             }
             if (removeExistingContentTypes) {
                 promises = promises.then(function () {
-                    var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : ko.utils.arrayFirst(pnpContentTypeBidnings, function (c) { return c.default != null && c.default; });
+                    var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : Utils.arrayFirst(pnpContentTypeBidnings, function (c) { return c.default != null && c.default; });
                     return _this.removeAllContentTypesBut(listTitle, pnpContentTypeBidnings, defaultContentType);
                 });
             }
@@ -661,7 +732,7 @@ define(["require", "exports"], function (require, exports) {
             });
             var _loop_3 = function(pnpf) {
                 promises = promises.then(function () {
-                    var listField = ko.utils.arrayFirst(listFields, function (f) {
+                    var listField = Utils.arrayFirst(listFields, function (f) {
                         return f.get_id().equals(new SP.Guid(pnpf.ID));
                     });
                     if (listField == null)
@@ -773,7 +844,7 @@ define(["require", "exports"], function (require, exports) {
                 });
             });
             promises = promises.then(function () {
-                listContentType = ko.utils.arrayFirst(listContentTypes, function (lct) {
+                listContentType = Utils.arrayFirst(listContentTypes, function (lct) {
                     return lct.get_name() == contentTypeName;
                 });
                 list = web.get_lists().getById(listId);
@@ -805,7 +876,7 @@ define(["require", "exports"], function (require, exports) {
                 //after adding the content type. Ref - https://social.msdn.microsoft.com/Forums/office/en-US/95a05ae0-5d3b-432f-81bf-1f4a03e9910b/rich-text-column-in-document-library?forum=sharepointcustomizationlegacy
                 if (list.get_baseTemplate() == SP.ListTemplateType.documentLibrary) {
                     //if the content type inherits from document, then check if there's any rich text field that needs conversion from plain text to rich text
-                    var noteFields = ko.utils.arrayFilter(listContentTypeFieldCollection, function (f) {
+                    var noteFields = Utils.arrayFilter(listContentTypeFieldCollection, function (f) {
                         return f.get_typeAsString() == 'Note' && executeContext.castTo(f, SP.FieldMultiLineText).get_richText() == false;
                     });
                     var _loop_5 = function(nf) {
@@ -870,7 +941,7 @@ define(["require", "exports"], function (require, exports) {
                 });
                 promises = promises.then(function () {
                     var listUrl = (webServerRelativeUrl + '/' + pnpField.list).toLowerCase();
-                    var list = ko.utils.arrayFirst(lists, function (l) {
+                    var list = Utils.arrayFirst(lists, function (l) {
                         return l.rootFolderUrl.toLowerCase() == listUrl;
                     });
                     var fieldLookup = executeContext.castTo(fieldCreated, SP.FieldLookup);
@@ -909,7 +980,7 @@ define(["require", "exports"], function (require, exports) {
             promises = promises.then(function () {
                 var web = _this.getWeb();
                 webContentTypes = web.get_contentTypes();
-                var parentContentType = _this.getSite().get_rootWeb().get_availableContentTypes().getById(ctParentId); //considering parent content type is always from root web
+                var parentContentType = _this.getSiteCollection().get_rootWeb().get_availableContentTypes().getById(ctParentId); //considering parent content type is always from root web
                 var ctCreationInformation = new SP.ContentTypeCreationInformation();
                 ctCreationInformation.set_name(ctName);
                 ctCreationInformation.set_group(ctGroup);
@@ -930,7 +1001,7 @@ define(["require", "exports"], function (require, exports) {
                     promises = promises.then(function () {
                         contentTypeCreated = _this.getWeb().get_contentTypes().getById(contentTypeCreated.get_id().toString());
                         var fieldRefId = new SP.Guid(fr.id);
-                        var fieldExists = ko.utils.arrayFirst(fieldLinks, function (fl) {
+                        var fieldExists = Utils.arrayFirst(fieldLinks, function (fl) {
                             return fl.get_id().equals(fieldRefId);
                         }) != null;
                         var fieldLink;
@@ -959,7 +1030,7 @@ define(["require", "exports"], function (require, exports) {
                 }
             }
             promises = promises.then(function () {
-                var reorderedFields = ko.utils.arrayMap(fieldRefs, function (f) {
+                var reorderedFields = Utils.arrayMap(fieldRefs, function (f, i) {
                     return f.name;
                 });
                 var fieldLinks = contentTypeCreated.get_fieldLinks();
@@ -1004,10 +1075,10 @@ define(["require", "exports"], function (require, exports) {
                 //add contnet types
                 for (var i = 0; i < pnpDocSetTemplate.allowedContentTypes.length; i++) {
                     var pnpAllowedCT = pnpDocSetTemplate.allowedContentTypes[i];
-                    var ctDefinition = ko.utils.arrayFirst(webAvailableContentTypes, function (ct) {
+                    var ctDefinition = Utils.arrayFirst(webAvailableContentTypes, function (ct) {
                         return ct.get_name() == pnpAllowedCT.name;
                     });
-                    var ctExistsInDocumentSet = ko.utils.arrayFirst(dsAllowedContentTypes, function (act) {
+                    var ctExistsInDocumentSet = Utils.arrayFirst(dsAllowedContentTypes, function (act) {
                         return act.get_stringValue().toLowerCase() == ctDefinition.get_id().get_stringValue().toLowerCase();
                     }) != null;
                     if (!ctExistsInDocumentSet) {
@@ -1017,10 +1088,10 @@ define(["require", "exports"], function (require, exports) {
                 //remove content types not needed
                 for (var a = 0; a < dsAllowedContentTypes.length; a++) {
                     var dsAllowedContentType = dsAllowedContentTypes[a];
-                    var ctDefinition = ko.utils.arrayFirst(webAvailableContentTypes, function (ct) {
+                    var ctDefinition = Utils.arrayFirst(webAvailableContentTypes, function (ct) {
                         return ct.get_id().get_stringValue().toLowerCase() == dsAllowedContentType.get_stringValue().toLowerCase();
                     });
-                    var removeCT = ko.utils.arrayFirst(pnpDocSetTemplate.allowedContentTypes, function (ct) {
+                    var removeCT = Utils.arrayFirst(pnpDocSetTemplate.allowedContentTypes, function (ct) {
                         return ct.name == ctDefinition.get_name();
                     }) == null;
                     if (removeCT) {
@@ -1032,7 +1103,7 @@ define(["require", "exports"], function (require, exports) {
                 for (var j = 0; j < pnpDocSetTemplate.sharedFields.length; j++) {
                     var sField = pnpDocSetTemplate.sharedFields[j];
                     var field = web.get_availableFields().getByInternalNameOrTitle(sField.name);
-                    var fieldExists = ko.utils.arrayFirst(dsSharedFields, function (sf) {
+                    var fieldExists = Utils.arrayFirst(dsSharedFields, function (sf) {
                         return sf.get_internalName() == sField.name;
                     }) != null;
                     if (!fieldExists)
@@ -1041,7 +1112,7 @@ define(["require", "exports"], function (require, exports) {
                 var dsWelcomePageFields = _this.getEnumerationList(welcomeFieldsResponse);
                 for (var k = 0; k < pnpDocSetTemplate.welcomePageFields.length; k++) {
                     var wField = pnpDocSetTemplate.welcomePageFields[k];
-                    var wfExists = ko.utils.arrayFirst(dsWelcomePageFields, function (f) {
+                    var wfExists = Utils.arrayFirst(dsWelcomePageFields, function (f) {
                         return f.get_internalName() == wField.name;
                     }) != null;
                     if (!wfExists) {
@@ -1075,16 +1146,17 @@ define(["require", "exports"], function (require, exports) {
                 var web = _this.getWeb();
                 var listContentTypes = _this.getEnumerationList(listContentTypesObj);
                 var reorderedListContentTypes = [];
-                var defaultContentType = ko.utils.arrayFirst(listContentTypes, function (ct) {
+                var defaultContentType = Utils.arrayFirst(listContentTypes, function (ct) {
                     return ct.get_name() == pnpDeafultContentType.name;
                 });
                 reorderedListContentTypes.push(defaultContentType.get_id());
-                var nonDefaultContentTypes = ko.utils.arrayFilter(listContentTypes, function (ct) {
+                var nonDefaultContentTypes = Utils.arrayFilter(listContentTypes, function (ct) {
                     return ct.get_name() != pnpDeafultContentType.name && !ct.get_stringId().startsWith(Constants.folderContentTypeId); //ignore folder
                 });
-                ko.utils.arrayForEach(nonDefaultContentTypes, function (ct) {
+                for (var _i = 0, nonDefaultContentTypes_1 = nonDefaultContentTypes; _i < nonDefaultContentTypes_1.length; _i++) {
+                    var ct = nonDefaultContentTypes_1[_i];
                     reorderedListContentTypes.push(ct.get_id());
-                });
+                }
                 rootFolder.set_uniqueContentTypeOrder(reorderedListContentTypes);
                 rootFolder.update();
                 var list = web.get_lists().getByTitle(listTitle);
@@ -1097,17 +1169,18 @@ define(["require", "exports"], function (require, exports) {
             //delete other content types
             promises = promises.then(function () {
                 var listContentTypes = _this.getEnumerationList(listContentTypesObj);
-                var contentTypesToDelete = ko.utils.arrayFilter(listContentTypes, function (lct) {
-                    return ko.utils.arrayFirst(pnpContentTypeBindings, function (ctb) {
+                var contentTypesToDelete = Utils.arrayFilter(listContentTypes, function (lct) {
+                    return Utils.arrayFirst(pnpContentTypeBindings, function (ctb) {
                         return ctb.name == lct.get_name();
                     }) == null;
                 });
-                contentTypesToDelete = ko.utils.arrayFilter(contentTypesToDelete, function (ctb) {
+                contentTypesToDelete = Utils.arrayFilter(contentTypesToDelete, function (ctb) {
                     return !ctb.get_stringId().startsWith('0x012000');
                 });
-                ko.utils.arrayForEach(contentTypesToDelete, function (ct) {
-                    ct.deleteObject();
-                });
+                for (var _i = 0, contentTypesToDelete_1 = contentTypesToDelete; _i < contentTypesToDelete_1.length; _i++) {
+                    var c = contentTypesToDelete_1[_i];
+                    c.deleteObject();
+                }
                 return _this.executeQueryPromise();
             });
             return promises;
@@ -1120,7 +1193,7 @@ define(["require", "exports"], function (require, exports) {
             promises = promises.then(function () {
                 var web = _this.getWeb();
                 var list = web.get_lists().getByTitle(listTitle);
-                var taxKeywordField = _this.getSite().get_rootWeb().get_fields().getByInternalNameOrTitle('TaxKeyword');
+                var taxKeywordField = _this.getSiteCollection().get_rootWeb().get_fields().getByInternalNameOrTitle('TaxKeyword');
                 list.get_fields().add(taxKeywordField);
                 return _this.executeQueryPromise();
             });
@@ -1141,7 +1214,7 @@ define(["require", "exports"], function (require, exports) {
                     if (ct.get_stringId().startsWith(Constants.folderContentTypeId))
                         return "continue";
                     fields = _this.getEnumerationList(ct.get_fields());
-                    fieldExistsInContentType = ko.utils.arrayFirst(fields, function (f) {
+                    fieldExistsInContentType = Utils.arrayFirst(fields, function (f) {
                         return f.get_internalName() == 'TaxKeyword';
                     }) != null;
                     if (!fieldExistsInContentType) {
@@ -1247,7 +1320,7 @@ define(["require", "exports"], function (require, exports) {
         };
         SpHelper.prototype.getCurrentUser = function (callback) {
             var d = $.Deferred();
-            var user = this.getSite().get_rootWeb().get_currentUser();
+            var user = this.getSiteCollection().get_rootWeb().get_currentUser();
             var executeContext = this.getExecuteContext();
             executeContext.load(user);
             executeContext.executeQueryAsync(function () {
@@ -1259,11 +1332,12 @@ define(["require", "exports"], function (require, exports) {
             });
             return d;
         };
-        SpHelper.prototype.getAllwebs = function (properties, callback) {
+        SpHelper.prototype.getAllwebs = function (parentWeb, properties, callback) {
             var _this = this;
             var d = $.Deferred();
-            var site = this.getSite();
-            var allWebs = site.get_rootWeb().get_webs();
+            //var site = this.getSite();
+            //var allWebs = site.get_rootWeb().get_webs();
+            var allWebs = parentWeb.get_webs();
             var executeContext = this.getExecuteContext();
             if (!properties.startsWith('Include(')) {
                 properties = "Include(" + properties + ")";
@@ -1418,7 +1492,7 @@ define(["require", "exports"], function (require, exports) {
                 var actions = _this.getEnumerationList(customActions);
                 for (var i = 0; i < customActionNodes.length; i++) {
                     var customActionName = $(customActionNodes[i]).attr('Id');
-                    var existingAction = ko.utils.arrayFirst(actions, function (a) {
+                    var existingAction = Utils.arrayFirst(actions, function (a) {
                         return a.get_name() == customActionName;
                     });
                     if (existingAction) {
@@ -1527,13 +1601,13 @@ define(["require", "exports"], function (require, exports) {
                 });
             });
             promises = promises.then(function () {
-                historyList = ko.utils.arrayFirst(allLists, function (l) {
+                historyList = Utils.arrayFirst(allLists, function (l) {
                     return l.title.toLowerCase() == pnpWFSubscription.historyListTitle.toLowerCase();
                 });
-                taskList = ko.utils.arrayFirst(allLists, function (l) {
+                taskList = Utils.arrayFirst(allLists, function (l) {
                     return l.title.toLowerCase() == pnpWFSubscription.taskListTitle.toLowerCase();
                 });
-                var targetList = pnpWFSubscription.listTitle == null ? null : ko.utils.arrayFirst(allLists, function (l) {
+                var targetList = pnpWFSubscription.listTitle == null ? null : Utils.arrayFirst(allLists, function (l) {
                     return l.title.toLowerCase() == pnpWFSubscription.listTitle.toLowerCase();
                 });
                 if (targetList) {
@@ -1602,7 +1676,7 @@ define(["require", "exports"], function (require, exports) {
             promises = promises.then(function () {
                 if (targetListId == null) {
                     wfSubscriptions = _this.getEnumerationList(wfSubscriptionCollection);
-                    subscriptionExists = ko.utils.arrayFirst(wfSubscriptions, function (s) {
+                    subscriptionExists = Utils.arrayFirst(wfSubscriptions, function (s) {
                         return s.get_name() == pnpWFSubscription.name;
                     }) != null;
                 }
@@ -1762,7 +1836,7 @@ define(["require", "exports"], function (require, exports) {
             var pageLayoutCollection;
             var publishingPages;
             promises = promises.then(function () {
-                var masterPageGallery = _this.getSite().get_rootWeb().get_lists().getByTitle('Master Page Gallery');
+                var masterPageGallery = _this.getSiteCollection().get_rootWeb().get_lists().getByTitle('Master Page Gallery');
                 var camlQuery = new SP.CamlQuery();
                 var query = "<View><Query><Where><BeginsWith><FieldRef Name='ContentTypeId' /><Value Type='ContentTypeId'>" + Constants.pageLayoutContentTypeId + "</Value></BeginsWith></Where></Query><ViewFields><FieldRef Name='Title' /></ViewFields></View>";
                 camlQuery.set_viewXml(query);
@@ -1781,7 +1855,7 @@ define(["require", "exports"], function (require, exports) {
             var _loop_9 = function(pnpPage) {
                 promises = promises.then(function () {
                     var pageServerRelativeUrl = webServerRelativeUrl + '/' + pnpPage.url;
-                    pageExists = ko.utils.arrayFirst(publishingPages, function (pp) {
+                    pageExists = Utils.arrayFirst(publishingPages, function (pp) {
                         return pp.get_item('FileLeafRef').toLowerCase() == pageServerRelativeUrl.toLowerCase();
                     }) != null;
                     return {};
@@ -1792,7 +1866,7 @@ define(["require", "exports"], function (require, exports) {
                     var publishingWeb = SP.Publishing.PublishingWeb.getPublishingWeb(executeContext, web);
                     var pubPageInfo = new SP.Publishing.PublishingPageInformation();
                     pubPageInfo.set_name(pnpPage.url);
-                    var pageLayout = ko.utils.arrayFirst(pageLayouts, function (pl) {
+                    var pageLayout = Utils.arrayFirst(pageLayouts, function (pl) {
                         return pl.get_item('Title') != null && pl.get_item('Title').toLowerCase() == pnpPage.layout.toLowerCase();
                     });
                     pubPageInfo.set_pageLayoutListItem(pageLayout);
@@ -1867,11 +1941,11 @@ define(["require", "exports"], function (require, exports) {
                     var roleDefinitionName = pnpRoleAssignment.roleDefinition;
                     var roleDefinition = web.get_roleDefinitions().getByName(roleDefinitionName);
                     //check role in current object
-                    var existingRole = ko.utils.arrayFirst(roleAssignments, function (ra) {
+                    var existingRole = Utils.arrayFirst(roleAssignments, function (ra) {
                         return ra.get_member().get_title().toLowerCase() == pnpRoleAssignment.principal.toLowerCase();
                     });
                     if (existingRole == null) {
-                        var newRole = ko.utils.arrayFirst(siteGroups, function (sg) {
+                        var newRole = Utils.arrayFirst(siteGroups, function (sg) {
                             return sg.get_loginName().toLowerCase() == pnpRoleAssignment.principal.toLowerCase();
                         });
                         if (newRole == null) {
@@ -1883,7 +1957,7 @@ define(["require", "exports"], function (require, exports) {
                     }
                     else {
                         var existingRoleBindings = _this.getEnumerationList(existingRole.get_roleDefinitionBindings());
-                        var existingRoleBinding = ko.utils.arrayFirst(existingRoleBindings, function (rdb) {
+                        var existingRoleBinding = Utils.arrayFirst(existingRoleBindings, function (rdb) {
                             return rdb.get_name().toLowerCase() == roleDefinitionName.toLowerCase();
                         });
                         if (existingRoleBinding == null) {

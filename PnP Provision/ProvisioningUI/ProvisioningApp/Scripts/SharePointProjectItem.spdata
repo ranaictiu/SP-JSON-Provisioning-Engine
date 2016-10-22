@@ -21,5 +21,6 @@
     <ProjectItemFile Source="typings\requirejs\require.d.ts" Target="Scripts\typings\requirejs\" Type="ElementFile" />
     <ProjectItemFile Source="lib\knockout-3.4.0.js" Target="Scripts\lib\" Type="ElementFile" />
     <ProjectItemFile Source="Models\SiteTemplateModel.ts" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\ProgressViewModel.ts" Target="Scripts\Models\" Type="ElementFile" />
   </Files>
 </ProjectItem>

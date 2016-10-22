@@ -1,5 +1,6 @@
 define(["require", "exports", "./SharePointHelper"], function (require, exports, provisioningApp) {
     "use strict";
+    var Utils = provisioningApp.Utils;
     //interface ProgressInterface {
     //    clearSteps: () => void;
     //    addStep: (name: string, title: string) => void;
@@ -7,13 +8,29 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
     //    setSuccess: (name: string, message: string) => void;
     //    setFailed: (name: string, message?: string) => void;
     //}
-    var operationStatus;
-    (function (operationStatus) {
-        operationStatus[operationStatus["unknown"] = 0] = "unknown";
-        operationStatus[operationStatus["inProgress"] = 1] = "inProgress";
-        operationStatus[operationStatus["success"] = 2] = "success";
-        operationStatus[operationStatus["failed"] = 3] = "failed";
-    })(operationStatus || (operationStatus = {}));
+    (function (OperationStatus) {
+        OperationStatus[OperationStatus["unknown"] = 0] = "unknown";
+        OperationStatus[OperationStatus["pending"] = 1] = "pending";
+        OperationStatus[OperationStatus["inProgress"] = 2] = "inProgress";
+        OperationStatus[OperationStatus["success"] = 3] = "success";
+        OperationStatus[OperationStatus["failed"] = 4] = "failed";
+    })(exports.OperationStatus || (exports.OperationStatus = {}));
+    var OperationStatus = exports.OperationStatus;
+    (function (ProgressSteps) {
+        ProgressSteps[ProgressSteps["SiteCreation"] = 0] = "SiteCreation";
+        ProgressSteps[ProgressSteps["Features"] = 1] = "Features";
+        ProgressSteps[ProgressSteps["SecurityGroups"] = 2] = "SecurityGroups";
+        ProgressSteps[ProgressSteps["Columns"] = 3] = "Columns";
+        ProgressSteps[ProgressSteps["ContentTypes"] = 4] = "ContentTypes";
+        ProgressSteps[ProgressSteps["Lists"] = 5] = "Lists";
+        ProgressSteps[ProgressSteps["Pages"] = 6] = "Pages";
+        ProgressSteps[ProgressSteps["Workflows"] = 7] = "Workflows";
+        ProgressSteps[ProgressSteps["Navigation"] = 8] = "Navigation";
+        ProgressSteps[ProgressSteps["CustomActions"] = 9] = "CustomActions";
+        ProgressSteps[ProgressSteps["WebSettings"] = 10] = "WebSettings";
+        ProgressSteps[ProgressSteps["Finalization"] = 11] = "Finalization";
+    })(exports.ProgressSteps || (exports.ProgressSteps = {}));
+    var ProgressSteps = exports.ProgressSteps;
     var TemplateManager = (function () {
         function TemplateManager() {
         }
@@ -75,8 +92,8 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             });
             promises = promises.then(function () {
                 var pnpFeatures = template.features != null && template.features.webFeatures != null ? template.features.webFeatures : null;
-                featuresToActivate = ko.utils.arrayFilter(pnpFeatures, function (f) {
-                    return ko.utils.arrayFirst(activatedWebFeatures, function (af) {
+                featuresToActivate = Utils.arrayFilter(pnpFeatures, function (f) {
+                    return Utils.arrayFirst(activatedWebFeatures, function (af) {
                         return f.definitionId.toLowerCase() == af.definitionId.toLowerCase();
                     }) == null;
                 });
@@ -85,12 +102,12 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             promises = promises.then(function () {
                 if (featuresToActivate == null || featuresToActivate.length == 0)
                     return {};
-                _this.progressListener.progressUpdate('FeatureActivation', 'Activating Features', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Features, 'Activating Features', OperationStatus.inProgress);
                 return _this.spHelper.activateDeactivateWebFeatures(featuresToActivate);
             });
             promises = promises.then(function () {
                 if (featuresToActivate != null && featuresToActivate.length > 0) {
-                    _this.progressListener.progressUpdate('FeatureActivation', 'Features Activated', operationStatus.success);
+                    _this.progressListener.progressUpdate(ProgressSteps.Features, 'Features Activated', OperationStatus.success);
                 }
                 return {};
             });
@@ -104,7 +121,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var siteGroups;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('SiteGroups', 'Creating Security Groups', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Creating Security Groups', OperationStatus.inProgress);
                 return _this.spHelper.getAllSiteGroups(function (groups) {
                     siteGroups = groups;
                 });
@@ -112,7 +129,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var _loop_1 = function(g) {
                 promises = promises.then(function () {
                     var roleDefinitionName = _this.getRoleDefinitionName(template, g.title);
-                    var groupExists = ko.utils.arrayFirst(siteGroups, function (grp) {
+                    var groupExists = Utils.arrayFirst(siteGroups, function (grp) {
                         return grp.get_title().toLowerCase() == g.title.toLowerCase();
                     }) != null;
                     if (groupExists)
@@ -126,7 +143,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_1(g);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('SiteGroups', 'Security Groups Created', operationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Security Groups Created', OperationStatus.success);
                 return {};
             });
             return promises;
@@ -138,14 +155,14 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var availableFields;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('FieldsCreation', 'Creating Site Fields', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Columns, 'Creating Site Fields', OperationStatus.inProgress);
                 return _this.spHelper.getAvailableFields('Id,InternalName', function (flds) {
                     availableFields = flds;
                 });
             });
             var _loop_2 = function(sf) {
                 promises = promises.then(function () {
-                    var fieldExistsAlready = ko.utils.arrayFirst(availableFields, function (f) {
+                    var fieldExistsAlready = Utils.arrayFirst(availableFields, function (f) {
                         return f.get_internalName() == sf.name;
                     }) != null;
                     if (fieldExistsAlready) {
@@ -160,7 +177,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_2(sf);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('FieldsCreation', 'Site Fields Created', operationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Columns, 'Site Fields Created', OperationStatus.success);
                 return {};
             });
             return promises;
@@ -172,14 +189,14 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var availableContentTypes;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('ContentTypesCreation', 'Creating ContentTypes', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'Creating ContentTypes', OperationStatus.inProgress);
                 return _this.spHelper.getAvailableContentTypes('Id,Name', function (ctypes) {
                     availableContentTypes = ctypes;
                 });
             });
             var _loop_3 = function(ct) {
                 promises = promises.then(function () {
-                    var ctExists = ko.utils.arrayFirst(availableContentTypes, function (cti) {
+                    var ctExists = Utils.arrayFirst(availableContentTypes, function (cti) {
                         return ct.name == cti.get_name();
                     }) != null;
                     if (ctExists) {
@@ -193,7 +210,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_3(ct);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('ContentTypesCreation', 'ContentTypes Created', operationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'ContentTypes Created', OperationStatus.success);
                 return {};
             });
             return promises;
@@ -204,14 +221,14 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 return {};
             var promises = $.when(1);
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('PagesCreation', 'Creating Pages', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Pages, 'Creating Pages', OperationStatus.inProgress);
                 return {};
             });
             promises = promises.then(function () {
                 return _this.spHelper.provisionPublishingPages(template.pages);
             });
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('PagesCreation', 'Pages Created', operationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Pages, 'Pages Created', OperationStatus.success);
                 return {};
             });
             return promises;
@@ -223,7 +240,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var allLists;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('ListsCreation', 'Creating Lists', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Lists, 'Creating Lists', OperationStatus.inProgress);
                 return {};
             });
             promises = promises.then(function () {
@@ -258,7 +275,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_4(listInstance);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('ListsCreation', 'Lists Created', operationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Lists, 'Lists Created', OperationStatus.success);
                 return {};
             });
             return promises;
@@ -270,7 +287,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 return {};
             var promises = $.when(1);
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('WorkflowsCreation', 'Provisioning Workflows', operationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Provisioning Workflows', OperationStatus.inProgress);
                 return {};
             });
             var _loop_5 = function(wfs) {
@@ -283,7 +300,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_5(wfs);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate('WorkflowsCreation', 'Workflows Provisioned', operationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Workflows Provisioned', OperationStatus.success);
                 return {};
             });
             return promises;
@@ -335,12 +352,13 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             if (template.security == null || template.security.siteSecurityPermissions == null ||
                 template.security.siteSecurityPermissions.roleAssignments == null)
                 return null;
-            var roleAssignment = ko.utils.arrayFirst(template.security.siteSecurityPermissions.roleAssignments, function (r) {
+            var roleAssignment = Utils.arrayFirst(template.security.siteSecurityPermissions.roleAssignments, function (r) {
                 return r.principal.toLowerCase() == groupName.toLowerCase();
             });
             return roleAssignment == null ? null : roleAssignment.roleDefinition;
         };
         return TemplateManager;
     }());
+    exports.TemplateManager = TemplateManager;
 });
 //# sourceMappingURL=TemplateManager.js.map
