@@ -1,13 +1,13 @@
 ﻿import ko = require('knockout');
 import provisioning = require("../Provisioning/SharePointHelper")
-import TemplateManager = require("../Provisioning/TemplateManager");
+import TemplateMgr = require("../Provisioning/TemplateManager");
 import ViewModel = require("./ProgressViewModel");
 import uiManager = provisioning.UI;
 import utils = provisioning.Utils;
 
-import ProgressListenerInteface = TemplateManager.ProgressListenerInteface;
-import OperationStatus = TemplateManager.OperationStatus;
-import ProgressSteps = TemplateManager.ProgressSteps;
+import ProgressListenerInteface = TemplateMgr.ProgressListenerInteface;
+import OperationStatus = TemplateMgr.OperationStatus;
+import ProgressSteps = TemplateMgr.ProgressSteps;
 
 import ProgressUIManager = ViewModel.ProgressUIInterface;
 import ProgressUiModel = ViewModel.ProgressUIModel;
@@ -15,14 +15,8 @@ import Template = provisioning.Template;
 import TemplateFile = provisioning.TemplateFile;
 import GroupCreationInfo = provisioning.GroupCreationInfo;
 import SiteCreationInfo = provisioning.SiteCreationInfo;
-require(["jQuery"], ($) => {
-    $(document).ready(() => {
-        var model = new SiteTemplateViewModel();
-        ko.applyBindings(model, document.getElementById('siteCreationContainer'));
-        var progressUi = new ProgressUiModel();
-        model.initialize(progressUi);
-    });
-});
+import TemplateManager = TemplateMgr.TemplateManager;
+
 
 class SiteFeatureTemplate {
     itemId: number;
@@ -42,42 +36,50 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
     spHelper: provisioning.SpHelper;
     selectedTemplate: KnockoutObservable<SiteFeatureTemplate> = ko.observable(null);
     progressUI: ProgressUIManager;
-    templateManager: TemplateManager.TemplateManager;
+    templateManager: TemplateManager;
 
     initialize(progressUi: ProgressUIManager) {
         this.spHelper = new provisioning.SpHelper(SP.ClientContext.get_current());
+        this.templateManager = new TemplateManager();
         this.progressUI = progressUi;
         uiManager.showDialog('Loading...', 'Please wait while loading');
-        this.spHelper.getListItems('Templates', 100, 'Id,Title,TemplateDescription,TemplateID,TemplateType,EncodedAbsUrl,File.serverRelativeUrl', (lis) => {
-            var siteTemplateItems = ko.utils.arrayFilter(lis, li => {
-                return li.get_item('TemplateType') == 'Site';
+        utils.loadRequestExecutor(() => {
+            this.spHelper.getListItems('Templates', 100, 'Id,Title,TemplateDescription,TemplateID,TemplateType,EncodedAbsUrl,File.ServerRelativeUrl', (lis) => {
+                var siteTemplateItems = ko.utils.arrayFilter(lis, li => {
+                    return li.get_item('TemplateType') == 'Site';
+                });
+                var siteTemplates = utils.arrayMap<SP.ListItem, SiteFeatureTemplate>(siteTemplateItems, li => {
+                    var st = new SiteFeatureTemplate();
+                    st.itemId = li.get_id();
+                    st.title = li.get_item('Title');
+                    st.description = li.get_item('TemplateDescription');
+                    st.templateId = li.get_item('TemplateID');
+                    st.templateType = li.get_item('TemplateType');
+                    st.serverRelativeUrl = li.get_file().get_serverRelativeUrl();
+                    st.fullUrl = li.get_item('EncodedAbsUrl');
+                    return st;
+                });
+                this.siteTemplates(siteTemplates);
+                uiManager.closeDialog();
             });
-            var siteTemplates = utils.arrayMap<SP.ListItem, SiteFeatureTemplate>(siteTemplateItems, (li, index) => {
-                var st = new SiteFeatureTemplate();
-                st.itemId = li.get_id();
-                st.title = li.get_item('Title');
-                st.description = li.get_item('TemplateDescription');
-                st.templateId = li.get_item('TemplateID');
-                st.templateType = li.get_item('TemplateType');
-                st.serverRelativeUrl = li.get_file().get_serverRelativeUrl();
-                st.fullUrl = li.get_item('EncodedAbsUrl');
-                return st;
-            });
-            this.siteTemplates(siteTemplates);
-            uiManager.closeDialog();
         });
+
     }
     getSiteUrl = ko.computed(() => {
         if (this.siteName() == '') return '';
-        return decodeURI(utils.getQueryStringParameter('SPHostUrl')) + `/${this.siteName()}`;
+        return this.getParentWebUrl() + `/${this.siteName()}`;
     });
+
+    getParentWebUrl() {
+        return decodeURIComponent(utils.getQueryStringParameter('SPHostUrl'));
+    }
 
     createSite() {
         if (!this.validateInputs()) {
             return;
         }
         uiManager.showDialog('Validating Request', 'Please wait while validating request.');
-        var fileUrl = this.selectedTemplate().fullUrl;
+        var fileUrl = this.selectedTemplate().serverRelativeUrl;
         this.spHelper.getFileContent(_spPageContextInfo.webAbsoluteUrl, fileUrl, template => {
             template = template.replaceAll('{{SiteTitle}}', this.siteName());
             var siteTemplate = <TemplateFile>$.parseJSON(template);
@@ -85,88 +87,98 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
             this.validRequest(siteTemplate)
                 .done(() => {
                     uiManager.closeDialog();
+                    uiManager.clearAllNotification();
+                    this.startProvisioning(siteTemplate);
                 })
                 .fail(() => {
                     uiManager.closeDialog();
-                    uiManager.clearAllNotification();
-                    this.startProvisioning(siteTemplate);
                 });
         });
     }
     validRequest(siteTemplate: TemplateFile) {
         var promises = $.when(1);
-        promises.then(() => {
+        let rootWebServerRelativeUrl: string;
+
+        var rootWeb = this.spHelper.getSiteCollection().get_rootWeb();
+        promises = promises.then(() => {
+            var ctx = this.spHelper.getExecuteContext();
+            ctx.load(rootWeb, 'ServerRelativeUrl');
+            return this.spHelper.executeQueryPromise();
+        });
+        promises = promises.then(() => {
+            rootWebServerRelativeUrl = rootWeb.get_serverRelativeUrl();
             let d = $.Deferred();
             this.spHelper.getCurrentUser(user => {
                 if (user.get_isSiteAdmin())
                     d.resolve();
                 else {
-                    uiManager.showNotification('Permission', "You don't have permission to create site.");
+                    uiManager.showNotification('Permission', "You don't have permission to create site.", true);
                     d.reject();
                 }
             });
             return d;
-        })
-            .then(() => {
-                let d = $.Deferred();
-                var rootWeb = this.spHelper.getSiteCollection().get_rootWeb();
-                var siteUrl = this.getSiteUrl().toLocaleLowerCase();
-                this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl', webs => {
-                    var web = utils.arrayFirst<SP.WebInformation>(webs, (w) => {
-                        return w.get_serverRelativeUrl().toLocaleLowerCase() == siteUrl;
-                    });
-                    if (web) {
-                        uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.');
-                        d.reject();
-                    }
-                    else d.resolve();
+        });
+        promises = promises.then(() => {
+            let d = $.Deferred();
+
+            var siteServerRelativeUrl = rootWebServerRelativeUrl + '/' + this.siteName();
+            this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl,Url', webs => {
+                var web = utils.arrayFirst<SP.Web>(webs, (w) => {
+                    return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
                 });
-                return d;
-            }).then(() => {
-                var d = $.Deferred();
-                var allGroupNames = [];
-                for (let t of siteTemplate.templates) {
-                    if (t.security && t.security.siteGroups) {
-                        var currentGroupNames = utils.arrayMap<GroupCreationInfo, string>(t.security.siteGroups, (g, i) => {
-                            return g.title.toLocaleLowerCase();
-                        });
-                        $.merge(allGroupNames, currentGroupNames);
+                if (web) {
+                    uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.',
+                        true);
+                    d.reject();
+                } else d.resolve();
+            });
+            return d;
+        });
+        promises = promises.then(() => {
+            var d = $.Deferred();
+            var allGroupNames = [];
+            for (let t of siteTemplate.Templates) {
+                if (t.Security && t.Security.SiteGroups) {
+                    var currentGroupNames = utils.arrayMap<GroupCreationInfo, string>(t.Security.SiteGroups, (g, i) => {
+                        return g.Title.toLocaleLowerCase();
+                    });
+                    $.merge(allGroupNames, currentGroupNames);
+                }
+            }
+            this.spHelper.getAllSiteGroups(siteGroups => {
+                var groupExists = false;
+                for (let g of siteGroups) {
+                    if (allGroupNames.indexOf(g.get_title().toLocaleLowerCase()) != -1) {
+                        groupExists = true;
+                        uiManager.showNotification('Group Exists', `The site group ${g.get_title()} already exists. `, true);
+                        break;
                     }
                 }
-                this.spHelper.getAllSiteGroups(siteGroups => {
-                    var groupExists = false;
-                    for (let g of siteGroups) {
-                        if (allGroupNames.indexOf(g.get_title().toLocaleLowerCase()) != -1) {
-                            groupExists = true;
-                            uiManager.showNotification('Group Exists', `The site group ${g.get_title()} already exists. `);
-                            break;
-                        }
-                    }
-                    if (groupExists) {
-                        d.reject();
-                    } else {
-                        d.resolve();
-                    }
-                });
-                return d;
+                if (groupExists) {
+                    d.reject();
+                } else {
+                    d.resolve();
+                }
             });
+            return d;
+        });
         return promises;
     };
     validateInputs(): boolean {
         if (this.siteTitle() == '') {
-            uiManager.showNotification('Site Title', 'Please enter site title');
+            uiManager.showNotification('Site Title', 'Please enter site title', true);
             return false;
         }
         if (this.siteName() == '') {
-            uiManager.showNotification('Site Name', 'Please enter site name');
+            uiManager.showNotification('Site Name', 'Please enter site name', true);
             return false;
         }
         if (this.siteDescription() == '') {
-            uiManager.showNotification('Site Description', 'Site description is required');
+            uiManager.showNotification('Site Description', 'Site description is required', true);
             return false;
         }
         if (this.selectedTemplate() == null) {
-            uiManager.showNotification('Site Template', 'Please select site template');
+            uiManager.showNotification('Site Template', 'Please select site template', true);
             return false;
         }
         return true;
@@ -176,19 +188,19 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         this.progressUI.show('siteCreationStatus', 'Creating Site', ProgressSteps.SiteCreation, 450);
 
         var siteCreationInfo = new SiteCreationInfo();
-        siteCreationInfo.title = this.siteTitle();
-        siteCreationInfo.language = siteTemplate.language;
-        siteCreationInfo.useSamePermissionsAsParentSite = siteTemplate.useSamePermissionsAsParentSite;
-        siteCreationInfo.webTemplateId = siteTemplate.webTemplateId;
-        siteCreationInfo.description = this.siteDescription();
-        siteCreationInfo.name = this.siteName();
-        var parentWebContext = this.spHelper.getHelperContextFromUrl(utils.getQueryStringParameter('SPHostUrl'));
+        siteCreationInfo.Title = this.siteTitle();
+        siteCreationInfo.Language = siteTemplate.Language;
+        siteCreationInfo.UseSamePermissionsAsParentSite = siteTemplate.UseSamePermissionsAsParentSite;
+        siteCreationInfo.WebTemplateId = siteTemplate.WebTemplateId;
+        siteCreationInfo.Description = this.siteDescription();
+        siteCreationInfo.Name = this.siteName();
+        var parentWebContext = this.spHelper.getHelperContextFromUrl(this.getParentWebUrl());
         parentWebContext.createSite(siteCreationInfo)
             .then(() => {
                 this.spHelper = this.spHelper.getHelperContextFromUrl(this.getSiteUrl());
                 var templatePromises = $.when(1);
-                for (var i = 0; i < siteTemplate.templates.length; i++) {
-                    var template = siteTemplate.templates[i];
+                for (var i = 0; i < siteTemplate.Templates.length; i++) {
+                    var template = siteTemplate.Templates[i];
                     (t => {
                         templatePromises = templatePromises.then(() => {
                             this.templateManager.initialize(this.spHelper.getExecuteContext(), this);
@@ -223,3 +235,11 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
 
     }
 }
+
+
+$(document).ready(() => {
+    var model = new SiteTemplateViewModel();
+    ko.applyBindings(model, document.getElementById('siteCreationContainer'));
+    var progressUi = new ProgressUiModel();
+    model.initialize(progressUi);
+});

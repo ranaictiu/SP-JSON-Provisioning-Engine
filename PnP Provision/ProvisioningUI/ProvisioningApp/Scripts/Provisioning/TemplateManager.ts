@@ -104,10 +104,10 @@ export class TemplateManager {
             });
         });
         promises = promises.then(() => {
-            var pnpFeatures = template.features != null && template.features.webFeatures != null ? template.features.webFeatures : null;
+            var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
             featuresToActivate = Utils.arrayFilter(pnpFeatures, (f) => {
                 return Utils.arrayFirst(activatedWebFeatures, (af) => {
-                    return f.definitionId.toLowerCase() == af.definitionId.toLowerCase();
+                    return f.DefinitionId.toLowerCase() == af.DefinitionId.toLowerCase();
                 }) == null;
             });
             return {};
@@ -126,7 +126,7 @@ export class TemplateManager {
         return promises;
     }
     private processSiteGroups(template: Template) {
-        if (template.security == null || template.security.siteGroups == null || template.security.siteGroups.length ==
+        if (template.Security == null || template.Security.SiteGroups == null || template.Security.SiteGroups.length ==
             0)
             return {};
         var promises = $.when(1);
@@ -138,13 +138,13 @@ export class TemplateManager {
                 siteGroups = groups;
             });
         });
-        for (let g of template.security.siteGroups) {
+        for (let g of template.Security.SiteGroups) {
 
 
             promises = promises.then(() => {
-                var roleDefinitionName = this.getRoleDefinitionName(template, g.title);
+                var roleDefinitionName = this.getRoleDefinitionName(template, g.Title);
                 var groupExists = Utils.arrayFirst(siteGroups, (grp) => {
-                    return grp.get_title().toLowerCase() == g.title.toLowerCase();
+                    return grp.get_title().toLowerCase() == g.Title.toLowerCase();
                 }) != null;
 
                 if (groupExists) return {}
@@ -162,7 +162,7 @@ export class TemplateManager {
         return promises;
     }
     private processSiteFields(template: Template) {
-        if (template.siteFields == null || template.siteFields.length == 0) return {};
+        if (template.SiteFields == null || template.SiteFields.length == 0) return {};
         var promises = $.when(1);
         let availableFields: Array<SP.Field>;
         promises = promises.then(() => {
@@ -171,10 +171,10 @@ export class TemplateManager {
                 availableFields = flds;
             });
         });
-        for (let sf of template.siteFields) {
+        for (let sf of template.SiteFields) {
             promises = promises.then(() => {
                 var fieldExistsAlready = Utils.arrayFirst(availableFields, (f) => {
-                    return f.get_internalName() == sf.name;
+                    return f.get_internalName() == sf.Name;
                 }) != null;
                 if (fieldExistsAlready) {
                     return $.Deferred().resolve();
@@ -189,7 +189,7 @@ export class TemplateManager {
         return promises;
     }
     private processContentTypes(template: Template) {
-        if (template.contentTypes == null || template.contentTypes.length == 0) return {};
+        if (template.ContentTypes == null || template.ContentTypes.length == 0) return {};
         var promises = $.when(1);
         let availableContentTypes: Array<SP.ContentType>;
         promises = promises.then(() => {
@@ -198,10 +198,10 @@ export class TemplateManager {
                 availableContentTypes = ctypes;
             });
         });
-        for (let ct of template.contentTypes) {
+        for (let ct of template.ContentTypes) {
             promises = promises.then(() => {
                 var ctExists = Utils.arrayFirst(availableContentTypes, (cti) => {
-                    return ct.name == cti.get_name();
+                    return ct.Name == cti.get_name();
                 }) != null;
                 if (ctExists) {
                     return $.Deferred().resolve();
@@ -216,14 +216,14 @@ export class TemplateManager {
         return promises;
     }
     private processPublishingPages(template: Template) {
-        if (template.pages == null || template.pages.length == 0) return {};
+        if (template.Pages == null || template.Pages.length == 0) return {};
         var promises = $.when(1);
         promises = promises.then(() => {
             this.progressListener.progressUpdate(ProgressSteps.Pages, 'Creating Pages', OperationStatus.inProgress);
             return {};
         });
         promises = promises.then(() => {
-            return this.spHelper.provisionPublishingPages(template.pages);
+            return this.spHelper.provisionPublishingPages(template.Pages);
         });
 
         promises = promises.then(() => {
@@ -233,7 +233,7 @@ export class TemplateManager {
         return promises;
     }
     private processLists(template: Template) {
-        if (template.lists == null || template.lists.length == 0) return {};
+        if (template.Lists == null || template.Lists.length == 0) return {};
         var promises = $.when(1);
         let allLists: Array<ListInfo>;
         promises = promises.then(() => {
@@ -247,26 +247,26 @@ export class TemplateManager {
             });
         });
 
-        for (let listInstance of template.lists) {
+        for (let listInstance of template.Lists) {
             promises = promises.then(() => {
                 return this.spHelper.createList(listInstance);
             });
-            if (listInstance.enableEnterpriseKeywords)
+            if (listInstance.EnableEnterpriseKeywords)
                 promises = promises.then(() => {
-                    return this.spHelper.addEnterpriseKeywordColumnsToList(listInstance.title);
+                    return this.spHelper.addEnterpriseKeywordColumnsToList(listInstance.Title);
                 });
 
             promises = promises.then(() => {
                 return this.spHelper.createViews(listInstance);
             });
-            if (listInstance.dataRows) {
+            if (listInstance.DataRows) {
                 promises = promises.then(() => {
-                    return this.spHelper.populateList(listInstance.title, listInstance.dataRows);
+                    return this.spHelper.populateList(listInstance.Title, listInstance.DataRows);
                 });
             }
-            if (listInstance.security && listInstance.security.breakRoleInheritance) {
+            if (listInstance.Security && listInstance.Security.BreakRoleInheritance) {
                 promises = promises.then(() => {
-                    return this.spHelper.setupPermissionForList(listInstance.title, listInstance.security);
+                    return this.spHelper.setupPermissionForList(listInstance.Title, listInstance.Security);
                 });
             }
 
@@ -279,8 +279,8 @@ export class TemplateManager {
         return promises;
     }
     private processWorkflows(template: Template) {
-        if (template.workflows == null || template.workflows.subscriptions == null ||
-            template.workflows.subscriptions.length == 0)
+        if (template.Workflows == null || template.Workflows.Subscriptions == null ||
+            template.Workflows.Subscriptions.length == 0)
             return {};
 
         var promises = $.when(1);
@@ -288,7 +288,7 @@ export class TemplateManager {
             this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Provisioning Workflows', OperationStatus.inProgress);
             return {};
         });
-        for (let wfs of template.workflows.subscriptions) {
+        for (let wfs of template.Workflows.Subscriptions) {
             promises = promises.then(() => {
                 return this.spHelper.addWorkflowSubscription(wfs);
             });
@@ -320,18 +320,18 @@ export class TemplateManager {
         //return promises;
     }
     private processWebSettings(template: Template) {
-        if (template.webSettings == null) return {};
-        if (template.webSettings.welcomePage)
-            return this.spHelper.setWelcomePage(template.webSettings.welcomePage);
+        if (template.WebSettings == null) return {};
+        if (template.WebSettings.WelcomePage)
+            return this.spHelper.setWelcomePage(template.WebSettings.WelcomePage);
         return {};
     }
     private processCustomActions(template: Template) {
-        if (template.customActions == null || template.customActions.webCustomActions == null) return {};
+        if (template.CustomActions == null || template.CustomActions.WebCustomActions == null) return {};
 
         var promises = $.when(1);
-        for (let customAction of template.customActions.webCustomActions) {
+        for (let customAction of template.CustomActions.WebCustomActions) {
             promises = promises.then(() => {
-                var templateFileUrl = _spPageContextInfo.webServerRelativeUrl + customAction.url;
+                var templateFileUrl = _spPageContextInfo.webServerRelativeUrl + customAction.Url;
                 return this.spHelper.addCustomAction(_spPageContextInfo.webAbsoluteUrl, templateFileUrl);
 
             });
@@ -341,12 +341,12 @@ export class TemplateManager {
     }
 
     getRoleDefinitionName(template: Template, groupName): string {
-        if (template.security == null || template.security.siteSecurityPermissions == null ||
-            template.security.siteSecurityPermissions.roleAssignments == null) return null;
-        var roleAssignment = Utils.arrayFirst(template.security.siteSecurityPermissions.roleAssignments,
+        if (template.Security == null || template.Security.SiteSecurityPermissions == null ||
+            template.Security.SiteSecurityPermissions.RoleAssignments == null) return null;
+        var roleAssignment = Utils.arrayFirst(template.Security.SiteSecurityPermissions.RoleAssignments,
             (r) => {
-                return r.principal.toLowerCase() == groupName.toLowerCase();
+                return r.Principal.toLowerCase() == groupName.toLowerCase();
             });
-        return roleAssignment == null ? null : roleAssignment.roleDefinition;
+        return roleAssignment == null ? null : roleAssignment.RoleDefinition;
     }
 }

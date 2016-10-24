@@ -1,58 +1,58 @@
 ﻿import SharePointHelper = require("../Provisioning/SharePointHelper");
 import TemplateManager = require("../Provisioning/TemplateManager");
+import ko = require('knockout');
 import ProgressSteps = TemplateManager.ProgressSteps;
 import OperationStatus = TemplateManager.OperationStatus;
 
 import Utils = SharePointHelper.Utils;
 import TemplateFile = SharePointHelper.TemplateFile;
 
+
 class ProgressStep {
     constructor(name: ProgressSteps, title: string, status: OperationStatus = OperationStatus.unknown) {
         this.name = name;
-        this.title( title);
-        this.status (status);
+        this.title(title);
+        this.status(status);
     }
     name: ProgressSteps;
-    status:KnockoutObservable<OperationStatus>;
-    title:KnockoutObservable<string>;
-    noOfActions: number;
+    status: KnockoutObservable<OperationStatus> = ko.observable(null);
+    title: KnockoutObservable<string> = ko.observable(null);
+    noOfActions: number = 0;
 }
 export interface ProgressUIInterface {
     steps: KnockoutObservableArray<ProgressStep>;
     initialize(templateFile: TemplateFile);
-    show(elementId: string, dialogTitle: string, currentStep: ProgressSteps,width?: number, height?: number);
+    show(elementId: string, dialogTitle: string, currentStep: ProgressSteps, width?: number, height?: number);
     setStatus(stepName: ProgressSteps, status: OperationStatus, message?: string);
     setFailed();
 }
 export class ProgressUIModel implements ProgressUIInterface {
     steps: KnockoutObservableArray<ProgressStep>;
-    //constructor(actionSteps: Array<ProgressStep>) {
-    //    this.steps(actionSteps);
-    //}
+   
     initialize(templateFile: TemplateFile) {
-        var steps = new Array<ProgressStep>();
-        for (let templateItem of templateFile.templates) {
-            if (templateItem.features && ((templateItem.features.siteFeatures && templateItem.features.siteFeatures.length > 0) || (templateItem.features.webFeatures && templateItem.features.webFeatures.length > 0))) {
+        this.steps = ko.observableArray([]);
+        for (let templateItem of templateFile.Templates) {
+            if (templateItem.Features && ((templateItem.Features.SiteFeatures && templateItem.Features.SiteFeatures.length > 0) || (templateItem.Features.WebFeatures && templateItem.Features.WebFeatures.length > 0))) {
                 this.addOrUpdateStep(ProgressSteps.Features, 'Feature Activation');
             }
-            if (templateItem.security && ((templateItem.security.siteGroups && templateItem.security.siteGroups.length > 0) ||
-                (templateItem.security.siteSecurityPermissions && templateItem.security.siteSecurityPermissions.roleAssignments &&
-                    templateItem.security.siteSecurityPermissions.roleAssignments.length > 0))) {
+            if (templateItem.Security && ((templateItem.Security.SiteGroups && templateItem.Security.SiteGroups.length > 0) ||
+                (templateItem.Security.SiteSecurityPermissions && templateItem.Security.SiteSecurityPermissions.RoleAssignments &&
+                    templateItem.Security.SiteSecurityPermissions.RoleAssignments.length > 0))) {
                 this.addOrUpdateStep(ProgressSteps.SecurityGroups, 'Site Security');
             }
-            if (templateItem.siteFields && templateItem.siteFields.length > 0) {
+            if (templateItem.SiteFields && templateItem.SiteFields.length > 0) {
                 this.addOrUpdateStep(ProgressSteps.Columns, 'Site Columns');
             }
-            if (templateItem.contentTypes && templateItem.contentTypes.length > 0) {
+            if (templateItem.ContentTypes && templateItem.ContentTypes.length > 0) {
                 this.addOrUpdateStep(ProgressSteps.ContentTypes, 'Content Types');
             }
-            if (templateItem.pages && templateItem.pages.length > 0) {
+            if (templateItem.Pages && templateItem.Pages.length > 0) {
                 this.addOrUpdateStep(ProgressSteps.Pages, 'Pages');
             }
-            if (templateItem.lists && templateItem.lists.length > 0) {
+            if (templateItem.Lists && templateItem.Lists.length > 0) {
                 this.addOrUpdateStep(ProgressSteps.Lists, 'Lists');
             }
-            if (templateItem.workflows && templateItem.workflows.subscriptions && templateItem.workflows.subscriptions.length > 0) {
+            if (templateItem.Workflows && templateItem.Workflows.Subscriptions && templateItem.Workflows.Subscriptions.length > 0) {
                 this.addOrUpdateStep(ProgressSteps.Workflows, 'Workflows');
             }
         }
@@ -64,22 +64,23 @@ export class ProgressUIModel implements ProgressUIInterface {
         });
         if (step) {
             step.noOfActions = step.noOfActions + 1;
+            if (operationStatus) step.status(operationStatus);
         } else {
             this.steps.push(new ProgressStep(stepName, title, operationStatus ? operationStatus : OperationStatus.pending));
         }
     }
     setStatus(stepName: ProgressSteps, status: TemplateManager.OperationStatus, message?: string) {
-        var step = ko.utils.arrayFirst(this.steps(), s => {
+        var step = Utils.arrayFirst<ProgressStep>(this.steps(), s => {
             return s.name == stepName;
         });
-        step.status( status);
+        step.status(status);
         if (message) {
             step.title(message);
         }
     }
     show(elementId: string, dialogTitle: string, currentStep: ProgressSteps, width?: number, height?: number) {
         if (currentStep == ProgressSteps.SiteCreation) {
-            this.addOrUpdateStep(ProgressSteps.SiteCreation, 'Creating Site', OperationStatus.inProgress);
+            this.steps.unshift(new ProgressStep(currentStep, 'Creating Site', OperationStatus.inProgress));
         }
         var existingBinding = ko.dataFor(document.getElementById(elementId));
         if (existingBinding == null || existingBinding == false)
@@ -88,8 +89,8 @@ export class ProgressUIModel implements ProgressUIInterface {
         var options = {
             title: dialogTitle,
             modal: true,
-            width: null,
-            height: null
+            width: 'auto',
+            height: 'auto'
         };
         if (width) {
             options.width = width + 'px';

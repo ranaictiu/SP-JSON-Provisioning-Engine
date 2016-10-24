@@ -95,33 +95,33 @@
         "SiteFeatures": [],
         "WebFeatures": [
           {
-            "Id": "94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb",
+            "ID": "94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb",
             "Description": "SharePoint Server Publishing",
             "Deactivate": false
           },
           {
-            "Id": "ec918931-c874-4033-bd09-4f36b2e31fef",
+            "ID": "ec918931-c874-4033-bd09-4f36b2e31fef",
             "Description": "Workflows can use app permissions",
             "Deactivate": false
           },
           {
-            "Id": "57311b7a-9afd-4ff0-866e-9393ad6647b1",
+            "ID": "57311b7a-9afd-4ff0-866e-9393ad6647b1",
             "Description": "Workflow Task Content Type",
             "Deactivate": false
           },
           {
-            "Id": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
+            "ID": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
             "Description": "Metadata Navigation and Filtering",
             "Deactivate": false
           },
           {
-            "Id": "9520bd18-3606-4133-95bf-1201a5022c8a",
+            "ID": "9520bd18-3606-4133-95bf-1201a5022c8a",
             "Description": "Task Cancellation Workflow Feature",
             "Scope": "site",
             "Deactivate": false
           },
           {
-            "Id": "83bb19e5-f0c1-45ad-8607-fa6797b7bd0f",
+            "ID": "83bb19e5-f0c1-45ad-8607-fa6797b7bd0f",
             "Description": "Task Assignment Workflow Feature",
             "Scope": "site",
             "Deactivate": false

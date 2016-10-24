@@ -15,15 +15,15 @@
     <SharePoint:ScriptLink Name="sp.DocumentManagement.js" runat="server" LoadAfterUI="true" Localizable="false" />
 
     <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="false" LoadAfterUI="true" Localizable="false" />
-     <script data-main="../Scripts/app" type="text/javascript" src="../Scripts/lib/require.js"></script>
-    <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
-    <link rel="Stylesheet" type="text/css" href="../Content/bootstrap/bootstrap.min.css" />
+     <script data-main="../scripts/config" type="text/javascript" src="../scripts/lib/require.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../Content/App.min.css" />
+    <link rel="Stylesheet" type="text/css" href="../Content/themes/base/jquery-ui.min.css" />
 </asp:Content>
 <asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
     Create New Site
 </asp:Content>
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
-    <div id="siteCreationContainer">
+    <div id="siteCreationContainer" class="provisioning-app bs">
         <fieldset>
             <div class="form-group">
                 <label class="control-label">
@@ -55,7 +55,7 @@
             </div>
         </fieldset>
     </div>
-    <div id="siteCreationStatus" style="display: none;">
+    <div id="siteCreationStatus" style="display: none;" class="progress-steps">
         <ul data-bind="foreach: steps()">
             <li data-bind="css: 'status-' + status()">
                 <span class="status-icon"></span>
@@ -64,6 +64,6 @@
         </ul>
     </div>
     <script type="text/javascript">
-        require(['knockout','../scripts/models/SiteTemplateModel']);
+        require(['jQuery', 'jQueryUI', 'knockout', '../scripts/models/SiteTemplateModel']);
     </script>
 </asp:Content>

@@ -1,220 +1,223 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 
 
+
+
 export class Constants {
     static folderContentTypeId: string = '0x012000';
     static pageLayoutContentTypeId = '0x01010007FF3E057FA8AB4AA42FCB67B453FFC100E214EEE741181F4E9F7ACC43278EE811';
 }
 
 export class FeatureInfo {
-    definitionId: string;
+    DefinitionId: string;
 
     constructor(id: string) {
-        this.definitionId = id;
+        this.DefinitionId = id;
     }
 }
 
 export class TemplateFile {
-    language: number;
-    timeZone: number;
-    useSamePermissionsAsParentSite: boolean;
-    webTemplateId: string;
-    templates: Array<Template>;
+    Language: number;
+    TimeZone: number;
+    UseSamePermissionsAsParentSite: boolean;
+    WebTemplateId: string;
+    Templates: Array<Template>;
 }
 
 export class Template {
-    features: {
-        webFeatures: Array<FeatureInfo>;
-        siteFeatures: Array<FeatureInfo>;
+    Features: {
+        WebFeatures: Array<FeatureInfo>;
+        SiteFeatures: Array<FeatureInfo>;
     };
-    security: SiteSecurityInfo;
-    siteFields: Array<FieldInfo>;
-    contentTypes: Array<ContentTypeInfo>;
-    pages: Array<PublishingPageInfo>;
-    lists: Array<ListCreationInfo>;
-    workflows: {
-        subscriptions: Array<WFSubscriptionInfo>;
+    Security: SiteSecurityInfo;
+    SiteFields: Array<FieldInfo>;
+    ContentTypes: Array<ContentTypeInfo>;
+    Pages: Array<PublishingPageInfo>;
+    Lists: Array<ListCreationInfo>;
+    Workflows: {
+        Subscriptions: Array<WFSubscriptionInfo>;
     };
-    webSettings: WebSettings;
-    customActions: {
-        siteCustomActions: Array<CustomActionInfo>;
-        webCustomActions: Array<CustomActionInfo>;
+    WebSettings: WebSettings;
+    CustomActions: {
+        SiteCustomActions: Array<CustomActionInfo>;
+        WebCustomActions: Array<CustomActionInfo>;
     }
 }
 export class CustomActionInfo {
-    url: string;
+    Url: string;
 }
-//export class FeaturesInfo {
-//    webFeatures: Array<FeatureInfo>;
-//    siteFeatures: Array<FeatureInfo>;
-//}
+
 export class SiteSecurityInfo {
-    siteGroups: Array<SiteGroupInfo>;
-    siteSecurityPermissions: {
-        roleAssignments: Array<RoleAssignmentInfo>;
+    SiteGroups: Array<SiteGroupInfo>;
+    SiteSecurityPermissions: {
+        RoleAssignments: Array<RoleAssignmentInfo>;
     };
 }
-//export class SiteSecurityPermissions {
-//    //roleDefinitions: Array<roleDefinitionInfo>;
-//    roleAssignments:Array<RoleAssignmentInfo>;
-//}
 export class SiteGroupInfo {
-    title: string;
-    description: string;
-    owner: string;
-    allowMembersEditMembership: boolean;
-    allowRequestToJoinLeave: boolean;
-    autoAcceptRequestToJoinLeave: boolean;
-    onlyAllowMembersViewMembership: boolean;
-    requestToJoinLeaveEmailSetting: boolean;
-    members: Array<string>;
+    Title: string;
+    Description: string;
+    Owner: string;
+    AllowMembersEditMembership: boolean;
+    AllowRequestToJoinLeave: boolean;
+    AutoAcceptRequestToJoinLeave: boolean;
+    OnlyAllowMembersViewMembership: boolean;
+    RequestToJoinLeaveEmailSetting: boolean;
+    Members: Array<string>;
 
 }
 export class ListInfo {
     constructor(list: SP.List) {
-        this.title = list.get_title();
-        this.id = list.get_id().toString();
-        this.rootFolderUrl = list.get_rootFolder().get_serverRelativeUrl();
-        this.contentTypesEnabled = list.get_contentTypesEnabled();
-        this.parentWebUrl = list.get_parentWebUrl();
+        this.Title = list.get_title();
+        this.ID = list.get_id().toString();
+        this.RootFolderUrl = list.get_rootFolder().get_serverRelativeUrl();
+        this.ContentTypesEnabled = list.get_contentTypesEnabled();
+        this.ParentWebUrl = list.get_parentWebUrl();
     }
 
-    title: string;
-    id: string;
-    rootFolderUrl: string;
-    contentTypesEnabled: boolean;
-    parentWebUrl: string;
+    Title: string;
+    ID: string;
+    RootFolderUrl: string;
+    ContentTypesEnabled: boolean;
+    ParentWebUrl: string;
 }
 export class ViewCreationInfo {
-    displayName: string;
-    rowLimit: number;
-    defaultView: boolean;
-    paged: boolean;
-    query: string;
-    viewFields: Array<string>;
+    DisplayName: string;
+    RowLimit: number;
+    DefaultView: boolean;
+    Paged: boolean;
+    Query: string;
+    ViewFields: Array<string>;
 }
 export class ListCreationInfo {
-    title: string;
-    description: string;
-    url: string;
-    templateType: number;
-    onQuickLaunch: boolean;
-    enableVersioning: boolean;
-    maxVersionLimit: number;
-    minorVersionLimit: number;
-    enableMinorVersions: boolean;
-    enableModeration: boolean;
-    forceCheckOut: boolean;
-    enableAttachments: boolean;
-    hidden: boolean;
-    enableFolderCreation: boolean;
-    views: Array<ViewCreationInfo>;
-    removeExistingViews: boolean;
-    security: ObjectSecurityInfo;
-    dataRows: Array<any>;
-    enableEnterpriseKeywords: boolean;
-    removeExistingContentTypes: boolean;
-    contentTypeBindings: Array<ContentTypeBindingInfo>;
+    Title: string;
+    Description: string;
+    Url: string;
+    TemplateType: number;
+    OnQuickLaunch: boolean;
+    EnableVersioning: boolean;
+    MaxVersionLimit: number;
+    MinorVersionLimit: number;
+    EnableMinorVersions: boolean;
+    EnableModeration: boolean;
+    ForceCheckOut: boolean;
+    EnableAttachments: boolean;
+    Hidden: boolean;
+    EnableFolderCreation: boolean;
+    Views: Array<ViewCreationInfo>;
+    RemoveExistingViews: boolean;
+    Security: ObjectSecurityInfo;
+    DataRows: Array<any>;
+    EnableEnterpriseKeywords: boolean;
+    RemoveExistingContentTypes: boolean;
+    ContentTypeBindings: Array<ContentTypeBindingInfo>;
 }
 export class GroupCreationInfo {
-    title: string;
-    description: string;
-    onlyAllowMembersViewMembership: boolean;
-    allowMembersEditMembership: boolean;
-    allowRequestToJoinLeave: boolean;
-    autoAcceptRequestToJoinLeave: boolean;
+    Title: string;
+    Description: string;
+    OnlyAllowMembersViewMembership: boolean;
+    AllowMembersEditMembership: boolean;
+    AllowRequestToJoinLeave: boolean;
+    AutoAcceptRequestToJoinLeave: boolean;
 }
 export class DependentLookupFieldInfo {
-    showField: string;
-    displayName: string;
+    ShowField: string;
+    DisplayName: string;
 }
 export class FieldInfo {
-    id: string;
-    required: boolean;
-    jsLink: string;
-    name: string;
-    displayName: string;
-    type: string;
-    group: string;
-    list: string;
-    showField: string;
-    dependentLookupFields: Array<DependentLookupFieldInfo>;
+    ID: string;
+    Required: boolean;
+    JSLink: string;
+    Name: string;
+    DisplayName: string;
+    Type: string;
+    Group: string;
+    List: string;
+    ShowField: string;
+    DependentLookupFields: Array<DependentLookupFieldInfo>;
 }
 export class FieldRefInfo {
-    id: string;
-    name: string;
-    hidden: boolean;
-    required: boolean;
+    ID: string;
+    Name: string;
+    Hidden: boolean;
+    Required: boolean;
 }
 export class ContentTypeInfo {
-    parentId: string;
-    name: string;
-    id: string;
-    group: string;
-    description: string;
-    fieldRefs: Array<FieldRefInfo>;
-    documentSetTemplate: DocumentSetTemplateInfo;
+    ParentId: string;
+    Name: string;
+    ID: string;
+    Group: string;
+    Description: string;
+    FieldRefs: Array<FieldRefInfo>;
+    DocumentSetTemplate: DocumentSetTemplateInfo;
 }
 export class ContentTypeNameId {
-    id: SP.ContentTypeId;
-    name: string;
+    ID: SP.ContentTypeId;
+    Name: string;
 }
 export class DocumentSetTemplateInfo extends ContentTypeInfo {
-    allowedContentTypes: Array<ContentTypeNameId>;
-    sharedFields: Array<FieldRefInfo>;
-    welcomePageFields: Array<FieldRefInfo>;
+    AllowedContentTypes: Array<ContentTypeNameId>;
+    SharedFields: Array<FieldRefInfo>;
+    WelcomePageFields: Array<FieldRefInfo>;
 }
 export class ContentTypeBindingInfo {
-    id: string;
-    default: boolean;
-    name: string;
+    ID: string;
+    Default: boolean;
+    Name: string;
 }
 export class WFSubscriptionInfo {
-    historyListTitle: string;
-    taskListTitle: string;
-    listTitle: string;
-    wfdefinitionId: string;
-    name: string;
-    enabled: boolean;
-    workflowStartEvent: boolean;
-    itemAddedEvent: boolean;
-    itemUpdatedEvent: boolean;
+    HistoryListTitle: string;
+    TaskListTitle: string;
+    ListTitle: string;
+    WFDefinitionId: string;
+    Name: string;
+    Enabled: boolean;
+    WorkflowStartEvent: boolean;
+    ItemAddedEvent: boolean;
+    ItemUpdatedEvent: boolean;
 }
 export class PublishingPageInfo {
-    url: string;
-    layout: string;
-    title: string;
-    seoTitle: string;
-    security: ObjectSecurityInfo;
+    Url: string;
+    Layout: string;
+    Title: string;
+    SEOTitle: string;
+    Security: ObjectSecurityInfo;
 
 }
 export class ObjectSecurityInfo {
-    breakRoleInheritance: PermissionInfo;
+    BreakRoleInheritance: PermissionInfo;
 }
 export class PermissionInfo {
-    clearSubscopes: boolean;
-    copyRoleAssignments: boolean;
-    roleAssignment: Array<RoleAssignmentInfo>;
+    ClearSubscopes: boolean;
+    CopyRoleAssignments: boolean;
+    RoleAssignment: Array<RoleAssignmentInfo>;
 }
 export class RoleAssignmentInfo {
-    principal: string;
-    roleDefinition: string;
+    Principal: string;
+    RoleDefinition: string;
 }
 export interface LoggerInterface {
     log(msg: string, isError?: boolean): void
 }
 export class WebSettings {
-    welcomePage: string;
+    WelcomePage: string;
 }
 export class SiteCreationInfo {
-    title: string;
-    name: string;
-    description: string;
-    language: number;
-    useSamePermissionsAsParentSite: boolean;
-    webTemplateId: string;
+    Title: string;
+    Name: string;
+    Description: string;
+    Language: number;
+    UseSamePermissionsAsParentSite: boolean;
+    WebTemplateId: string;
 }
 
+if (!String.prototype.replaceAll) {
+    //http://stackoverflow.com/questions/1144783/replacing-all-occurrences-of-a-string-in-javascript
+    String.prototype.replaceAll = function (search, replacement) {
+        var target = this;
+        search = search.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+        return target.replace(new RegExp(search, 'g'), replacement);
+    };
+}
 
 class Logger implements LoggerInterface {
     log(msg: string, isError: boolean = false) {
@@ -256,13 +259,27 @@ export class Utils {
             }, "sp.js");
         }, "sp.runtime.js");
     }
+    static loadRequestExecutor(callback) {
+        ExecuteOrDelayUntilScriptLoaded(() => {
+            if (SP.ProxyWebRequestExecutorFactory) {
+                callback();
+                return;
+            }
+            var hostWebUrl = decodeURIComponent(Utils.getQueryStringParameter('SPHostUrl'));
+            var scriptbase = hostWebUrl + "/_layouts/15/";
+            $.getScript(scriptbase + "SP.RequestExecutor.js", () => {
+                callback();
+            });
+        }, "sp.js");
+
+    }
     static arrayFirst<T>(array: Array<T>, predicate: (p: T) => boolean, predicateOwner = null): T {
         for (var i = 0, j = array.length; i < j; i++)
             if (predicate.call(predicateOwner, array[i], i))
                 return array[i];
         return null;
     }
-    static arrayFilter<T>(array: Array<T>, predicate: (item:T, index:number) => boolean): Array<T> {
+    static arrayFilter<T>(array: Array<T>, predicate: (item: T, index: number) => boolean): Array<T> {
         array = array || [];
         var result = [];
         for (var i = 0, j = array.length; i < j; i++)
@@ -329,9 +346,10 @@ export class SpHelper {
     private webAvailableContentTypes: SP.ContentType[];
     private _context: SP.ClientObject | SP.ClientContext;
     private _logger: LoggerInterface;
-    constructor(ctx: SP.ClientObject | SP.ClientContext, logger = Logger) {
+    constructor(ctx: SP.ClientObject | SP.ClientContext, logger = new Logger()) {
         this.webAvailableContentTypes = null;
         this._context = ctx;
+        this._logger = logger;
     }
     static isCurrentContextWebApp() {
         return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
@@ -483,16 +501,16 @@ export class SpHelper {
     };
     createGroup(pnpGroup: GroupCreationInfo, roleDefinitionName: string, callback: (group: SP.Group) => void) {
         var d = $.Deferred();
-        this._logger.log('creating group ' + pnpGroup.title, false);
+        this._logger.log('creating group ' + pnpGroup.Title, false);
         var groupCreationInfo = new SP.GroupCreationInformation();
-        groupCreationInfo.set_title(pnpGroup.title);
-        groupCreationInfo.set_description(pnpGroup.description);
+        groupCreationInfo.set_title(pnpGroup.Title);
+        groupCreationInfo.set_description(pnpGroup.Description);
         var web = this.getWeb();
         var group = web.get_siteGroups().add(groupCreationInfo);
-        group.set_onlyAllowMembersViewMembership(pnpGroup.onlyAllowMembersViewMembership);
-        group.set_allowMembersEditMembership(pnpGroup.allowMembersEditMembership);
-        group.set_allowRequestToJoinLeave(pnpGroup.allowRequestToJoinLeave);
-        group.set_autoAcceptRequestToJoinLeave(pnpGroup.autoAcceptRequestToJoinLeave);
+        group.set_onlyAllowMembersViewMembership(pnpGroup.OnlyAllowMembersViewMembership);
+        group.set_allowMembersEditMembership(pnpGroup.AllowMembersEditMembership);
+        group.set_allowRequestToJoinLeave(pnpGroup.AllowRequestToJoinLeave);
+        group.set_autoAcceptRequestToJoinLeave(pnpGroup.AutoAcceptRequestToJoinLeave);
         group.update();
         var executeContext = this.getExecuteContext();
 
@@ -518,12 +536,12 @@ export class SpHelper {
     createSite(siteInfo: SiteCreationInfo) {
 
         var webCreationInfo = new SP.WebCreationInformation();
-        webCreationInfo.set_title(siteInfo.title);
-        webCreationInfo.set_url(siteInfo.name);
-        webCreationInfo.set_description(siteInfo.description);
-        webCreationInfo.set_language(siteInfo.language);
-        webCreationInfo.set_useSamePermissionsAsParentSite(siteInfo.useSamePermissionsAsParentSite);
-        webCreationInfo.set_webTemplate(siteInfo.webTemplateId);
+        webCreationInfo.set_title(siteInfo.Title);
+        webCreationInfo.set_url(siteInfo.Name);
+        webCreationInfo.set_description(siteInfo.Description);
+        webCreationInfo.set_language(siteInfo.Language);
+        webCreationInfo.set_useSamePermissionsAsParentSite(siteInfo.UseSamePermissionsAsParentSite);
+        webCreationInfo.set_webTemplate(siteInfo.WebTemplateId);
 
         var newWeb = this.getWeb().get_webs().add(webCreationInfo);
         var executeContext = this.getExecuteContext();
@@ -632,11 +650,11 @@ export class SpHelper {
     };
     createList(listCreationInfo: ListCreationInfo) {
         var promises = $.when(1);
-        var title = listCreationInfo.title;
-        var description = listCreationInfo.description;
-        var url = listCreationInfo.url;
-        var template = listCreationInfo.templateType;
-        var onQuickLaunch = listCreationInfo.onQuickLaunch;
+        var title = listCreationInfo.Title;
+        var description = listCreationInfo.Description;
+        var url = listCreationInfo.Url;
+        var template = listCreationInfo.TemplateType;
+        var onQuickLaunch = listCreationInfo.OnQuickLaunch;
         var list;
         var web = this.getWeb();
         //let allLists: ListInfo[];
@@ -646,7 +664,7 @@ export class SpHelper {
         });
 
         promises = promises.then(() => {
-            var existingList = Utils.arrayFirst<ListInfo>(allLists, l => (l.title.toLowerCase() == listCreationInfo.title.toLowerCase()));
+            var existingList = Utils.arrayFirst<ListInfo>(allLists, l => (l.Title.toLowerCase() == listCreationInfo.Title.toLowerCase()));
             if (existingList) {
                 list = existingList;
                 return {};
@@ -669,38 +687,38 @@ export class SpHelper {
             if (onQuickLaunch != null) {
                 list.set_onQuickLaunch(onQuickLaunch ? SP.QuickLaunchOptions.on : SP.QuickLaunchOptions.off);
             }
-            if (listCreationInfo.enableVersioning != null) {
-                list.set_enableVersioning(listCreationInfo.enableVersioning);
-                if (listCreationInfo.enableVersioning)
-                    list.set_majorVersionLimit(listCreationInfo.maxVersionLimit);
+            if (listCreationInfo.EnableVersioning != null) {
+                list.set_enableVersioning(listCreationInfo.EnableVersioning);
+                if (listCreationInfo.EnableVersioning)
+                    list.set_majorVersionLimit(listCreationInfo.MaxVersionLimit);
             }
-            if (listCreationInfo.enableMinorVersions != null) {
-                list.set_enableMinorVersions(listCreationInfo.enableMinorVersions);
-                if (listCreationInfo.enableMinorVersions) {
+            if (listCreationInfo.EnableMinorVersions != null) {
+                list.set_enableMinorVersions(listCreationInfo.EnableMinorVersions);
+                if (listCreationInfo.EnableMinorVersions) {
                     list.set_draftVersionVisibility(SP.DraftVisibilityType.author);
-                    list.set_majorWithMinorVersionsLimit(listCreationInfo.minorVersionLimit);
+                    list.set_majorWithMinorVersionsLimit(listCreationInfo.MinorVersionLimit);
                 }
             }
-            if (listCreationInfo.enableModeration != null) {
-                list.set_enableModeration(listCreationInfo.enableModeration);
+            if (listCreationInfo.EnableModeration != null) {
+                list.set_enableModeration(listCreationInfo.EnableModeration);
             }
-            if (listCreationInfo.forceCheckOut != null) {
-                list.set_forceCheckout(listCreationInfo.forceCheckOut);
+            if (listCreationInfo.ForceCheckOut != null) {
+                list.set_forceCheckout(listCreationInfo.ForceCheckOut);
             }
 
 
-            if (listCreationInfo.enableAttachments != null) {
-                list.set_enableAttachments(listCreationInfo.enableAttachments);
+            if (listCreationInfo.EnableAttachments != null) {
+                list.set_enableAttachments(listCreationInfo.EnableAttachments);
             }
-            if (listCreationInfo.hidden != null) {
-                list.set_hidden(listCreationInfo.hidden);
+            if (listCreationInfo.Hidden != null) {
+                list.set_hidden(listCreationInfo.Hidden);
             }
-            if (listCreationInfo.enableFolderCreation != null) {
-                list.set_enableFolderCreation(listCreationInfo.enableFolderCreation);
+            if (listCreationInfo.EnableFolderCreation != null) {
+                list.set_enableFolderCreation(listCreationInfo.EnableFolderCreation);
             }
-            updateListRequired = listCreationInfo.onQuickLaunch != null || listCreationInfo.enableVersioning != null ||
-                listCreationInfo.enableMinorVersions != null || listCreationInfo.enableModeration != null || listCreationInfo.forceCheckOut != null
-                || listCreationInfo.enableAttachments != null || listCreationInfo.hidden != null || listCreationInfo.enableFolderCreation != null;;
+            updateListRequired = listCreationInfo.OnQuickLaunch != null || listCreationInfo.EnableVersioning != null ||
+                listCreationInfo.EnableMinorVersions != null || listCreationInfo.EnableModeration != null || listCreationInfo.ForceCheckOut != null
+                || listCreationInfo.EnableAttachments != null || listCreationInfo.Hidden != null || listCreationInfo.EnableFolderCreation != null;;
             if (updateListRequired) {
                 list.update();
                 return this.executeQueryPromise();
@@ -719,9 +737,9 @@ export class SpHelper {
     }
 
     private processListContentTypes(listInstance: ListCreationInfo) {
-        var listTitle = listInstance.title;
-        var removeExistingContentTypes = listInstance.removeExistingContentTypes;
-        var pnpContentTypeBidnings = listInstance.contentTypeBindings;
+        var listTitle = listInstance.Title;
+        var removeExistingContentTypes = listInstance.RemoveExistingContentTypes;
+        var pnpContentTypeBidnings = listInstance.ContentTypeBindings;
         if (pnpContentTypeBidnings == null || pnpContentTypeBidnings.length == 0) return {};
         var list: ListInfo;
         var promises = $.when(1);
@@ -729,21 +747,21 @@ export class SpHelper {
             return this.getListInfo(listTitle, (l) => { list = l; });
         });
         promises = promises.then(() => {
-            if (!list.contentTypesEnabled) {
-                return this.enableListContentType(list.id);
+            if (!list.ContentTypesEnabled) {
+                return this.enableListContentType(list.ID);
             }
             return $.Deferred().resolve();
         });
         for (let ctb of pnpContentTypeBidnings) {
             promises = promises.then(() => {
                 //var context = new SP.ClientContext(currentWeb.get_serverRelativeUrl());
-                return this.addContentTypeToListInternal(list.id, ctb);
+                return this.addContentTypeToListInternal(list.ID, ctb);
             });
         }
         if (removeExistingContentTypes) {
             promises = promises.then(() => {
                 var defaultContentType = pnpContentTypeBidnings.length == 1 ? pnpContentTypeBidnings[0] : Utils.arrayFirst<ContentTypeBindingInfo>(pnpContentTypeBidnings,
-                    (c) => { return c.default != null && c.default; });
+                    (c) => { return c.Default != null && c.Default; });
                 return this.removeAllContentTypesBut(listTitle, pnpContentTypeBidnings, defaultContentType);
             });
 
@@ -783,7 +801,7 @@ export class SpHelper {
     }
 
     createViews(pnpListInstance: ListCreationInfo) {
-        if (pnpListInstance.views == null || pnpListInstance.views.length == 0) return {};
+        if (pnpListInstance.Views == null || pnpListInstance.Views.length == 0) return {};
         var web = this.getWeb();
         var executeContext = this.getExecuteContext();
         var existingViews = null;
@@ -791,7 +809,7 @@ export class SpHelper {
 
         var promises = $.when(1);
         promises = promises.then(() => {
-            listInstance = web.get_lists().getByTitle(pnpListInstance.title);
+            listInstance = web.get_lists().getByTitle(pnpListInstance.Title);
             existingViews = listInstance.get_views();
             executeContext.load(existingViews);
             executeContext.load(listInstance);
@@ -799,7 +817,7 @@ export class SpHelper {
         });
 
         promises = promises.then(() => {
-            if (!pnpListInstance.removeExistingViews) return {};
+            if (!pnpListInstance.RemoveExistingViews) return {};
             existingViews = this.getEnumerationList(existingViews);
             for (var i = 0; i < existingViews.length; i++) {
                 existingViews[i].deleteObject();
@@ -807,16 +825,16 @@ export class SpHelper {
             return this.executeQueryPromise();
         });
 
-        for (let pnpView of pnpListInstance.views) {
+        for (let pnpView of pnpListInstance.Views) {
             promises = promises.then(() => {
                 var listViewCreationInfo = new SP.ViewCreationInformation();
-                listViewCreationInfo.set_title(pnpView.displayName);
-                listViewCreationInfo.set_rowLimit(pnpView.rowLimit ? pnpView.rowLimit : 30);
+                listViewCreationInfo.set_title(pnpView.DisplayName);
+                listViewCreationInfo.set_rowLimit(pnpView.RowLimit ? pnpView.RowLimit : 30);
                 listViewCreationInfo.set_viewTypeKind(SP.ViewType.html); //for now set html.
-                listViewCreationInfo.set_setAsDefaultView(pnpView.defaultView);
-                listViewCreationInfo.set_paged(pnpView.paged);
-                listViewCreationInfo.set_query(pnpView.query);
-                listViewCreationInfo.set_viewFields(pnpView.viewFields);
+                listViewCreationInfo.set_setAsDefaultView(pnpView.DefaultView);
+                listViewCreationInfo.set_paged(pnpView.Paged);
+                listViewCreationInfo.set_query(pnpView.Query);
+                listViewCreationInfo.set_viewFields(pnpView.ViewFields);
                 listInstance.get_views().add(listViewCreationInfo);
                 return this.executeQueryPromise();
             });
@@ -951,10 +969,10 @@ export class SpHelper {
         var executeContext = this.getExecuteContext();
         let lists: Array<ListInfo>;
 
-        var idPart = pnpField.id == null ? "" : "ID='" + pnpField.id + "'";
-        var requiredPart = pnpField.required ? " Required='TRUE' " : " Required='FALSE' ";
-        var jsLinkPart = pnpField.jsLink ? ` JSLink='${pnpField.jsLink}' ` : "";
-        let xml: string = `<Field ${idPart}  Name='${pnpField.name}' DisplayName='${pnpField.displayName}' Type='${pnpField.type}' ${requiredPart}  ${jsLinkPart}  Group='${pnpField.group}' />`;
+        var idPart = pnpField.ID == null ? "" : "ID='" + pnpField.ID + "'";
+        var requiredPart = pnpField.Required ? " Required='TRUE' " : " Required='FALSE' ";
+        var jsLinkPart = pnpField.JSLink ? ` JSLink='${pnpField.JSLink}' ` : "";
+        let xml: string = `<Field ${idPart}  Name='${pnpField.Name}' DisplayName='${pnpField.DisplayName}' Type='${pnpField.Type}' ${requiredPart}  ${jsLinkPart}  Group='${pnpField.Group}' />`;
         var fieldCreated;
 
         promises = promises.then(() => {
@@ -966,32 +984,32 @@ export class SpHelper {
 
 
 
-        if (pnpField.type == 'Lookup' || pnpField.type == 'LookupMulti') {
+        if (pnpField.Type == 'Lookup' || pnpField.Type == 'LookupMulti') {
             promises = promises.then(() => {
                 return this.getAllLists((lsts) => {
                     lists = lsts;
                 });
             });
             promises = promises.then(() => {
-                var listUrl = (webServerRelativeUrl + '/' + pnpField.list).toLowerCase();
+                var listUrl = (webServerRelativeUrl + '/' + pnpField.List).toLowerCase();
                 var list = Utils.arrayFirst<ListInfo>(lists, (l) => {
-                    return l.rootFolderUrl.toLowerCase() == listUrl;
+                    return l.RootFolderUrl.toLowerCase() == listUrl;
                 });
 
                 var fieldLookup = <SP.FieldLookup>executeContext.castTo(fieldCreated, SP.FieldLookup);
-                fieldLookup.set_lookupList(list.id);
-                fieldLookup.set_lookupField(pnpField.showField);
-                fieldLookup.set_allowMultipleValues(pnpField.type == 'LookupMulti');
+                fieldLookup.set_lookupList(list.ID);
+                fieldLookup.set_lookupField(pnpField.ShowField);
+                fieldLookup.set_allowMultipleValues(pnpField.Type == 'LookupMulti');
                 fieldLookup.update();
 
                 return this.executeQueryPromise();
 
             });
-            if (pnpField.dependentLookupFields) {
+            if (pnpField.DependentLookupFields) {
                 promises = promises.then(() => {
                     var fieldLookup = <SP.FieldLookup>executeContext.castTo(fieldCreated, SP.FieldLookup);
-                    for (var i = 0; i < pnpField.dependentLookupFields.length; i++) {
-                        web.get_fields().addDependentLookup(pnpField.dependentLookupFields[i].displayName, fieldLookup, pnpField.dependentLookupFields[i].showField);
+                    for (var i = 0; i < pnpField.DependentLookupFields.length; i++) {
+                        web.get_fields().addDependentLookup(pnpField.DependentLookupFields[i].DisplayName, fieldLookup, pnpField.DependentLookupFields[i].ShowField);
                     }
                     return this.executeQueryPromise();
                 });
@@ -1002,12 +1020,12 @@ export class SpHelper {
     createWebContentType(pnpContentType: ContentTypeInfo) {
         var promises = $.when(1);
         var webContentTypes;
-        var ctParentId = pnpContentType.parentId;
-        var ctName = pnpContentType.name;
-        var ctGroup = pnpContentType.group;
-        var ctDescription = pnpContentType.description;
-        var fieldRefs = pnpContentType.fieldRefs;
-        var docSetTemplate = pnpContentType.documentSetTemplate;
+        var ctParentId = pnpContentType.ParentId;
+        var ctName = pnpContentType.Name;
+        var ctGroup = pnpContentType.Group;
+        var ctDescription = pnpContentType.Description;
+        var fieldRefs = pnpContentType.FieldRefs;
+        var docSetTemplate = pnpContentType.DocumentSetTemplate;
         var executeContext = this.getExecuteContext();
         let contentTypeCreated: SP.ContentType;
         let fieldLinks: Array<SP.FieldLink>;
@@ -1041,7 +1059,7 @@ export class SpHelper {
                 promises = promises.then(() => {
                     contentTypeCreated = this.getWeb().get_contentTypes().getById(contentTypeCreated.get_id().toString());
 
-                    var fieldRefId = new SP.Guid(fr.id);
+                    var fieldRefId = new SP.Guid(fr.ID);
                     var fieldExists = Utils.arrayFirst<SP.FieldLink>(fieldLinks, (fl) => {
 
                         return fl.get_id().equals(fieldRefId);
@@ -1052,16 +1070,16 @@ export class SpHelper {
                         fieldLink = contentTypeCreated.get_fieldLinks().getById(fieldRefId);
                     } else {
                         var fieldLinkCreationInfo = new SP.FieldLinkCreationInformation();
-                        var field = this.getWeb().get_availableFields().getByInternalNameOrTitle(fr.name);
+                        var field = this.getWeb().get_availableFields().getByInternalNameOrTitle(fr.Name);
                         fieldLinkCreationInfo.set_field(field);
                         fieldLink = contentTypeCreated.get_fieldLinks().add(fieldLinkCreationInfo);
                     }
 
-                    if (fr.hidden != null) {
-                        fieldLink.set_hidden(fr.hidden);
+                    if (fr.Hidden != null) {
+                        fieldLink.set_hidden(fr.Hidden);
                     }
-                    if (fr.required != null)
-                        fieldLink.set_required(fr.required);
+                    if (fr.Required != null)
+                        fieldLink.set_required(fr.Required);
 
 
                     contentTypeCreated.update(true);
@@ -1073,7 +1091,7 @@ export class SpHelper {
         }
         promises = promises.then(() => {
             var reorderedFields = Utils.arrayMap(fieldRefs, (f, i) => {
-                return f.name;
+                return f.Name;
             });
             var fieldLinks = contentTypeCreated.get_fieldLinks();
             fieldLinks.reorder(reorderedFields);
@@ -1122,10 +1140,10 @@ export class SpHelper {
             var dsAllowedContentTypes = this.getEnumerationList(allowedContentTypesResponse);
             webAvailableContentTypes = this.getEnumerationList<SP.ContentType>(webAvailableContentCollection);
             //add contnet types
-            for (var i = 0; i < pnpDocSetTemplate.allowedContentTypes.length; i++) {
-                var pnpAllowedCT = pnpDocSetTemplate.allowedContentTypes[i];
+            for (var i = 0; i < pnpDocSetTemplate.AllowedContentTypes.length; i++) {
+                var pnpAllowedCT = pnpDocSetTemplate.AllowedContentTypes[i];
                 var ctDefinition = Utils.arrayFirst<SP.ContentType>(webAvailableContentTypes, (ct) => {
-                    return ct.get_name() == pnpAllowedCT.name;
+                    return ct.get_name() == pnpAllowedCT.Name;
                 });
                 var ctExistsInDocumentSet = Utils.arrayFirst(dsAllowedContentTypes, (act) => { //check if content type already exists in document set
                     return (<SP.ContentTypeId>act).get_stringValue().toLowerCase() == ctDefinition.get_id().get_stringValue().toLowerCase();
@@ -1142,8 +1160,8 @@ export class SpHelper {
                     return ct.get_id().get_stringValue().toLowerCase() == (<SP.ContentTypeId>dsAllowedContentType).get_stringValue().toLowerCase();
                 });
 
-                var removeCT = Utils.arrayFirst<ContentTypeNameId>(pnpDocSetTemplate.allowedContentTypes, (ct) => { //check if content type is allowed in document set
-                    return ct.name == ctDefinition.get_name();
+                var removeCT = Utils.arrayFirst<ContentTypeNameId>(pnpDocSetTemplate.AllowedContentTypes, (ct) => { //check if content type is allowed in document set
+                    return ct.Name == ctDefinition.get_name();
                 }) == null;
                 if (removeCT) {
                     dsTemplate.get_allowedContentTypes().remove(ctDefinition.get_id());
@@ -1153,24 +1171,24 @@ export class SpHelper {
 
             //add shared fields
             var dsSharedFields = this.getEnumerationList<SP.Field>(sharedFieldsResponse);
-            for (var j = 0; j < pnpDocSetTemplate.sharedFields.length; j++) {
-                var sField = pnpDocSetTemplate.sharedFields[j];
-                var field = web.get_availableFields().getByInternalNameOrTitle(sField.name);
+            for (var j = 0; j < pnpDocSetTemplate.SharedFields.length; j++) {
+                var sField = pnpDocSetTemplate.SharedFields[j];
+                var field = web.get_availableFields().getByInternalNameOrTitle(sField.Name);
                 var fieldExists = Utils.arrayFirst<SP.Field>(dsSharedFields, (sf) => {
-                    return sf.get_internalName() == sField.name;
+                    return sf.get_internalName() == sField.Name;
                 }) != null;
                 if (!fieldExists)
                     dsTemplate.get_sharedFields().add(field);
             }
 
             var dsWelcomePageFields = this.getEnumerationList<SP.Field>(welcomeFieldsResponse);
-            for (var k = 0; k < pnpDocSetTemplate.welcomePageFields.length; k++) {
-                var wField = pnpDocSetTemplate.welcomePageFields[k];
+            for (var k = 0; k < pnpDocSetTemplate.WelcomePageFields.length; k++) {
+                var wField = pnpDocSetTemplate.WelcomePageFields[k];
                 var wfExists = Utils.arrayFirst<SP.Field>(dsWelcomePageFields, (f) => {
-                    return f.get_internalName() == wField.name;
+                    return f.get_internalName() == wField.Name;
                 }) != null;
                 if (!wfExists) {
-                    var field = web.get_availableFields().getByInternalNameOrTitle(wField.name);
+                    var field = web.get_availableFields().getByInternalNameOrTitle(wField.Name);
                     dsTemplate.get_welcomePageFields().add(field);
                 }
             }
@@ -1203,11 +1221,11 @@ export class SpHelper {
 
             var reorderedListContentTypes = [];
             var defaultContentType = Utils.arrayFirst<SP.ContentType>(listContentTypes, (ct) => {
-                return ct.get_name() == pnpDeafultContentType.name;
+                return ct.get_name() == pnpDeafultContentType.Name;
             });
             reorderedListContentTypes.push(defaultContentType.get_id());
             var nonDefaultContentTypes = Utils.arrayFilter(listContentTypes, (ct) => {
-                return ct.get_name() != pnpDeafultContentType.name && !ct.get_stringId().startsWith(Constants.folderContentTypeId);//ignore folder
+                return ct.get_name() != pnpDeafultContentType.Name && !ct.get_stringId().startsWith(Constants.folderContentTypeId);//ignore folder
             });
             for (let ct of nonDefaultContentTypes) {
                 reorderedListContentTypes.push(ct.get_id());
@@ -1231,7 +1249,7 @@ export class SpHelper {
 
             var contentTypesToDelete = Utils.arrayFilter(listContentTypes, (lct) => {
                 return Utils.arrayFirst<ContentTypeBindingInfo>(pnpContentTypeBindings, (ctb) => {
-                    return ctb.name == lct.get_name();
+                    return ctb.Name == lct.get_name();
                 }) == null;
             });
             contentTypesToDelete = Utils.arrayFilter(contentTypesToDelete, (ctb) => {//exclude folders
@@ -1389,7 +1407,7 @@ export class SpHelper {
         });
         return d;
     }
-    getAllwebs(parentWeb: SP.Web, properties: string, callback: (webs: Array<SP.WebInformation>) => any) {
+    getAllwebs(parentWeb: SP.Web, properties: string, callback: (webs: Array<SP.Web>) => any) {
         var d = $.Deferred();
         //var site = this.getSite();
         //var allWebs = site.get_rootWeb().get_webs();
@@ -1400,7 +1418,7 @@ export class SpHelper {
         }
         executeContext.load(allWebs, properties);
         executeContext.executeQueryAsync(() => {
-            callback(this.getEnumerationList<SP.WebInformation>(allWebs));
+            callback(this.getEnumerationList<SP.Web>(allWebs));
             d.resolve();
         }, () => {
             d.reject();
@@ -1670,17 +1688,17 @@ export class SpHelper {
         });
         promises = promises.then(() => {
             historyList = Utils.arrayFirst<ListInfo>(allLists, (l) => {
-                return l.title.toLowerCase() == pnpWFSubscription.historyListTitle.toLowerCase();
+                return l.Title.toLowerCase() == pnpWFSubscription.HistoryListTitle.toLowerCase();
             });
             taskList = Utils.arrayFirst<ListInfo>(allLists, (l) => {
-                return l.title.toLowerCase() == pnpWFSubscription.taskListTitle.toLowerCase();
+                return l.Title.toLowerCase() == pnpWFSubscription.TaskListTitle.toLowerCase();
             });
-            var targetList = pnpWFSubscription.listTitle == null ? null : Utils.arrayFirst<ListInfo>(allLists, (l) => {
-                return l.title.toLowerCase() == pnpWFSubscription.listTitle.toLowerCase();
+            var targetList = pnpWFSubscription.ListTitle == null ? null : Utils.arrayFirst<ListInfo>(allLists, (l) => {
+                return l.Title.toLowerCase() == pnpWFSubscription.ListTitle.toLowerCase();
             });
             if (targetList) {
                 //targetListId = targetList.get_id ? targetList.get_id().toString() : targetList.id;
-                targetListId = targetList.id;
+                targetListId = targetList.ID;
             }
             return {};
         });
@@ -1690,7 +1708,7 @@ export class SpHelper {
             if (historyList == null) {
                 var historyListCreationInformation = new SP.ListCreationInformation();
                 historyListCreationInformation.set_templateType(SP.ListTemplateType.workflowHistory);
-                historyListCreationInformation.set_title(pnpWFSubscription.historyListTitle);
+                historyListCreationInformation.set_title(pnpWFSubscription.HistoryListTitle);
                 historyList = web.get_lists().add(historyListCreationInformation);
                 executeContext.load(historyList);
                 listCreated = true;
@@ -1698,7 +1716,7 @@ export class SpHelper {
             if (taskList == null) {
                 var taskListCreationInformation = new SP.ListCreationInformation();
                 taskListCreationInformation.set_templateType(SP.ListTemplateType.tasks);
-                taskListCreationInformation.set_title(pnpWFSubscription.taskListTitle);
+                taskListCreationInformation.set_title(pnpWFSubscription.TaskListTitle);
                 taskList = web.get_lists().add(taskListCreationInformation);
                 executeContext.load(taskList);
                 listCreated = true;
@@ -1738,7 +1756,7 @@ export class SpHelper {
         });
         promises = promises.then(() => {
             if (targetListId == null) {
-                wfSubscriptionCollection = wfSubscriptionService.enumerateSubscriptionsByDefinition(pnpWFSubscription.wfdefinitionId);
+                wfSubscriptionCollection = wfSubscriptionService.enumerateSubscriptionsByDefinition(pnpWFSubscription.WFDefinitionId);
                 executeContext.load(wfSubscriptionCollection);
                 return this.executeQueryPromise();
             }
@@ -1749,7 +1767,7 @@ export class SpHelper {
             if (targetListId == null) {
                 wfSubscriptions = this.getEnumerationList<SP.WorkflowServices.WorkflowSubscription>(wfSubscriptionCollection);
                 subscriptionExists = Utils.arrayFirst<SP.WorkflowServices.WorkflowSubscription>(wfSubscriptions, (s) => {
-                    return s.get_name() == pnpWFSubscription.name;
+                    return s.get_name() == pnpWFSubscription.Name;
                 }) != null;
 
                 //if (wfSubscription) {
@@ -1763,26 +1781,26 @@ export class SpHelper {
 
         promises = promises.then(() => {
             if (subscriptionExists) {
-                this._logger.log(`workflow subscription ${pnpWFSubscription.name} exists.`);
+                this._logger.log(`workflow subscription ${pnpWFSubscription.Name} exists.`);
                 return {};
             }
 
             var wfSubscription = new SP.WorkflowServices.WorkflowSubscription(executeContext);
-            wfSubscription.set_definitionId(new SP.Guid(pnpWFSubscription.wfdefinitionId));
-            wfSubscription.set_name(pnpWFSubscription.name);
+            wfSubscription.set_definitionId(new SP.Guid(pnpWFSubscription.WFDefinitionId));
+            wfSubscription.set_name(pnpWFSubscription.Name);
 
 
-            if (pnpWFSubscription.enabled != null)
-                wfSubscription.set_enabled(pnpWFSubscription.enabled);
+            if (pnpWFSubscription.Enabled != null)
+                wfSubscription.set_enabled(pnpWFSubscription.Enabled);
 
             var eventTypes = [];
-            if (pnpWFSubscription.workflowStartEvent != null && pnpWFSubscription.workflowStartEvent) {
+            if (pnpWFSubscription.WorkflowStartEvent != null && pnpWFSubscription.WorkflowStartEvent) {
                 eventTypes.push('WorkflowStart');
             }
-            if (pnpWFSubscription.itemAddedEvent != null && pnpWFSubscription.itemAddedEvent) {
+            if (pnpWFSubscription.ItemAddedEvent != null && pnpWFSubscription.ItemAddedEvent) {
                 eventTypes.push('ItemAdded');
             }
-            if (pnpWFSubscription.itemUpdatedEvent != null && pnpWFSubscription.itemUpdatedEvent) {
+            if (pnpWFSubscription.ItemUpdatedEvent != null && pnpWFSubscription.ItemUpdatedEvent) {
                 eventTypes.push('ItemUpdated');
             }
             wfSubscription.set_eventTypes(eventTypes);
@@ -1950,7 +1968,7 @@ export class SpHelper {
             var newPage, pageExists;
 
             promises = promises.then(() => {
-                var pageServerRelativeUrl = webServerRelativeUrl + '/' + pnpPage.url;
+                var pageServerRelativeUrl = webServerRelativeUrl + '/' + pnpPage.Url;
                 pageExists = Utils.arrayFirst(publishingPages, (pp) => {
                     return pp.get_item('FileLeafRef').toLowerCase() == pageServerRelativeUrl.toLowerCase();
                 }) != null;
@@ -1961,10 +1979,10 @@ export class SpHelper {
                 if (pageExists) return {};
                 var publishingWeb = SP.Publishing.PublishingWeb.getPublishingWeb(executeContext, web);
                 var pubPageInfo = new SP.Publishing.PublishingPageInformation();
-                pubPageInfo.set_name(pnpPage.url);
+                pubPageInfo.set_name(pnpPage.Url);
 
                 var pageLayout = Utils.arrayFirst(pageLayouts, (pl) => {
-                    return pl.get_item('Title') != null && pl.get_item('Title').toLowerCase() == pnpPage.layout.toLowerCase();
+                    return pl.get_item('Title') != null && pl.get_item('Title').toLowerCase() == pnpPage.Layout.toLowerCase();
                 });
 
                 pubPageInfo.set_pageLayoutListItem(pageLayout);
@@ -1975,9 +1993,9 @@ export class SpHelper {
             promises = promises.then(() => {
                 if (pageExists) return {};
                 var pageListItem = newPage.get_listItem();
-                pageListItem.set_item("Title", pnpPage.title);
-                if (pnpPage.seoTitle) {
-                    pageListItem.set_item('SeoBrowserTitle', pnpPage.seoTitle);
+                pageListItem.set_item("Title", pnpPage.Title);
+                if (pnpPage.SEOTitle) {
+                    pageListItem.set_item('SeoBrowserTitle', pnpPage.SEOTitle);
                 }
                 pageListItem.update();
                 pageListItem.get_file().checkIn();
@@ -1985,12 +2003,12 @@ export class SpHelper {
                 return this.executeQueryPromise();
             });
 
-            this.applySecurity(newPage.get_listItem(), pnpPage.security);
+            this.applySecurity(newPage.get_listItem(), pnpPage.Security);
 
             promises = promises.then(() => {
-                if (!pageExists && pnpPage.security != null) {
+                if (!pageExists && pnpPage.Security != null) {
                     var d = $.Deferred();
-                    this.applySecurity(newPage.get_listItem(), pnpPage.security).then(() => {
+                    this.applySecurity(newPage.get_listItem(), pnpPage.Security).then(() => {
                         d.resolve();
                     }, () => {
                         d.reject();
@@ -2007,7 +2025,7 @@ export class SpHelper {
         return promises;
     }
     private applySecurity(securableObject: SP.SecurableObject, pnpSecurity: ObjectSecurityInfo) {
-        var pnpPermission = pnpSecurity.breakRoleInheritance;
+        var pnpPermission = pnpSecurity.BreakRoleInheritance;
         var web = this.getWeb();
         var executeContext = this.getExecuteContext();
         let roleAssignments: Array<SP.RoleAssignment>;
@@ -2018,7 +2036,7 @@ export class SpHelper {
         var promises = $.when(1);
 
         promises = promises.then(() => {
-            securableObject.breakRoleInheritance(pnpPermission.copyRoleAssignments, pnpPermission.clearSubscopes);
+            securableObject.breakRoleInheritance(pnpPermission.CopyRoleAssignments, pnpPermission.ClearSubscopes);
             executeContext.load(web, 'Title');
             return this.executeQueryPromise();
         });
@@ -2038,22 +2056,22 @@ export class SpHelper {
         });
 
 
-        for (let pnpRoleAssignment of pnpPermission.roleAssignment) {
+        for (let pnpRoleAssignment of pnpPermission.RoleAssignment) {
             promises = promises.then(() => {
-                var roleDefinitionName = pnpRoleAssignment.roleDefinition;
+                var roleDefinitionName = pnpRoleAssignment.RoleDefinition;
                 var roleDefinition = web.get_roleDefinitions().getByName(roleDefinitionName);
 
                 //check role in current object
                 var existingRole = Utils.arrayFirst(roleAssignments, (ra) => {
-                    return ra.get_member().get_title().toLowerCase() == pnpRoleAssignment.principal.toLowerCase();
+                    return ra.get_member().get_title().toLowerCase() == pnpRoleAssignment.Principal.toLowerCase();
                 });
 
                 if (existingRole == null) {
                     let newRole: SP.Principal = Utils.arrayFirst(siteGroups, (sg) => {
-                        return sg.get_loginName().toLowerCase() == pnpRoleAssignment.principal.toLowerCase();
+                        return sg.get_loginName().toLowerCase() == pnpRoleAssignment.Principal.toLowerCase();
                     });
                     if (newRole == null) {
-                        newRole = web.ensureUser(pnpRoleAssignment.principal);
+                        newRole = web.ensureUser(pnpRoleAssignment.Principal);
                     }
                     var collRoleDefinitionBinding = SP.RoleDefinitionBindingCollection.newObject(executeContext);
                     collRoleDefinitionBinding.add(roleDefinition);
@@ -2303,3 +2321,4 @@ export class SpHelper {
     }
 
 }
+

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <Module Name="RootModule">
+    <File Path="compilerconfig.json" Url="compilerconfig.json" ReplaceContent="TRUE" />
+    <File Path="compilerconfig.json.defaults" Url="compilerconfig.json.defaults" ReplaceContent="TRUE" />
   </Module>
 </Elements>

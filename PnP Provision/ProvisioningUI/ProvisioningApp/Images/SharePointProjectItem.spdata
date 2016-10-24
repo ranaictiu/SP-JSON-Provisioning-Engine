@@ -3,5 +3,8 @@
   <Files>
     <ProjectItemFile Source="Elements.xml" Target="Images\" Type="ElementManifest" />
     <ProjectItemFile Source="AppIcon.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="error.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="tick.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="wait-step.png" Target="Images\" Type="ElementFile" />
   </Files>
 </ProjectItem>

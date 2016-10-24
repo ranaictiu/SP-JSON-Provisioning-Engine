@@ -2,5 +2,8 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <Module Name="Images">
     <File Path="Images\AppIcon.png" Url="Images/AppIcon.png" ReplaceContent="TRUE" />
+    <File Path="Images\error.png" Url="Images/error.png" ReplaceContent="TRUE" />
+    <File Path="Images\tick.png" Url="Images/tick.png" ReplaceContent="TRUE" />
+    <File Path="Images\wait-step.png" Url="Images/wait-step.png" ReplaceContent="TRUE" />
   </Module>
 </Elements>

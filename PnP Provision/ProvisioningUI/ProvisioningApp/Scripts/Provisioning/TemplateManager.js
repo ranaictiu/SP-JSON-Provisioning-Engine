@@ -91,10 +91,10 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 });
             });
             promises = promises.then(function () {
-                var pnpFeatures = template.features != null && template.features.webFeatures != null ? template.features.webFeatures : null;
+                var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
                 featuresToActivate = Utils.arrayFilter(pnpFeatures, function (f) {
                     return Utils.arrayFirst(activatedWebFeatures, function (af) {
-                        return f.definitionId.toLowerCase() == af.definitionId.toLowerCase();
+                        return f.DefinitionId.toLowerCase() == af.DefinitionId.toLowerCase();
                     }) == null;
                 });
                 return {};
@@ -115,7 +115,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processSiteGroups = function (template) {
             var _this = this;
-            if (template.security == null || template.security.siteGroups == null || template.security.siteGroups.length ==
+            if (template.Security == null || template.Security.SiteGroups == null || template.Security.SiteGroups.length ==
                 0)
                 return {};
             var promises = $.when(1);
@@ -128,9 +128,9 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             });
             var _loop_1 = function(g) {
                 promises = promises.then(function () {
-                    var roleDefinitionName = _this.getRoleDefinitionName(template, g.title);
+                    var roleDefinitionName = _this.getRoleDefinitionName(template, g.Title);
                     var groupExists = Utils.arrayFirst(siteGroups, function (grp) {
-                        return grp.get_title().toLowerCase() == g.title.toLowerCase();
+                        return grp.get_title().toLowerCase() == g.Title.toLowerCase();
                     }) != null;
                     if (groupExists)
                         return {};
@@ -138,7 +138,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                     });
                 });
             };
-            for (var _i = 0, _a = template.security.siteGroups; _i < _a.length; _i++) {
+            for (var _i = 0, _a = template.Security.SiteGroups; _i < _a.length; _i++) {
                 var g = _a[_i];
                 _loop_1(g);
             }
@@ -150,7 +150,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processSiteFields = function (template) {
             var _this = this;
-            if (template.siteFields == null || template.siteFields.length == 0)
+            if (template.SiteFields == null || template.SiteFields.length == 0)
                 return {};
             var promises = $.when(1);
             var availableFields;
@@ -163,7 +163,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var _loop_2 = function(sf) {
                 promises = promises.then(function () {
                     var fieldExistsAlready = Utils.arrayFirst(availableFields, function (f) {
-                        return f.get_internalName() == sf.name;
+                        return f.get_internalName() == sf.Name;
                     }) != null;
                     if (fieldExistsAlready) {
                         return $.Deferred().resolve();
@@ -172,7 +172,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                     return _this.spHelper.createWebField(_this.currentWeb.get_serverRelativeUrl(), sf);
                 });
             };
-            for (var _i = 0, _a = template.siteFields; _i < _a.length; _i++) {
+            for (var _i = 0, _a = template.SiteFields; _i < _a.length; _i++) {
                 var sf = _a[_i];
                 _loop_2(sf);
             }
@@ -184,7 +184,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processContentTypes = function (template) {
             var _this = this;
-            if (template.contentTypes == null || template.contentTypes.length == 0)
+            if (template.ContentTypes == null || template.ContentTypes.length == 0)
                 return {};
             var promises = $.when(1);
             var availableContentTypes;
@@ -197,7 +197,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var _loop_3 = function(ct) {
                 promises = promises.then(function () {
                     var ctExists = Utils.arrayFirst(availableContentTypes, function (cti) {
-                        return ct.name == cti.get_name();
+                        return ct.Name == cti.get_name();
                     }) != null;
                     if (ctExists) {
                         return $.Deferred().resolve();
@@ -205,7 +205,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                     return _this.spHelper.createWebContentType(ct);
                 });
             };
-            for (var _i = 0, _a = template.contentTypes; _i < _a.length; _i++) {
+            for (var _i = 0, _a = template.ContentTypes; _i < _a.length; _i++) {
                 var ct = _a[_i];
                 _loop_3(ct);
             }
@@ -217,7 +217,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processPublishingPages = function (template) {
             var _this = this;
-            if (template.pages == null || template.pages.length == 0)
+            if (template.Pages == null || template.Pages.length == 0)
                 return {};
             var promises = $.when(1);
             promises = promises.then(function () {
@@ -225,7 +225,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 return {};
             });
             promises = promises.then(function () {
-                return _this.spHelper.provisionPublishingPages(template.pages);
+                return _this.spHelper.provisionPublishingPages(template.Pages);
             });
             promises = promises.then(function () {
                 _this.progressListener.progressUpdate(ProgressSteps.Pages, 'Pages Created', OperationStatus.success);
@@ -235,7 +235,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processLists = function (template) {
             var _this = this;
-            if (template.lists == null || template.lists.length == 0)
+            if (template.Lists == null || template.Lists.length == 0)
                 return {};
             var promises = $.when(1);
             var allLists;
@@ -252,25 +252,25 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 promises = promises.then(function () {
                     return _this.spHelper.createList(listInstance);
                 });
-                if (listInstance.enableEnterpriseKeywords)
+                if (listInstance.EnableEnterpriseKeywords)
                     promises = promises.then(function () {
-                        return _this.spHelper.addEnterpriseKeywordColumnsToList(listInstance.title);
+                        return _this.spHelper.addEnterpriseKeywordColumnsToList(listInstance.Title);
                     });
                 promises = promises.then(function () {
                     return _this.spHelper.createViews(listInstance);
                 });
-                if (listInstance.dataRows) {
+                if (listInstance.DataRows) {
                     promises = promises.then(function () {
-                        return _this.spHelper.populateList(listInstance.title, listInstance.dataRows);
+                        return _this.spHelper.populateList(listInstance.Title, listInstance.DataRows);
                     });
                 }
-                if (listInstance.security && listInstance.security.breakRoleInheritance) {
+                if (listInstance.Security && listInstance.Security.BreakRoleInheritance) {
                     promises = promises.then(function () {
-                        return _this.spHelper.setupPermissionForList(listInstance.title, listInstance.security);
+                        return _this.spHelper.setupPermissionForList(listInstance.Title, listInstance.Security);
                     });
                 }
             };
-            for (var _i = 0, _a = template.lists; _i < _a.length; _i++) {
+            for (var _i = 0, _a = template.Lists; _i < _a.length; _i++) {
                 var listInstance = _a[_i];
                 _loop_4(listInstance);
             }
@@ -282,8 +282,8 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processWorkflows = function (template) {
             var _this = this;
-            if (template.workflows == null || template.workflows.subscriptions == null ||
-                template.workflows.subscriptions.length == 0)
+            if (template.Workflows == null || template.Workflows.Subscriptions == null ||
+                template.Workflows.Subscriptions.length == 0)
                 return {};
             var promises = $.when(1);
             promises = promises.then(function () {
@@ -295,7 +295,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                     return _this.spHelper.addWorkflowSubscription(wfs);
                 });
             };
-            for (var _i = 0, _a = template.workflows.subscriptions; _i < _a.length; _i++) {
+            for (var _i = 0, _a = template.Workflows.Subscriptions; _i < _a.length; _i++) {
                 var wfs = _a[_i];
                 _loop_5(wfs);
             }
@@ -325,37 +325,37 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             //return promises;
         };
         TemplateManager.prototype.processWebSettings = function (template) {
-            if (template.webSettings == null)
+            if (template.WebSettings == null)
                 return {};
-            if (template.webSettings.welcomePage)
-                return this.spHelper.setWelcomePage(template.webSettings.welcomePage);
+            if (template.WebSettings.WelcomePage)
+                return this.spHelper.setWelcomePage(template.WebSettings.WelcomePage);
             return {};
         };
         TemplateManager.prototype.processCustomActions = function (template) {
             var _this = this;
-            if (template.customActions == null || template.customActions.webCustomActions == null)
+            if (template.CustomActions == null || template.CustomActions.WebCustomActions == null)
                 return {};
             var promises = $.when(1);
             var _loop_6 = function(customAction) {
                 promises = promises.then(function () {
-                    var templateFileUrl = _spPageContextInfo.webServerRelativeUrl + customAction.url;
+                    var templateFileUrl = _spPageContextInfo.webServerRelativeUrl + customAction.Url;
                     return _this.spHelper.addCustomAction(_spPageContextInfo.webAbsoluteUrl, templateFileUrl);
                 });
             };
-            for (var _i = 0, _a = template.customActions.webCustomActions; _i < _a.length; _i++) {
+            for (var _i = 0, _a = template.CustomActions.WebCustomActions; _i < _a.length; _i++) {
                 var customAction = _a[_i];
                 _loop_6(customAction);
             }
             return promises;
         };
         TemplateManager.prototype.getRoleDefinitionName = function (template, groupName) {
-            if (template.security == null || template.security.siteSecurityPermissions == null ||
-                template.security.siteSecurityPermissions.roleAssignments == null)
+            if (template.Security == null || template.Security.SiteSecurityPermissions == null ||
+                template.Security.SiteSecurityPermissions.RoleAssignments == null)
                 return null;
-            var roleAssignment = Utils.arrayFirst(template.security.siteSecurityPermissions.roleAssignments, function (r) {
-                return r.principal.toLowerCase() == groupName.toLowerCase();
+            var roleAssignment = Utils.arrayFirst(template.Security.SiteSecurityPermissions.RoleAssignments, function (r) {
+                return r.Principal.toLowerCase() == groupName.toLowerCase();
             });
-            return roleAssignment == null ? null : roleAssignment.roleDefinition;
+            return roleAssignment == null ? null : roleAssignment.RoleDefinition;
         };
         return TemplateManager;
     }());
