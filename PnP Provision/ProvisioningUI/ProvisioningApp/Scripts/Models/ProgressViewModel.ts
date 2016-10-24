@@ -97,7 +97,7 @@ export class ProgressUIModel implements ProgressUIInterface {
         if (height) {
             options.height = height + 'px';
         }
-        (<any>$('#' + elementId)).dialog(options);
+        $('#' + elementId).dialog(options);
     }
 
     setFailed() {

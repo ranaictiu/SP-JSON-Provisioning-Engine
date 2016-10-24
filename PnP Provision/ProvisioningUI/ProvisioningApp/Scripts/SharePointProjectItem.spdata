@@ -22,5 +22,6 @@
     <ProjectItemFile Source="lib\knockout-3.4.0.js" Target="Scripts\lib\" Type="ElementFile" />
     <ProjectItemFile Source="Models\SiteTemplateModel.ts" Target="Scripts\Models\" Type="ElementFile" />
     <ProjectItemFile Source="Models\ProgressViewModel.ts" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="typings\jqueryui\jqueryui.d.ts" Target="Scripts\typings\jqueryui\" Type="ElementFile" />
   </Files>
 </ProjectItem>
