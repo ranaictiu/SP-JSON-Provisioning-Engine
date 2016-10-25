@@ -9,11 +9,8 @@
     <ProjectItemFile Source="typings\knockout\tests\jasmine.extensions.d.ts" Target="Scripts\typings\knockout\tests\" Type="ElementFile" />
     <ProjectItemFile Source="typings\knockout\knockout.d.ts" Target="Scripts\typings\knockout\" Type="ElementFile" />
     <ProjectItemFile Source="Provisioning\TemplateManager.ts" Target="Scripts\Provisioning\" Type="ElementFile" />
-    <ProjectItemFile Source="Provisioning\SharePointHelper.js" Target="Scripts\Provisioning\" Type="ElementFile" />
-    <ProjectItemFile Source="Provisioning\TemplateManager.js" Target="Scripts\Provisioning\" Type="ElementFile" />
     <ProjectItemFile Source="typings\ProvisioningApp.d.ts" Target="Scripts\typings\" Type="ElementFile" />
     <ProjectItemFile Source="lib\bootstrap.min.js" Target="Scripts\lib\" Type="ElementFile" />
-    <ProjectItemFile Source="Models\SiteTemplateModel.js" Target="Scripts\Models\" Type="ElementFile" />
     <ProjectItemFile Source="lib\require.js" Target="Scripts\lib\" Type="ElementFile" />
     <ProjectItemFile Source="typings\requirejs\require.d.ts" Target="Scripts\typings\requirejs\" Type="ElementFile" />
     <ProjectItemFile Source="lib\knockout-3.4.0.min.js" Target="Scripts\lib\" Type="ElementFile" />
@@ -22,9 +19,12 @@
     <ProjectItemFile Source="typings\jqueryui\jqueryui.d.ts" Target="Scripts\typings\jqueryui\" Type="ElementFile" />
     <ProjectItemFile Source="lib\jquery-1.12.4.min.js" Target="Scripts\lib\" Type="ElementFile" />
     <ProjectItemFile Source="lib\jquery-ui-1.12.1.min.js" Target="Scripts\lib\" Type="ElementFile" />
-    <ProjectItemFile Source="Models\ProgressViewModel.js" Target="Scripts\Models\" Type="ElementFile" />
     <ProjectItemFile Source="Provisioning\Provisioning.d.ts" Target="Scripts\Provisioning\" Type="ElementFile" />
     <ProjectItemFile Source="Config.ts" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="Config.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\ProgressViewModel.js" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\SiteTemplateModel.js" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Provisioning\TemplateManager.js" Target="Scripts\Provisioning\" Type="ElementFile" />
+    <ProjectItemFile Source="Provisioning\SharePointHelper.js" Target="Scripts\Provisioning\" Type="ElementFile" />
   </Files>
 </ProjectItem>

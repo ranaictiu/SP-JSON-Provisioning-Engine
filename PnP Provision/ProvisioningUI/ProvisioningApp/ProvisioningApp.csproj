@@ -188,11 +188,19 @@
     <Content Include="Scripts\lib\bootstrap.min.js" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\lib\knockout-3.4.0.min.js" />
-    <Content Include="Scripts\Models\ProgressViewModel.js" />
-    <Content Include="Scripts\Models\SiteTemplateModel.js" />
-    <Content Include="Scripts\Provisioning\SharePointHelper.js" />
-    <Content Include="Scripts\Provisioning\TemplateManager.js" />
+    <Content Include="Scripts\Models\ProgressViewModel.js">
+      <DependentUpon>ProgressViewModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\SiteTemplateModel.js">
+      <DependentUpon>SiteTemplateModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\lib\require.js" />
+    <Content Include="Scripts\Provisioning\SharePointHelper.js">
+      <DependentUpon>SharePointHelper.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Provisioning\TemplateManager.js">
+      <DependentUpon>TemplateManager.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>
