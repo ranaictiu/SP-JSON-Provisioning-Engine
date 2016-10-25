@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <CustomAction Id="Softract.FeatureAction" 
+                Title="Softract"
+                Description="Softract Feature Ribbon"
+                RegistrationType="ContentType"
+                RegistrationId="0x010100C0D2066864CA4A11942B175F78E9782F" 
+                Rights="AddListItems"
+                Location="CommandUI.Ribbon.ListView"
+                Sequence="10001">
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition
+          Location="Ribbon.Tabs._children">
+          <Tab Id="Softract.FeatureTab" Title="Softract" Description="Softract Feature Actions" Sequence="501">
+            <Scaling Id="Softract.FeatureTab.Scaling">
+              <MaxSize Id="Softract.FeatureTab.TabOneMaxSize" GroupId="Softract.Feature.CorrespondenceGroup" Size="OneLarge" />
+              <Scale Id="Softract.FeatureTab.Scaling.SendCorrepondence" GroupId="Softract.Feature.CorrespondenceGroup" Size="OneLarge" />
+            </Scaling>
+            <Groups Id="Softract.Feature.Groups">
+              <Group Id="Softract.Feature.CorrespondenceGroup"
+                Description="Feature Correspondence"
+                Title="Correspondence"
+                Sequence="53"
+                Template="Softract.Ribbon.FeatureTemplate">
+                <Controls Id="Softract.Feature.Correspondence.Controls">
+                  <Button Id="Softract.Feature.CorrespondenceGroup.Submit" Command="Softract.Feature.SenCorrespondenceCommand"
+                    Sequence="15" Image32by32="{SiteUrl}/_layouts/15/1033/Images/formatmap32x32.png?rev=23"
+                    Image32by32Top="0" Image32by32Left="-443" Description="Send Correspondence"
+                    LabelText="Send"
+                    TemplateAlias="LOR"/>
+                </Controls>
+              </Group>
+              
+            </Groups>
+          </Tab>
+        </CommandUIDefinition>
+        <CommandUIDefinition Location="Ribbon.Templates._children">
+          <GroupTemplate Id="Softract.Ribbon.FeatureTemplate">
+            <Layout Title="OneLarge" LayoutTitle="OneLarge">
+              <Section Alignment="Top" Type="OneRow">
+                <Row>
+                  <ControlRef DisplayMode="Large" TemplateAlias="LOR" />
+                </Row>
+              </Section>
+            </Layout>
+          </GroupTemplate>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="Softract.Feature.SenCorrespondenceCommand" EnabledScript="javascript:Softract.customactions.canSendCorrespondence()"
+          CommandAction="javascript:Softract.customactions.sendCorrespondence();"/>
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+
+</Elements>

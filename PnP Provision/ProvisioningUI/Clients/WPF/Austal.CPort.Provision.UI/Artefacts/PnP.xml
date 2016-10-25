@@ -1,0 +1,859 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2015/12/ProvisioningSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://schemas.dev.office.com/PnP/2015/12/ProvisioningSchema https://raw.githubusercontent.com/OfficeDev/PnP-Provisioning-Schema/master/OfficeDevPnP.ProvisioningSchema/ProvisioningSchema-2015-12.xsd">
+  <pnp:Preferences>
+    <pnp:Parameters>
+      <pnp:Parameter Key="lcid">1033</pnp:Parameter>
+      <pnp:Parameter Key="TimeZoneId">73</pnp:Parameter>
+      <pnp:Parameter Key="SoftractCTAndFieldsGroupName">Softract</pnp:Parameter>
+      <pnp:Parameter Key="SiteCollectionAdmin"></pnp:Parameter>
+      <!-- will be replaced by NecFileSystemConnector -->
+      <pnp:Parameter Key="O365TenantName"></pnp:Parameter>
+      <!-- will be replaced by NecFileSystemConnector -->
+      <pnp:Parameter Key="SiteCollectionPath"></pnp:Parameter>
+      <!-- will be replaced by NecFileSystemConnector -->
+      <pnp:Parameter Key="DefaultSiteTemplate">STS#0</pnp:Parameter>
+    </pnp:Parameters>
+  </pnp:Preferences>
+  <pnp:Templates>
+    <pnp:ProvisioningTemplate ID="SoftractSiteCollection" DisplayName="Softract Site Collection Creation">
+      <pnp:Security>
+        <pnp:Permissions>
+          <pnp:RoleAssignments>
+            <pnp:RoleAssignment Principal="Everyone" RoleDefinition="Restricted Read"/>
+          </pnp:RoleAssignments>
+        </pnp:Permissions>
+      </pnp:Security>
+      <pnp:Providers>
+        <pnp:Provider Enabled="true" HandlerType="Softract.Provisioning.Library.PnpExtensions.ProvisionExtensibilityHandler, Softract.Provisioning.Library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <pnp:Configuration>
+            <ProvisioningExtensibilityHandlerConfig xmlns="http://schemas.nec.com.au/PnP/ProvisioningExtensibilityHandler">
+              <Features>
+                <Feature ID="{f6924d36-2fa8-4f0b-b16d-06b7250180fa}" Scope="Site" Description="SharePoint Server Publishing Infrastructure" />
+                <Feature ID="b21b090c-c796-4b0f-ac0f-7ef1659c20ae" Scope="Site" Description="SharePoint Server Standard Site Collection features" />
+                <Feature ID="3bae86a2-776d-499d-9db8-fa4cdc7884f8" Scope="Site" Description="Document Sets" />
+                <Feature ID="b50e3104-6812-424f-a011-cc90e6327318" Scope="Site" Description="Document ID Service"/>
+                <Feature ID="94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb" Scope="Web" Description="SharePoint Server Publishing" />
+                <Feature ID="57311b7a-9afd-4ff0-866e-9393ad6647b1" Scope="Web" Description="Workflow Task Content Type"/>
+                <Feature ID="ec918931-c874-4033-bd09-4f36b2e31fef" Scope="Web" Description="Workflows can use app permissions"/>
+              </Features>
+            </ProvisioningExtensibilityHandlerConfig>
+          </pnp:Configuration>
+        </pnp:Provider>
+      </pnp:Providers>
+    </pnp:ProvisioningTemplate>
+    <pnp:ProvisioningTemplate ID="SoftractSiteCollection1" DisplayName="Softract Site Collection Preparation">
+      <pnp:RegionalSettings TimeZone="{TimeZoneId}" Collation="25"  FirstDayOfWeek="Monday"  FirstWeekOfYear="0" WorkDayEndHour="5:00PM" WorkDayStartHour="8:00AM" WorkDays="62" LocaleId="3081" CalendarType="Gregorian" Time24="false" />
+      <pnp:Files>
+        <pnp:File Src="Artefacts\Images\Logo.png" Folder="SiteAssets" Overwrite="false"></pnp:File>
+
+        <pnp:File Src="Artefacts\Scripts\CSR_VCRM.js" Folder="_catalogs/masterpage/Softract/Scripts" Overwrite="true"></pnp:File>
+        <pnp:File Src="Artefacts\Scripts\CSR_Cmail.js" Folder="_catalogs/masterpage/Softract/Scripts" Overwrite="true"></pnp:File>
+        <pnp:File Src="Artefacts\Styles\common.css" Folder="_catalogs/masterpage/Softract/Styles" Overwrite="true"></pnp:File>
+        <pnp:File Src="Artefacts\Theme\Softract.spcolor" Folder="_catalogs/Theme/15" Overwrite="true"></pnp:File>
+        <pnp:File Src="Artefacts\Theme\Softract.spfont" Folder="_catalogs/Theme/15" Overwrite="true"></pnp:File>
+        <pnp:File Src="Artefacts\PageLayouts\SoftractHome.aspx" Folder="_catalogs/MasterPage/" Overwrite="true">
+          <pnp:Properties>
+            <pnp:Property Key="Title" Value="Softract Home Page" />
+            <pnp:Property Key="MasterPageDescription" Value="Softract Home Page Layout." />
+            <pnp:Property Key="UIVersion" Value="['15']" />
+            <pnp:Property Key="ContentType" Value="Page Layout" />
+            <pnp:Property Key="PublishingAssociatedContentType" Value=";#Welcome Page;#0x010100C568DB52D9D0A14D9B2FDCC96666E9F2007948130EC3DB064584E219954237AF390064DEA0F50FC8C147B0B6EA0636C4A7D4;#" />
+          </pnp:Properties>
+        </pnp:File>
+      </pnp:Files>
+
+      <!--<pnp:TermGroups>
+        <pnp:TermGroup Name="Softract" ID="{FD31D690-A370-417A-9195-C35A17E87014}" Description="Softract Term Group">
+          <pnp:TermSets>
+            <pnp:TermSet ID="{E1CDC059-8E57-41B4-9F34-FB5D667E2853}" Name="Asset Hierarchies" Description="Asset Hierarchies" IsAvailableForTagging="true" IsOpenForTermCreation="true" Owner="{SiteCollectionAdmin}">
+              <pnp:Terms>
+                <pnp:Term ID="{28BD197D-705B-45CA-B751-BA2E6313AB0F}" Name="HULL 340">
+                  <pnp:Terms>
+                    <pnp:Term ID="{EC659164-4D7F-48E1-9F34-D37CA3872370}" Name="Electrics">
+                      <pnp:Terms>
+                        <pnp:Term ID="{A34D0E64-AECB-4521-932C-EB2D950CA2B3}" Name="E101"></pnp:Term>
+                        <pnp:Term ID="{FD3DFCB5-3BA2-432C-A690-E8381B01C7D2}" Name="E102"></pnp:Term>
+                        <pnp:Term ID="{3C44F9D8-8476-4250-98A7-4362A8FF8823}" Name="E103"></pnp:Term>
+                        <pnp:Term ID="{3AFEB3F8-5053-4CA2-8A86-0FAF6B53DF65}" Name="E104"></pnp:Term>
+                        <pnp:Term ID="{7F67733C-83C8-493E-8771-0968EB6B0FDA}" Name="E105"></pnp:Term>
+                        <pnp:Term ID="{A05EB1C7-4581-47B6-AB95-516A13FF55F3}" Name="Tst001"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                    <pnp:Term ID="{C4684E2A-10C0-4812-BB03-7F560D83FB46}" Name="Switches">
+                      <pnp:Terms>
+                        <pnp:Term ID="{A8F3F70A-EED0-43C2-8186-F3798D158170}" Name="S101"></pnp:Term>
+                        <pnp:Term ID="{84CEE9E5-D277-4A5A-A4A6-8B91F9E1949B}" Name="S102"></pnp:Term>
+                        <pnp:Term ID="{6265C9D7-8428-4335-9F64-F4081A5B0E88}" Name="S103"></pnp:Term>
+                        <pnp:Term ID="{F902D8D3-7370-4A90-9F5D-2B7ACEA592D7}" Name="S104"></pnp:Term>
+                        <pnp:Term ID="{C4C56FCE-2D68-427C-AA7C-B173B0B5A374}" Name="S105"></pnp:Term>
+                        <pnp:Term ID="{36110A96-BA20-4F2C-964E-D8D68640DCE2}" Name="S-Test"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                    <pnp:Term ID="{9497774E-E7B6-4C0F-A855-AF7A8E67ACC7}" Name="Lights">
+                      <pnp:Terms>
+                        <pnp:Term ID="{7E7C386E-BAAF-4611-964A-5C9EA4BEA6F8}" Name="L101"></pnp:Term>
+                        <pnp:Term ID="{3C44670E-4F80-428D-ACB2-1CD5C73947E1}" Name="L102"></pnp:Term>
+                        <pnp:Term ID="{F6440EFA-265A-4652-8FAA-D90CC7E6499D}" Name="L103"></pnp:Term>
+                        <pnp:Term ID="{4E6F963E-6A7A-48FC-B55F-BE3EE62608C2}" Name="L104"></pnp:Term>
+                        <pnp:Term ID="{1FC42DB9-D9EC-466E-81F9-F3324C9F51BB}" Name="L105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                  </pnp:Terms>
+                </pnp:Term>
+                <pnp:Term ID="{F35F5A07-D37D-4B36-BFA2-BF7F43F5E418}" Name="HULL 360">
+                  <pnp:Terms>
+                    <pnp:Term ID="{DCF9CF24-3E69-4310-90A6-D2D7AB06D83F}" Name="Electrics">
+                      <pnp:Terms>
+                        <pnp:Term ID="{DCF9CF24-3E69-4310-90A6-D2D7AB06D83F}" Name="E101"></pnp:Term>
+                        <pnp:Term ID="{841A6E22-2F0B-4F0A-996E-D8210ADB2D20}" Name="E102"></pnp:Term>
+                        <pnp:Term ID="{A4817C97-3453-4AB6-8C2E-DA6F336EC110}" Name="E103"></pnp:Term>
+                        <pnp:Term ID="{35498E32-2931-4E7A-A324-4EC00C0A5924}" Name="E104"></pnp:Term>
+                        <pnp:Term ID="{E368D85E-B6D9-4C82-888B-B5A5A1BE0354}" Name="E105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                    <pnp:Term ID="{BD1929FF-C1DF-4E49-A4D6-EE114523B657}" Name="Switches">
+                      <pnp:Terms>
+                        <pnp:Term ID="{44D7DF70-23AE-4C88-958B-BBFBAC7AD72B}" Name="S101"></pnp:Term>
+                        <pnp:Term ID="{93C0C476-7394-4BFE-B834-6C46778337ED}" Name="S102"></pnp:Term>
+                        <pnp:Term ID="{8E1AD3B8-8130-4B28-8AB3-DAF125F5B6C6}" Name="S103"></pnp:Term>
+                        <pnp:Term ID="{8B336791-0981-4CEF-8228-6FCC35B7074A}" Name="S104"></pnp:Term>
+                        <pnp:Term ID="{5AB3769E-25A9-4CF7-AAAD-1B8C1847F8AC}" Name="S105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                    <pnp:Term ID="{E5D6D711-9C1C-498C-BF68-FC2BB0E177AC}" Name="Lights">
+                      <pnp:Terms>
+                        <pnp:Term ID="{610A5438-13AC-4883-BA40-7B72EAAE4A76}" Name="L101"></pnp:Term>
+                        <pnp:Term ID="{DD0AEEB7-4B09-4E78-B5E4-0B13057327FC}" Name="L102"></pnp:Term>
+                        <pnp:Term ID="{3FD4817A-BAD8-4C43-9FBB-FCBA5F26EE3D}" Name="L103"></pnp:Term>
+                        <pnp:Term ID="{77401381-FF77-40A6-96A4-BCC4095FF81F}" Name="L104"></pnp:Term>
+                        <pnp:Term ID="{F7C54CD9-8D0E-407B-8E46-A3B33C855487}" Name="L105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                  </pnp:Terms>
+                </pnp:Term>
+                <pnp:Term ID="{75422B5D-AC25-4395-808F-2DAB42B79529}" Name="HULL 390">
+                  <pnp:Terms>
+                    <pnp:Term ID="{21E46371-1974-4874-AC1E-2E5C4E299B86}" Name="Electrics">
+                      <pnp:Terms>
+                        <pnp:Term ID="{9EEC79FB-9F48-4355-85C1-90620A2514FA}" Name="E101"></pnp:Term>
+                        <pnp:Term ID="{086E2952-B6B7-45BA-B97C-54494AA879D5}" Name="E102"></pnp:Term>
+                        <pnp:Term ID="{FD92616A-4924-485F-958B-81D7121CAFD0}" Name="E103"></pnp:Term>
+                        <pnp:Term ID="{7420FDB6-D5CF-4BA6-A48B-3B253388A55B}" Name="E104"></pnp:Term>
+                        <pnp:Term ID="{C79C4949-B390-4318-A604-A8A102AABCFA}" Name="E105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                    <pnp:Term ID="{49DCE2D7-DAD2-44CA-AA79-808006697FA8}" Name="Switches">
+                      <pnp:Terms>
+                        <pnp:Term ID="{6CBEB91D-A2D9-4CF7-8631-284053770FA9}" Name="S101"></pnp:Term>
+                        <pnp:Term ID="{C3A40DF0-9F1C-470D-B70F-EFC72AFF94C5}" Name="S102"></pnp:Term>
+                        <pnp:Term ID="{E90B426C-C2AA-47A5-A9B4-47593D442DC5}" Name="S103"></pnp:Term>
+                        <pnp:Term ID="{691E2199-49CD-475D-AFC8-6EC6B4EDF3AA}" Name="S104"></pnp:Term>
+                        <pnp:Term ID="{BBB51A1B-98BE-4CD8-A03D-73ACE87C1A31}" Name="S105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                    <pnp:Term ID="{41C52226-E4CC-466C-9A86-A56CFDAAD20C}" Name="Lights">
+                      <pnp:Terms>
+                        <pnp:Term ID="{F1B7BDC4-C7A1-4D05-A313-89C8B24ED90D}" Name="L101"></pnp:Term>
+                        <pnp:Term ID="{73B13714-7BFD-4AD1-8AD2-46D214517B79}" Name="L102"></pnp:Term>
+                        <pnp:Term ID="{28CCC5BC-E35F-42FD-8362-C957F11DABBF}" Name="L103"></pnp:Term>
+                        <pnp:Term ID="{FB236066-A0D8-4FE2-946E-851213CA50BF}" Name="L104"></pnp:Term>
+                        <pnp:Term ID="{99961B63-4A8D-4A63-BFC0-06309FE8B591}" Name="L105"></pnp:Term>
+                      </pnp:Terms>
+                    </pnp:Term>
+                  </pnp:Terms>
+                </pnp:Term>
+              </pnp:Terms>
+            </pnp:TermSet>
+          </pnp:TermSets>
+        </pnp:TermGroup>
+      </pnp:TermGroups>-->
+    </pnp:ProvisioningTemplate>
+
+
+    <pnp:ProvisioningTemplate ID="SoftractSiteCollection2" DisplayName="Softract Site Collection Finalisation">
+      <pnp:WebSettings AlternateCSS="{SiteCollectionPath}/_catalogs/masterpage/Softract/Styles/common.css" Title="C-Port" SiteLogo="{sitecollection}/SiteAssets/Logo.png"/>
+
+      <pnp:CustomActions>
+        <pnp:SiteCustomActions>
+          <pnp:CustomAction Name="Softract.jQuery" Description="Softract jQuery Custom Action" Sequence="100" Enabled="true" Location="ScriptLink" ScriptSrc="https://code.jquery.com/jquery-1.12.4.min.js"></pnp:CustomAction>
+          <pnp:CustomAction Name="Softract.Knockout" Description="Softract Knockout Custom Action" Sequence="101" Enabled="true" Location="ScriptLink" ScriptSrc="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></pnp:CustomAction>
+          <pnp:CustomAction Name="Softract.Common" Description="Softract jQuery Custom Action" Sequence="5001" Enabled="true" Location="ScriptLink" ScriptSrc="~siteCollection/_catalogs/masterpage/Softract/Scripts/Softract.Common.js?t={guid}"></pnp:CustomAction>
+          <pnp:CustomAction Name="Softract.ApplyTemplate" Title="Apply Template" Description="Apply Template to existing site" Location="Microsoft.SharePoint.StandardMenu" Group="SiteActions" Rights="ManageWeb" Sequence="100" Url="javascript:Softract.customactions.navigateToApplyTemplatePage();"></pnp:CustomAction>
+        </pnp:SiteCustomActions>
+      </pnp:CustomActions>
+
+      <pnp:SiteFields>
+        <Field ID="{9D4310B6-22FC-42F6-ADF6-307052A382D2}" Type="Choice" Name="SoftractIssueRiskType" DisplayName="Type" Group="{SoftractCTAndFieldsGroupName}" Required="TRUE">
+          <CHOICES>
+            <CHOICE>Issue</CHOICE>
+            <CHOICE>Risk</CHOICE>
+          </CHOICES>
+        </Field>
+
+        <Field ID="{2324C3E4-922C-45FF-AD83-0D66BF93E203}" Type="Text" Name="SoftractCDRLAbbreviation" DisplayName="Abbreviation" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{A890ED56-7605-4AE9-9EA6-EFF7F6731F8B}" Type="Note" Name="SoftractCDRLnSDRLDesc" DisplayName="Description" Group="{SoftractCTAndFieldsGroupName}" />
+
+        <Field ID="{BFA7E81C-69A1-40B0-9D2A-B6355A8776C8}"
+           Type="Note"
+           Name="SoftractAssetHierarTaxHTField"
+           DisplayName="Asset Hierarchy_0"
+           Group="{SoftractCTAndFieldsGroupName}"
+           Required="FALSE"
+           Hidden="TRUE" />
+
+        <Field ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}" Type="TaxonomyFieldType" Name="SoftractAssetHierarchy" DisplayName="Asset Hierarchy" Group="{SoftractCTAndFieldsGroupName}" Required="TRUE" ShowField="Term1033">
+          <Customization>
+            <ArrayOfProperty>
+              <Property>
+                <Name>SspId</Name>
+                <Value xmlns:q1="http://www.w3.org/2001/XMLSchema" p4:type="q1:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">{sitecollectiontermstoreid}</Value>
+              </Property>
+              <Property>
+                <Name>TermSetId</Name>
+                <Value xmlns:q2="http://www.w3.org/2001/XMLSchema" p4:type="q2:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">{termsetid:Softract:Asset Hierarchies}</Value>
+              </Property>
+              <Property>
+                <Name>TextField</Name>
+                <Value xmlns:q6="http://www.w3.org/2001/XMLSchema" p4:type="q6:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">BFA7E81C-69A1-40B0-9D2A-B6355A8776C8</Value>
+              </Property>
+              <Property>
+                <Name>IsPathRendered</Name>
+                <Value xmlns:q7="http://www.w3.org/2001/XMLSchema" p4:type="q7:boolean" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">false</Value>
+              </Property>
+              <Property>
+                <Name>IsKeyword</Name>
+                <Value xmlns:q8="http://www.w3.org/2001/XMLSchema" p4:type="q8:boolean" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">false</Value>
+              </Property>
+            </ArrayOfProperty>
+          </Customization>
+        </Field>
+
+        <Field ID="{EDA8F902-4B97-431D-95B3-6D7343AC18F4}"
+         Type="Note"
+         Name="SoftractRTMTaxHTField"
+         DisplayName="RTM_0"
+         Group="{SoftractCTAndFieldsGroupName}"
+         Required="FALSE"
+         Hidden="TRUE" />
+
+        <Field ID="{98F98161-1F37-43E8-B57A-75227C0F17E2}" Type="TaxonomyFieldTypeMulti"  Mult="TRUE" Name="SoftractRTMTaxField" DisplayName="RTM" Group="{SoftractCTAndFieldsGroupName}" Required="TRUE" ShowField="Term1033">
+          <Customization>
+            <ArrayOfProperty>
+              <Property>
+                <Name>SspId</Name>
+                <Value xmlns:q1="http://www.w3.org/2001/XMLSchema" p4:type="q1:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">{sitecollectiontermstoreid}</Value>
+              </Property>
+              <Property>
+                <Name>TermSetId</Name>
+                <Value xmlns:q2="http://www.w3.org/2001/XMLSchema" p4:type="q2:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">{termsetid:RTM:PPBR}</Value>
+              </Property>
+              <Property>
+                <Name>TextField</Name>
+                <Value xmlns:q6="http://www.w3.org/2001/XMLSchema" p4:type="q6:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">EDA8F902-4B97-431D-95B3-6D7343AC18F4</Value>
+              </Property>
+              <Property>
+                <Name>IsPathRendered</Name>
+                <Value xmlns:q7="http://www.w3.org/2001/XMLSchema" p4:type="q7:boolean" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">false</Value>
+              </Property>
+              <Property>
+                <Name>IsKeyword</Name>
+                <Value xmlns:q8="http://www.w3.org/2001/XMLSchema" p4:type="q8:boolean" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">false</Value>
+              </Property>
+            </ArrayOfProperty>
+          </Customization>
+        </Field>
+
+        <Field ID="{B03829BB-0C33-4A99-A71B-EEF9DFB33CE9}" Type="Text" Name="SoftractTaskDocNo" DisplayName="Document No." Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{429DCF87-8271-4C67-810F-3173FE9AED47}" Type="Text" Name="SoftractTaskDIDDocNo" DisplayName="DID Doc No." Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{916D684C-AF66-4040-BA3F-90AE880F3554}" Type="Text" Name="SoftractTaskDelivery" DisplayName="Delivery" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{2CBA2A99-CC23-4E5D-8B54-5C3B645B8CFD}" Type="OutcomeChoice" Name="SoftractReviewOutcome" DisplayName="Review Outcome" Required="FALSE" Group="Softract" >
+          <Default>Update Required</Default>
+          <CHOICES>
+            <CHOICE>Reviewed</CHOICE>
+            <CHOICE>Update Required</CHOICE>
+          </CHOICES>
+        </Field>
+
+        <Field ID="{C960FAE0-F9D4-4CB3-9711-CEDEF5931A0C}" Type="Note" RichText="TRUE" RichTextMode="FullHtml" Name="SoftractTaskComments" DisplayName="Comments" Group="{SoftractCTAndFieldsGroupName}"></Field>
+
+        <Field ID="{9F9AA86F-6777-4335-B4AC-C17DC380E439}" Type="OutcomeChoice" Name="SoftractCoAOutcome" DisplayName="CoA Outcome" Required="FALSE" Group="Softract" >
+          <Default>Reviewed</Default>
+          <CHOICES>
+            <CHOICE>Reviewed</CHOICE>
+            <CHOICE>Approved</CHOICE>
+            <CHOICE>Approved with Comments</CHOICE>
+            <CHOICE>Rejected</CHOICE>
+          </CHOICES>
+        </Field>
+
+        <Field ID="{9921D111-D9B1-40A8-9C83-2A02C22FB252}" Type="Text" Name="SoftractWFStatusPR" DisplayName="Peer Review" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{AFB3217D-3730-45C4-8333-6345400C8881}" Type="Text" Name="SoftractWFStatusPMA" DisplayName="PM Approval" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{425BE7CF-50DE-48DA-9034-1B326F15A2F4}" Type="Text" Name="SoftractWFStatusCOA" DisplayName="COA Submission" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{8DC2D02E-C078-4A0F-AFF5-9116528D6106}" Type="Text" Name="SoftractWFStatusPRWfID" DisplayName="Peer Review WF ID" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{EC4EF1FA-EF90-42C4-A802-0B81EF10419F}" Type="Text" Name="SoftractWFStatusPMAWfID" DisplayName="PM Approval WF ID" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{2CC85A46-C55B-49EB-BF39-35C177FD78CF}" Type="Text" Name="SoftractWFStatusCOAWfID" DisplayName="COA Submission WF ID" Group="{SoftractCTAndFieldsGroupName}" />
+
+
+        <!---CDRL Submission-->
+        <Field ID="{0BC2FEB6-9FA5-44EB-9FF7-D461DCE3A9DF}" Type="Choice" Name="SoftractCoAVersion" DisplayName="CoA Version" Required="TRUE" Group="Softract" >
+          <Default>Draft</Default>
+          <CHOICES>
+            <CHOICE>Draft</CHOICE>
+            <CHOICE>Initial</CHOICE>
+            <CHOICE>Updates</CHOICE>
+            <CHOICE>Final</CHOICE>
+          </CHOICES>
+        </Field>
+
+        <Field ID="{EBC5DF6C-236C-494B-A08E-01DE056C2297}" Type="Text" Name="SoftractSubmitCDRLNo" DisplayName="CDRL No" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{57686D21-0625-4FFE-AA78-698D1630F709}" Type="Text" Name="SoftractSubmitCDRLRefNo" DisplayName="CDRL Ref No" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{995CEC21-255A-44BD-B7B2-8490AF92D085}" Type="Text" Name="SoftractSubmitCDRLVersionNo" DisplayName="CDRL Version No" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{9d3d94c4-b71f-4e60-9b1f-3b71a1617cbd}" Type="Text" Name="SoftractSubmitDocumentNo" DisplayName="Document Number" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{52E6F33E-E72F-4121-AF51-F16BA69B09AD}" Type="Text" Name="SoftractSubmitDocumentRevision" DisplayName="Document Revision" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{D965B73F-FBA9-43AC-85D7-C9F67574CD9A}" Type="Text" Name="SoftractSubmitDeliveryDate" DisplayName="Delivery Date" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{13AB005B-233A-468F-AA9E-DAAF77E08EEE}" Type="Text" Name="SoftractSubmitDocumentID" DisplayName="Document ID" Group="{SoftractCTAndFieldsGroupName}" />
+
+        <!--Email Template-->
+        <Field ID="{879A37A6-5103-4D2C-8AE6-0B7820E16E60}" Type="Text" Name="SoftractEmailTemplateKey" DisplayName="Key" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{E748F331-E9B9-4CD2-9462-BF2ADCFBD99B}" Type="Note" RichText="TRUE" RichTextMode="FullHtml"  Name="SoftractEmailTemplateContent" DisplayName="Template" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{0BB89E2B-52A3-4737-B76E-0262920E02AC}" Type="Text" Name="SoftractEmailSubjectContent" DisplayName="Subject" Group="{SoftractCTAndFieldsGroupName}" />
+
+        <!--Site Config-->
+        <Field ID="{B3E1B082-2337-4824-99B7-6F192788A673}" Type="Text" Name="SoftractSiteConfigKey" DisplayName="Key" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{1BD457D6-F955-4D00-9345-F6E0B4A7682F}" Type="Note" Name="SoftractSiteConfigValue" DisplayName="Value" Group="{SoftractCTAndFieldsGroupName}" />
+
+        <!-- VCRM RTM-->
+        <Field ID="{27545995-BE93-478A-A726-5DB12B0E109E}" Type="Note" Name="SoftractPlainDescription" DisplayName="Description" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{A9ECD81E-5FEC-4FF5-B7A4-175A6B1970FE}" Type="Text" Name="SoftractRtmSystemHeading" DisplayName="System Heading" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{8D658C8A-DF5E-4E1B-A0A7-714D4B1F571C}" Type="Text" Name="SoftractVcrmVerificationMethod" DisplayName="Verification Method" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{B71BF472-96B0-4B62-83D8-DB222738605C}" Type="Choice" Name="SoftractVcrmAuthority" DisplayName="Authority" Group="{SoftractCTAndFieldsGroupName}" Required="TRUE">
+          <CHOICES>
+            <CHOICE>N/A</CHOICE>
+            <CHOICE>CBP</CHOICE>
+            <CHOICE>Class</CHOICE>
+            <CHOICE>Commonwealth</CHOICE>
+            <CHOICE>Contractor</CHOICE>
+            <CHOICE>TBA</CHOICE>
+          </CHOICES>
+        </Field>
+        <Field ID="{4881216C-4EEE-4C2C-B2C0-34F8B0602185}" Type="Choice" Name="SoftractVcrmMSSType" DisplayName="MSS Type" Group="{SoftractCTAndFieldsGroupName}" Required="TRUE">
+          <CHOICES>
+            <CHOICE>N/A</CHOICE>
+            <CHOICE>Constraint</CHOICE>
+            <CHOICE>Information</CHOICE>
+            <CHOICE>Requirement</CHOICE>
+          </CHOICES>
+        </Field>
+        <Field ID="{0F787965-8691-466A-BBEA-FD9844C02FEA}" Type="Note" Name="SoftractOcdlInLinks" DisplayName="In-links" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{6FFF6798-FC03-4340-A4C2-CB6046BD003E}" Type="Text" Name="SoftractVcrmOcdlToFps" DisplayName="FPSs" JSLink="~siteCollection/_catalogs/masterpage/Softract/Scripts/CSR_VCRM.js" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{95558EB2-EF86-47B6-B1DB-ABD63CD56D7E}" Type="Text" Name="SoftractVcrmFpsToMss" DisplayName="MSS Link" JSLink="~siteCollection/_catalogs/masterpage/Softract/Scripts/CSR_VCRM.js" Group="{SoftractCTAndFieldsGroupName}" />
+
+        <!--VCRM Test Plan-->
+        <Field ID="{4977F45D-1472-4D95-882F-1E80D1EB60D0}" Type="Text" Name="SoftractVcrmStandard" DisplayName="Standard" Group="{SoftractCTAndFieldsGroupName}" />
+
+        <Field ID="{4A437D06-F8AE-4D57-9655-34E0FB4D272A}" Type="Text" Name="SoftractVcrmApplicability" DisplayName="Applicability (Fleet or Vessel)" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{81EFFCD9-5A54-4B26-B887-02144CC07D25}" Type="User" Name="SoftractVcrmResponsibility" DisplayName="Responsibility" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{65979DE8-F278-4295-AFE9-64A0379F2215}" Type="Text" Name="SoftractVcrmSystem" DisplayName="System" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{F7A71C0B-B55C-4497-A4AD-1D567262C804}" Type="Text" Name="SoftractVcrmPhase" DisplayName="Phase" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{22808C2F-FCE6-4596-823D-2E99DD55FBAE}" Type="Note" Name="SoftractVcrmVerifArtefact" DisplayName="Verification Artefact, Activity or Test Procedure" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{EDBA60C7-760F-43AE-BA4E-4361AB8E5BF5}" Type="Note" Name="SoftractVcrmVerifMethodDesc" DisplayName="Verification Method Description" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{C1C1B1FF-348F-4F2C-B782-6E5041FEAC29}" Type="Text" Name="SoftractVcrmDrawingNo" DisplayName="Drawing No." Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{1ACBE700-4AA7-4896-962F-697306F37C71}" Type="Text" Name="SoftractVcrmDocRefNo" DisplayName="Test Procedure or Requirement Approval Document Ref." Group="{SoftractCTAndFieldsGroupName}" />
+
+        <!--VCRM Test Result-->
+        <Field ID="{12A60127-E490-4F8A-B01A-4FD3F6460251}" Type="Text" Name="SoftractVcrmInspectionProcedure" DisplayName="Inspection procedure" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{8BB43C51-C259-42DB-9A42-D830DFCE3922}" Type="Choice" Name="SoftractVcrmPassFailStatus" DisplayName="Pass Status" Group="{SoftractCTAndFieldsGroupName}" Required="TRUE">
+          <CHOICES>
+            <CHOICE>N/A</CHOICE>
+            <CHOICE>CBP</CHOICE>
+            <CHOICE>Class</CHOICE>
+          </CHOICES>
+        </Field>
+        <Field ID="{27678211-1067-49CE-83B1-11F2EEB4C9CF}" Type="User" Name="SoftractUserGeneric" DisplayName="User" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{1ADE46BD-A09A-4D64-BA4E-0975CF2C0F55}" Type="DateTime" Name="SoftractDateGeneric" DisplayName="Date"  Format="DateTime"  Group="{SoftractCTAndFieldsGroupName}" />
+
+        <!--CMail-->
+        <Field ID="{40E13D7F-6CBE-4ADB-95C8-999F62CCDB9F}" Type="Text" Name="SoftractCmailCorsRefNo" DisplayName="Referrence" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{3E83A728-6F5F-4B41-BC0E-0F28DFB84A7E}" Type="Note" RichText="TRUE" RichTextMode="FullHtml" Name="SoftractCorsPndncTemplate" DisplayName="Body" Group="{SoftractCTAndFieldsGroupName}"></Field>
+        <Field ID="{1D95E296-1A8E-4EF8-AACE-BE98E99467F1}" Type="Note" RichText="TRUE" RichTextMode="FullHtml" Name="SoftractCorsPndncMessage" DisplayName="Message" UnlimitedLengthInDocumentLibrary="TRUE" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{EC02D10D-839A-4021-94F9-39117B89317A}" Type="User" UserSelectionMode="PeopleOnly"  Name="SoftractCorsPndncFrom" DisplayName="From" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{AD6364E0-91B8-48B6-B2DA-D2540A73B034}" Type="User" UserSelectionMode="PeopleOnly"  Name="SoftractCorsPndncTo" DisplayName="To" Group="{SoftractCTAndFieldsGroupName}" />
+        <Field ID="{5B419DC4-B5B9-4CD9-A0E1-C482874310B8}" Type="Choice" Name="SoftractCorsPndnStatus" DisplayName="Status" Group="{SoftractCTAndFieldsGroupName}" Required="False" ShowInEditForm="FALSE" ShowInDisplayForm="TRUE" ShowInNewForm="FALSE">
+          <Default>Not Sent</Default>
+          <CHOICES>
+            <CHOICE>Not Sent</CHOICE>
+            <CHOICE>Sent</CHOICE>
+          </CHOICES>
+        </Field>
+
+        <Field ID="{9B657A4B-1D5F-451B-AB82-8B5947AA7F65}" Type="User" Name="SoftractCMailSentBy" DisplayName="Sent By" Group="{SoftractCTAndFieldsGroupName}" ShowInEditForm="FALSE" ShowInDisplayForm="TRUE" ShowInNewForm="FALSE"  />
+        <Field ID="{163F0727-9C9B-4C6C-82D8-63380AA88820}" Type="DateTime" Name="SoftractCMailSentDate" DisplayName="Date Sent"  Format="DateTime"  Group="{SoftractCTAndFieldsGroupName}" ShowInEditForm="FALSE" ShowInDisplayForm="TRUE" ShowInNewForm="FALSE"  />
+        <Field ID="{BF388385-B56E-4A4F-A82A-DC3805E14B93}" Type="DateTime" Name="SoftractCMailViewDate" DisplayName="Date Viewed"  Format="DateTime"  Group="{SoftractCTAndFieldsGroupName}" ShowInEditForm="FALSE" ShowInDisplayForm="TRUE" ShowInNewForm="FALSE"  />
+
+      </pnp:SiteFields>
+
+      <pnp:ContentTypes>
+        <pnp:ContentType ID="0x010800440874A0E71F4BE7A2F09DE230DC3DBE"  Name="CDRL Task Base" Group="{SoftractCTAndFieldsGroupName}" Description="CDRL Task Content Type Base">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{64cd368d-2f95-4bfc-a1f9-8d4324ecb007}" Name="StartDate"/>
+            <pnp:FieldRef ID="{cd21b4c2-6841-4f9e-a23a-738a65f99889}" Name="DueDate"/>
+            <pnp:FieldRef ID="{53101f38-dd2e-458c-b245-0c236cc13d1a}" Name="AssignedTo"/>
+            <pnp:FieldRef ID="{d2311440-1ed6-46ea-b46d-daa643dc3886}" Name="PercentComplete"/>
+            <pnp:FieldRef ID="{7662cd2c-f069-4dba-9e35-082cf976e170}" Name="Body"/>
+            <pnp:FieldRef ID="{c3a92d97-2b77-4a25-9698-3ab54874bc6f}" Name="Predecessors" Hidden="true"/>
+            <pnp:FieldRef ID="{a8eb573e-9e11-481a-a8c9-1104a54b2fbd}" Name="Priority" Hidden="true"/>
+            <pnp:FieldRef ID="{c15b34c3-ce7d-490a-b133-3f4de8801b76}" Name="Status"/>
+            <pnp:FieldRef ID="{d2a04afc-9a05-48c8-a7fa-fa98f9496141}" Name="RelatedItems"/>
+            <pnp:FieldRef ID="{B03829BB-0C33-4A99-A71B-EEF9DFB33CE9}" Name="SoftractTaskDocNo"/>
+            <pnp:FieldRef ID="{429DCF87-8271-4C67-810F-3173FE9AED47}" Name="SoftractTaskDIDDocNo"/>
+            <pnp:FieldRef ID="{916D684C-AF66-4040-BA3F-90AE880F3554}" Name="SoftractTaskDelivery"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x01000C5C701D745B4E3E89F13BC9F66A2E5F" Name="Risk and Issue" Group="{SoftractCTAndFieldsGroupName}" Description="Issues and Risks">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{9D4310B6-22FC-42F6-ADF6-307052A382D2}" Name="SoftractIssueRiskType" Required="true"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0100436652D26F7849B1BE0106585461ACE9" Name="CDRL Item" Group="{SoftractCTAndFieldsGroupName}" Description="CDRL">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{2324C3E4-922C-45FF-AD83-0D66BF93E203}" Name="SoftractCDRLAbbreviation" Required="true"/>
+            <pnp:FieldRef ID="{A890ED56-7605-4AE9-9EA6-EFF7F6731F8B}" Name="SoftractCDRLnSDRLDesc" Required="false"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0100436652D26F7849B1BE0106585461ADE8" Name="SDRL Item" Group="{SoftractCTAndFieldsGroupName}" Description="SDRL">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{A890ED56-7605-4AE9-9EA6-EFF7F6731F8B}" Name="SoftractCDRLnSDRLDesc" Required="false"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0100B9241A38783A4E7599858B2E19604E41" Name="Email Template" Group="{SoftractCTAndFieldsGroupName}" Description="Email Template">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{879A37A6-5103-4D2C-8AE6-0B7820E16E60}" Name="SoftractEmailTemplateKey" Required="true" Hidden="true"/>
+            <pnp:FieldRef ID="{0BB89E2B-52A3-4737-B76E-0262920E02AC}" Name="SoftractEmailSubjectContent" Required="false"/>
+            <pnp:FieldRef ID="{E748F331-E9B9-4CD2-9462-BF2ADCFBD99B}" Name="SoftractEmailTemplateContent" Required="true"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0100D3EAC31331DE418F8AD3185A58FF905F" Name="Workflow Status" Group="{SoftractCTAndFieldsGroupName}" Description="Workflow Status">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{9921D111-D9B1-40A8-9C83-2A02C22FB252}" Name="SoftractWFStatusPR" Required="false"/>
+            <pnp:FieldRef ID="{AFB3217D-3730-45C4-8333-6345400C8881}" Name="SoftractWFStatusPMA" Required="false"/>
+            <pnp:FieldRef ID="{425BE7CF-50DE-48DA-9034-1B326F15A2F4}" Name="SoftractWFStatusCOA" Required="false"/>
+            <pnp:FieldRef ID="{8DC2D02E-C078-4A0F-AFF5-9116528D6106}" Name="SoftractWFStatusPRWfID" Required="false"/>
+            <pnp:FieldRef ID="{EC4EF1FA-EF90-42C4-A802-0B81EF10419F}" Name="SoftractWFStatusPMAWfID" Required="false"/>
+            <pnp:FieldRef ID="{2CC85A46-C55B-49EB-BF39-35C177FD78CF}" Name="SoftractWFStatusCOAWfID" Required="false"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF" Hidden="true" Name="CDRL Base" Group="{SoftractCTAndFieldsGroupName}" Description="CDRL Document">
+          <pnp:DocumentTemplate TargetName="{SiteCollectionPath}/Lists/DocumentTemplates/CDRL.docx"/>
+        </pnp:ContentType>
+        <pnp:ContentType ID="0x01010059086E92F87740CEB070B201A53D995E" Hidden="false" Name="Internal Comments" Group="{SoftractCTAndFieldsGroupName}" Description="Internal Comments">
+          <pnp:DocumentTemplate TargetName="{SiteCollectionPath}/Lists/DocumentTemplates/Internal Comments.docx"/>
+        </pnp:ContentType>
+        <pnp:ContentType ID="0x010100B2581B24E42E4A0AAF82E48BF83A4171" Hidden="false" Name="External Comments" Group="{SoftractCTAndFieldsGroupName}" Description="External Comments">
+          <pnp:DocumentTemplate TargetName="{SiteCollectionPath}/Lists/DocumentTemplates/External Comments.docx"/>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0101007352B54274B2476E925990286BFF1D9E" Hidden="true" Name="SDRL Base" Group="{SoftractCTAndFieldsGroupName}" Description="SDRL">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title"/>
+            <pnp:FieldRef ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}" Name="SoftractAssetHierarchy"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x01010020783B76E0D34E6DBA0FCE40BAC982E2" Hidden="true" Name="Asset Hierarchies Base" Group="{SoftractCTAndFieldsGroupName}" Description="Asset Hierarchies">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title"/>
+            <pnp:FieldRef ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}" Name="SoftractAssetHierarchy"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x01010006EFA81ACDC148349F81F669B27A4AC6" Hidden="true" Name="Miscellaneous Base" Group="{SoftractCTAndFieldsGroupName}" Description="Miscellaneous">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title"/>
+            <pnp:FieldRef ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}" Name="SoftractAssetHierarchy"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <!--CDRL Submission-->
+        <pnp:ContentType ID="0x0100A832105E32314252BE595F06ACDB1471" Name="CDRL Submission" Group="{SoftractCTAndFieldsGroupName}" Description="CDRL Submission">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{EBC5DF6C-236C-494B-A08E-01DE056C2297}" Name="SoftractSubmitCDRLNo" Required="true"/>
+            <pnp:FieldRef ID="{57686D21-0625-4FFE-AA78-698D1630F709}" Name="SoftractSubmitCDRLRefNo" Required="true"/>
+            <pnp:FieldRef ID="{995CEC21-255A-44BD-B7B2-8490AF92D085}" Name="SoftractSubmitCDRLVersionNo" Required="true"/>
+            <pnp:FieldRef ID="{9D3D94C4-B71F-4E60-9B1F-3B71A1617CBD}" Name="SoftractSubmitDocumentNo" Required="true"/>
+            <pnp:FieldRef ID="{52E6F33E-E72F-4121-AF51-F16BA69B09AD}" Name="SoftractSubmitDocumentRevision" Required="true"/>
+            <pnp:FieldRef ID="{D965B73F-FBA9-43AC-85D7-C9F67574CD9A}" Name="SoftractSubmitDeliveryDate" Required="true"/>
+            <pnp:FieldRef ID="{13AB005B-233A-468F-AA9E-DAAF77E08EEE}" Name="SoftractSubmitDocumentID" Required="true"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <!--VCRM-->
+        <pnp:ContentType ID="0x01009554DE92EC414654A1ABCD37020AE369" Name="OCDL" Group="{SoftractCTAndFieldsGroupName}" Description="OCDL">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{27545995-BE93-478A-A726-5DB12B0E109E}" Name="SoftractPlainDescription" Required="false"/>
+            <pnp:FieldRef ID="{6FFF6798-FC03-4340-A4C2-CB6046BD003E}" Name="SoftractVcrmOcdlToFps" Hidden="true" Required="false"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0100ECCB789EADDB4F45951DA9B5E6C15482" Name="FPS Base" Group="{SoftractCTAndFieldsGroupName}" Description="FPS Base Content Type">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{27545995-BE93-478A-A726-5DB12B0E109E}" Name="SoftractPlainDescription" Required="false"/>
+            <pnp:FieldRef ID="{0F787965-8691-466A-BBEA-FD9844C02FEA}" Name="SoftractOcdlInLinks" Required="false"/>
+            <pnp:FieldRef ID="{95558EB2-EF86-47B6-B1DB-ABD63CD56D7E}" Name="SoftractVcrmFpsToMss" Hidden="true" Required="false" />
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x01009EBA3FE1E8D146D8938E163E0E473D6B" Name="MSS Base" Group="{SoftractCTAndFieldsGroupName}" Description="MSS Base Content Type">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{A9ECD81E-5FEC-4FF5-B7A4-175A6B1970FE}" Name="SoftractRtmSystemHeading"  />
+            <pnp:FieldRef ID="{27545995-BE93-478A-A726-5DB12B0E109E}" Name="SoftractPlainDescription" Required="false"/>
+            <pnp:FieldRef ID="{8D658C8A-DF5E-4E1B-A0A7-714D4B1F571C}" Name="SoftractVcrmVerificationMethod" />
+            <pnp:FieldRef ID="{B71BF472-96B0-4B62-83D8-DB222738605C}" Name="SoftractVcrmAuthority" />
+            <pnp:FieldRef ID="{4881216C-4EEE-4C2C-B2C0-34F8B0602185}" Name="SoftractVcrmMSSType" />
+            <pnp:FieldRef ID="{98F98161-1F37-43E8-B57A-75227C0F17E2}" Name="SoftractRTMTaxField"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x010100DD640FA3D60149EDBEF10FBFFBFA31D9" Name="Test Plan Base" Group="{SoftractCTAndFieldsGroupName}" Description="VCRM Test Plan Base">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{4977F45D-1472-4D95-882F-1E80D1EB60D0}" Name="SoftractVcrmStandard" Required="false"/>
+            <pnp:FieldRef ID="{4A437D06-F8AE-4D57-9655-34E0FB4D272A}" Name="SoftractVcrmApplicability" Required="false"/>
+            <pnp:FieldRef ID="{81EFFCD9-5A54-4B26-B887-02144CC07D25}" Name="SoftractVcrmResponsibility" Required="false"/>
+            <pnp:FieldRef ID="{65979DE8-F278-4295-AFE9-64A0379F2215}" Name="SoftractVcrmSystem" Required="false"/>
+            <pnp:FieldRef ID="{F7A71C0B-B55C-4497-A4AD-1D567262C804}" Name="SoftractVcrmPhase" Required="false"/>
+            <pnp:FieldRef ID="{22808C2F-FCE6-4596-823D-2E99DD55FBAE}" Name="SoftractVcrmVerifArtefact" Required="false"/>
+            <pnp:FieldRef ID="{EDBA60C7-760F-43AE-BA4E-4361AB8E5BF5}" Name="SoftractVcrmVerifMethodDesc" Required="false"/>
+            <pnp:FieldRef ID="{C1C1B1FF-348F-4F2C-B782-6E5041FEAC29}" Name="SoftractVcrmDrawingNo" Required="false"/>
+            <pnp:FieldRef ID="{1ACBE700-4AA7-4896-962F-697306F37C71}" Name="SoftractVcrmDocRefNo" Required="false"/>
+            <pnp:FieldRef ID="{12A60127-E490-4F8A-B01A-4FD3F6460251}" Name="SoftractVcrmInspectionProcedure"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0101002EB198CEC44D4A0AB8B2F971A2166EA8" Name="Test Result Base" Group="{SoftractCTAndFieldsGroupName}" Description="VCRM Test Result Base">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title"/>
+            <pnp:FieldRef ID="{8BB43C51-C259-42DB-9A42-D830DFCE3922}" Name="SoftractVcrmPassFailStatus"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0120D52000CBE51A31EE614A4E8E1E6967321374DB" Name="Test Result Document Set Base" Description="Test Result Document Set Base" Hidden="true" Group="{SoftractCTAndFieldsGroupName}">
+          <pnp:DocumentSetTemplate>
+            <pnp:AllowedContentTypes>
+              <pnp:AllowedContentType ContentTypeID="0x0101002EB198CEC44D4A0AB8B2F971A2166EA8" />
+            </pnp:AllowedContentTypes>
+          </pnp:DocumentSetTemplate>
+        </pnp:ContentType>
+
+        <!-- Document Set -->
+        <pnp:ContentType ID="0x0120D52000DF7EEDA66222417CA6D69ADC1F6FA294" Name="CDRL Document Set Base" Description="CDRL Document Set Base" Hidden="true" Group="{SoftractCTAndFieldsGroupName}">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{CBB92DA4-FD46-4C7D-AF6C-3128C2A5576E}" Name="DocumentSetDescription"/>
+            <pnp:FieldRef ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}" Name="SoftractAssetHierarchy" />
+          </pnp:FieldRefs>
+          <pnp:DocumentSetTemplate>
+            <pnp:AllowedContentTypes>
+              <pnp:AllowedContentType ContentTypeID="0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF" />
+              <pnp:AllowedContentType ContentTypeID="0x01010059086E92F87740CEB070B201A53D995E" />
+              <pnp:AllowedContentType ContentTypeID="0x010100B2581B24E42E4A0AAF82E48BF83A4171" />
+              <pnp:AllowedContentType ContentTypeID="0x01010006EFA81ACDC148349F81F669B27A4AC6" />
+            </pnp:AllowedContentTypes>
+            <pnp:SharedFields>
+              <pnp:SharedField ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}"  />
+            </pnp:SharedFields>
+            <pnp:WelcomePageFields>
+              <pnp:WelcomePageField ID="{D960D6B3-41F5-4396-948A-4FE79D11E934}" />
+            </pnp:WelcomePageFields>
+          </pnp:DocumentSetTemplate>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0108003365C4474CAE8C42BCE396314E88E51F00AADC02A4E1BE4E32BAF3CBD364531114" Name="Review Task" Description="Review Task" Group="{SoftractCTAndFieldsGroupName}">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{64cd368d-2f95-4bfc-a1f9-8d4324ecb007}" Name="StartDate"/>
+            <pnp:FieldRef ID="{cd21b4c2-6841-4f9e-a23a-738a65f99889}" Name="DueDate"/>
+            <pnp:FieldRef ID="{53101f38-dd2e-458c-b245-0c236cc13d1a}" Name="AssignedTo" Required="true"/>
+            <pnp:FieldRef ID="{d2311440-1ed6-46ea-b46d-daa643dc3886}" Name="PercentComplete"/>
+            <pnp:FieldRef ID="{7662cd2c-f069-4dba-9e35-082cf976e170}" Name="Body"/>
+            <pnp:FieldRef ID="{c3a92d97-2b77-4a25-9698-3ab54874bc6f}" Name="Predecessors" Hidden="true"/>
+            <pnp:FieldRef ID="{a8eb573e-9e11-481a-a8c9-1104a54b2fbd}" Name="Priority" Hidden="true"/>
+            <pnp:FieldRef ID="{c15b34c3-ce7d-490a-b133-3f4de8801b76}" Name="Status"/>
+            <pnp:FieldRef ID="{d2a04afc-9a05-48c8-a7fa-fa98f9496141}" Name="RelatedItems"/>
+            <pnp:FieldRef ID="{C960FAE0-F9D4-4CB3-9711-CEDEF5931A0C}" Name="SoftractTaskComments"/>
+            <pnp:FieldRef ID="{2CBA2A99-CC23-4E5D-8B54-5C3B645B8CFD}" Name="SoftractReviewOutcome"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0108003365C4474CAE8C42BCE396314E88E51F0021D5C9C5C1C64AAABE2D8F0ABE9480B5" Name="Softract Task" Description="Softract Task" Group="{SoftractCTAndFieldsGroupName}">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{64cd368d-2f95-4bfc-a1f9-8d4324ecb007}" Name="StartDate"/>
+            <pnp:FieldRef ID="{cd21b4c2-6841-4f9e-a23a-738a65f99889}" Name="DueDate"/>
+            <pnp:FieldRef ID="{53101f38-dd2e-458c-b245-0c236cc13d1a}" Name="AssignedTo" Required="true"/>
+            <pnp:FieldRef ID="{d2311440-1ed6-46ea-b46d-daa643dc3886}" Name="PercentComplete"/>
+            <pnp:FieldRef ID="{7662cd2c-f069-4dba-9e35-082cf976e170}" Name="Body"/>
+            <pnp:FieldRef ID="{c3a92d97-2b77-4a25-9698-3ab54874bc6f}" Name="Predecessors" Hidden="true"/>
+            <pnp:FieldRef ID="{a8eb573e-9e11-481a-a8c9-1104a54b2fbd}" Name="Priority" Hidden="true"/>
+            <pnp:FieldRef ID="{c15b34c3-ce7d-490a-b133-3f4de8801b76}" Name="Status"/>
+            <pnp:FieldRef ID="{d2a04afc-9a05-48c8-a7fa-fa98f9496141}" Name="RelatedItems"/>
+            <pnp:FieldRef ID="{C960FAE0-F9D4-4CB3-9711-CEDEF5931A0C}" Name="SoftractTaskComments"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x0108003365C4474CAE8C42BCE396314E88E51F0011989C546DE54A209136F3C3D1717A7D" Name="CoA Task" Description="CoA Task" Group="{SoftractCTAndFieldsGroupName}">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{64cd368d-2f95-4bfc-a1f9-8d4324ecb007}" Name="StartDate"/>
+            <pnp:FieldRef ID="{cd21b4c2-6841-4f9e-a23a-738a65f99889}" Name="DueDate"/>
+            <pnp:FieldRef ID="{53101f38-dd2e-458c-b245-0c236cc13d1a}" Name="AssignedTo" Required="true"/>
+            <pnp:FieldRef ID="{d2311440-1ed6-46ea-b46d-daa643dc3886}" Name="PercentComplete"/>
+            <pnp:FieldRef ID="{7662cd2c-f069-4dba-9e35-082cf976e170}" Name="Body"/>
+            <pnp:FieldRef ID="{c3a92d97-2b77-4a25-9698-3ab54874bc6f}" Name="Predecessors" Hidden="true"/>
+            <pnp:FieldRef ID="{a8eb573e-9e11-481a-a8c9-1104a54b2fbd}" Name="Priority" Hidden="true"/>
+            <pnp:FieldRef ID="{c15b34c3-ce7d-490a-b133-3f4de8801b76}" Name="Status"/>
+            <pnp:FieldRef ID="{d2a04afc-9a05-48c8-a7fa-fa98f9496141}" Name="RelatedItems"/>
+            <pnp:FieldRef ID="{C960FAE0-F9D4-4CB3-9711-CEDEF5931A0C}" Name="SoftractTaskComments"/>
+            <pnp:FieldRef ID="{9F9AA86F-6777-4335-B4AC-C17DC380E439}" Name="SoftractCoAOutcome"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <!--Configuration Lists-->
+
+        <pnp:ContentType ID="0x0100E4C2DD519E4D46C699F509EEB25A78D4" Name="Site Config Item" Group="{SoftractCTAndFieldsGroupName}" Description="Site Config Item">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{B3E1B082-2337-4824-99B7-6F192788A673}" Name="SoftractSiteConfigKey" Required="true"/>
+            <pnp:FieldRef ID="{1BD457D6-F955-4D00-9345-F6E0B4A7682F}" Name="SoftractSiteConfigValue" Required="false"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+        <pnp:ContentType ID="0x0100EB9D8ED3CA2B40C9930784B514D81094" Name="Feature Template Info" Group="{SoftractCTAndFieldsGroupName}" Description="Site Config Item">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{27678211-1067-49CE-83B1-11F2EEB4C9CF}" Name="SoftractUserGeneric" Required="true"/>
+            <pnp:FieldRef ID="{1ADE46BD-A09A-4D64-BA4E-0975CF2C0F55}" Name="SoftractDateGeneric" Required="true"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <!--Cmail-->
+        <!-- Parent ContentType: Document Set (0x0120D520) -->
+        <pnp:ContentType ID="0x0120D52000289E1E062FC440E6B538F10D3BA81686" Name="Correspondence Document Set" Description="Correspondence Document Set" Hidden="true" Group="{SoftractCTAndFieldsGroupName}">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{CBB92DA4-FD46-4C7D-AF6C-3128C2A5576E}" Name="DocumentSetDescription"/>
+            <pnp:FieldRef ID="{EC02D10D-839A-4021-94F9-39117B89317A}" Name="SoftractCorsPndncFrom" Required="true"/>
+            <pnp:FieldRef ID="{AD6364E0-91B8-48B6-B2DA-D2540A73B034}" Name="SoftractCorsPndncTo" Required="true"/>
+            <pnp:FieldRef ID="{40E13D7F-6CBE-4ADB-95C8-999F62CCDB9F}" Name="SoftractCmailCorsRefNo" Required="true"/>
+            <pnp:FieldRef ID="{1D95E296-1A8E-4EF8-AACE-BE98E99467F1}" Name="SoftractCorsPndncMessage"/>
+            <pnp:FieldRef ID="{163F0727-9C9B-4C6C-82D8-63380AA88820}" Name="SoftractCMailSentDate" />
+          </pnp:FieldRefs>
+          <pnp:DocumentSetTemplate>
+            <pnp:AllowedContentTypes>
+              <pnp:AllowedContentType ContentTypeID="0x0101" />
+            </pnp:AllowedContentTypes>
+            <pnp:SharedFields>
+              <pnp:SharedField ID="{EC02D10D-839A-4021-94F9-39117B89317A}" />
+              <pnp:SharedField ID="{AD6364E0-91B8-48B6-B2DA-D2540A73B034}" />
+              <pnp:SharedField ID="{163F0727-9C9B-4C6C-82D8-63380AA88820}" />
+              <pnp:SharedField ID="{40E13D7F-6CBE-4ADB-95C8-999F62CCDB9F}" />
+            </pnp:SharedFields>
+            <pnp:WelcomePageFields>
+              <pnp:WelcomePageField ID="{EC02D10D-839A-4021-94F9-39117B89317A}" />
+              <pnp:WelcomePageField ID="{AD6364E0-91B8-48B6-B2DA-D2540A73B034}" />
+              <pnp:WelcomePageField ID="{163F0727-9C9B-4C6C-82D8-63380AA88820}" />
+            </pnp:WelcomePageFields>
+          </pnp:DocumentSetTemplate>
+        </pnp:ContentType>
+        <pnp:ContentType ID="0x01007614A38682FD42738A3FFB630FF717C4" Name="Correspondence Template" Group="{SoftractCTAndFieldsGroupName}" Description="Correspondance Template">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{3E83A728-6F5F-4B41-BC0E-0F28DFB84A7E}" Name="SoftractCorsPndncTemplate" Required="true"/>
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+        <pnp:ContentType ID="0x010100C0D2066864CA4A11942B175F78E9782F" Name="Correspondence Base" Hidden="true" Group="{SoftractCTAndFieldsGroupName}" Description="Correspondance">
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="true"/>
+            <pnp:FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="true"/>
+            <pnp:FieldRef ID="{EC02D10D-839A-4021-94F9-39117B89317A}" Name="SoftractCorsPndncFrom" Required="true"/>
+            <pnp:FieldRef ID="{AD6364E0-91B8-48B6-B2DA-D2540A73B034}" Name="SoftractCorsPndncTo" Required="true"/>
+            <pnp:FieldRef ID="{1D95E296-1A8E-4EF8-AACE-BE98E99467F1}" Name="SoftractCorsPndncMessage" Required="true"/>
+            <pnp:FieldRef ID="{9B657A4B-1D5F-451B-AB82-8B5947AA7F65}" Name="SoftractCMailSentBy" />
+            <pnp:FieldRef ID="{163F0727-9C9B-4C6C-82D8-63380AA88820}" Name="SoftractCMailSentDate" />
+            <pnp:FieldRef ID="{BF388385-B56E-4A4F-A82A-DC3805E14B93}" Name="SoftractCMailViewDate" />
+            <pnp:FieldRef ID="{5B419DC4-B5B9-4CD9-A0E1-C482874310B8}" Name="SoftractCorsPndnStatus" />
+          </pnp:FieldRefs>
+        </pnp:ContentType>
+
+
+
+      </pnp:ContentTypes>
+
+      <pnp:Lists>
+        <pnp:ListInstance Title="Document Templates" Description="Document Templates" OnQuickLaunch="false" TemplateType="101" RemoveExistingContentTypes="false" ContentTypesEnabled="true" Url="Lists/DocumentTemplates">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF" Default="false"/>
+            <pnp:ContentTypeBinding ContentTypeID="0x01010059086E92F87740CEB070B201A53D995E" Default="false"/>
+            <pnp:ContentTypeBinding ContentTypeID="0x010100B2581B24E42E4A0AAF82E48BF83A4171" Default="false"/>
+            <pnp:ContentTypeBinding ContentTypeID="0x01010006EFA81ACDC148349F81F669B27A4AC6" Default="false"/>
+          </pnp:ContentTypeBindings>
+        </pnp:ListInstance>
+      </pnp:Lists>
+
+      <pnp:Files>
+        <pnp:File Src="Artefacts\DocumentTemplates\CDRL.docx" Folder="Lists/DocumentTemplates">
+          <pnp:Properties>
+            <!--<pnp:Property Key="Title" Value="CDRL"/>-->
+            <pnp:Property Key="ContentType" Value="CDRL Base"/>
+          </pnp:Properties>
+        </pnp:File>
+        <pnp:File Src="Artefacts\DocumentTemplates\Internal Comments.docx" Folder="Lists/DocumentTemplates">
+          <pnp:Properties>
+            <!--<pnp:Property Key="Title" Value="Internal Comments"/>-->
+            <pnp:Property Key="ContentType" Value="Internal Comments"/>
+          </pnp:Properties>
+        </pnp:File>
+        <pnp:File Src="Artefacts\DocumentTemplates\External Comments.docx" Folder="Lists/DocumentTemplates">
+          <pnp:Properties>
+            <!--<pnp:Property Key="Title" Value="External Comments"/>-->
+            <pnp:Property Key="ContentType" Value="External Comments"/>
+          </pnp:Properties>
+        </pnp:File>
+        <pnp:File Src="Artefacts\DocumentTemplates\COAEmailDocument.docx" Folder="Lists/DocumentTemplates">
+        </pnp:File>
+        <pnp:File Src="Artefacts\DocumentTemplates\CDRL Delivery Listing.xlsx" Folder="Lists/DocumentTemplates">
+        </pnp:File>
+      </pnp:Files>
+
+      <pnp:Providers>
+        <pnp:Provider Enabled="true" HandlerType="Softract.Provisioning.Library.PnpExtensions.ProvisionExtensibilityHandler, Softract.Provisioning.Library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <pnp:Configuration>
+            <ProvisioningExtensibilityHandlerConfig xmlns="http://schemas.nec.com.au/PnP/ProvisioningExtensibilityHandler">
+              <ContentTypes>
+                <ContentType ID="0x0108003365C4474CAE8C42BCE396314E88E51F00AADC02A4E1BE4E32BAF3CBD364531114" Name="Review Task">
+                  <RemoveFieldRefs>
+                    <RemoveFieldRef ID="{55b29417-1042-47f0-9dff-ce8156667f96}" Name="TaskOutcome" />
+                  </RemoveFieldRefs>
+                </ContentType>
+                <ContentType ID="0x0108003365C4474CAE8C42BCE396314E88E51F0011989C546DE54A209136F3C3D1717A7D" Name="CoA Task">
+                  <RemoveFieldRefs>
+                    <RemoveFieldRef ID="{55b29417-1042-47f0-9dff-ce8156667f96}" Name="TaskOutcome" />
+                  </RemoveFieldRefs>
+                </ContentType>
+
+              </ContentTypes>
+              <Files>
+                <File Src="Artefacts\Scripts\CSR_Cmail.js" Name="CSR_VCRM.js" Folder="_catalogs/masterpage/Softract/Scripts" Level="Published"></File>
+                <File Src="Artefacts\Scripts\CSR_VCRM.js" Name="CSR_VCRM.js" Folder="_catalogs/masterpage/Softract/Scripts" Level="Published"></File>
+                <File Src="Artefacts\Scripts\Softract.Common.js" Name="Softract.Common.js" Folder="_catalogs/masterpage/Softract/Scripts"  Level="Published"></File>
+                <File Src="Artefacts\Styles\common.css" Name="common.css" Folder="_catalogs/masterpage/Softract/Styles"  Level="Published"></File>
+                <File Src="Artefacts\PageLayouts\SoftractHome.aspx" Name="SoftractHome.aspx" Folder="_catalogs/masterpage"  Level="Published"></File>
+              </Files>
+              <Solutions>
+                <Solution PackageGuid="{be06e8ba-d037-4cf3-b501-b43280be35bc}" PackageName="TaskCancellation" PackagePath="Artefacts\Solutions\TaskCancellation.wsp" Redeploy="false" />
+                <Solution PackageGuid="{40401490-9e16-4887-ad2c-de412c150dcb}" PackageName="TaskAssignment" PackagePath="Artefacts\Solutions\TaskAssignment.wsp" Redeploy="false" />
+              </Solutions>
+            </ProvisioningExtensibilityHandlerConfig>
+          </pnp:Configuration>
+        </pnp:Provider>
+      </pnp:Providers>
+
+      <pnp:ComposedLook BackgroundFile="" Name="Softract" ColorFile="{sitecollection}/_catalogs/Theme/15/Softract.spcolor" FontFile="{sitecollection}/_catalogs/Theme/15/Softract.spfont" />
+    </pnp:ProvisioningTemplate>
+
+    <!--<pnp:ProvisioningTemplate ID="SoftractProject" DisplayName="SoftractProject" Description="Softract Project site template">
+      <pnp:Features>
+        <pnp:WebFeatures>
+          <pnp:Feature ID="94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb" Description="SharePoint Server Publishing" />
+        </pnp:WebFeatures>
+      </pnp:Features>
+      <pnp:Security>
+        <pnp:SiteGroups>
+          <pnp:SiteGroup  Title="PPBR Managers" Description="Full control to the site" Owner="{SiteCollectionAdmin}"></pnp:SiteGroup>
+          <pnp:SiteGroup  Title="PPBR Content Creators" Description="Can view, add, update, and delete list items and documents" Owner="{SiteCollectionAdmin}"></pnp:SiteGroup>
+          <pnp:SiteGroup  Title="PPBR Content Approvers" Description="Can edit and approve pages, list items, and documents" Owner="{SiteCollectionAdmin}"></pnp:SiteGroup>
+          <pnp:SiteGroup  Title="PPBR Customers" Description="Can edit and approve pages, list items, and documents for External documents" Owner="{SiteCollectionAdmin}"></pnp:SiteGroup>
+          <pnp:SiteGroup  Title="PPBR Suppliers" Description="Can edit and approve pages, list items, and documents" Owner="{SiteCollectionAdmin}"></pnp:SiteGroup>
+        </pnp:SiteGroups>
+        <pnp:Permissions>
+          <pnp:RoleAssignments>
+            <pnp:RoleAssignment Principal="PPBR Managers" RoleDefinition="Full Control"/>
+            <pnp:RoleAssignment Principal="PPBR Content Creators" RoleDefinition="Contribute"/>
+            <pnp:RoleAssignment Principal="PPBR Content Approvers" RoleDefinition="Design"/>
+          </pnp:RoleAssignments>
+        </pnp:Permissions>
+      </pnp:Security>
+    
+    <pnp:Lists>
+        <pnp:ListInstance Title="Reports" Description="Reports" OnQuickLaunch="true" TemplateType="101" ContentTypesEnabled="false" Url="Lists/Reports">
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="Announcements" Description="Announcements" OnQuickLaunch="false" TemplateType="104" ContentTypesEnabled="false" Url="Lists/announcements">
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="CDRL Task List" Description="CDRL Tasks List" OnQuickLaunch="true" TemplateType="100" ContentTypesEnabled="true" Url="Lists/CDRLTasks" RemoveExistingContentTypes="true">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x0100DA3264DB1D5947D08EC906E9141F01F9" Default="true"/>
+          </pnp:ContentTypeBindings>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="Risks and Issues" Description="Risks and Issues" OnQuickLaunch="true" TemplateType="100" ContentTypesEnabled="true" Url="Lists/RisksAndIssues" RemoveExistingContentTypes="true">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01000C5C701D745B4E3E89F13BC9F66A2E5F" Default="true"/>
+          </pnp:ContentTypeBindings>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="CDRL List" Description="CDRL List" OnQuickLaunch="true" TemplateType="100" ContentTypesEnabled="true" Url="Lists/CDRLs" RemoveExistingContentTypes="true">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x0100436652D26F7849B1BE0106585461ACE9" Default="true"/>
+          </pnp:ContentTypeBindings>
+        </pnp:ListInstance>
+        <pnp:ListInstance Title="SDRL List" Description="SDRL List" OnQuickLaunch="true" TemplateType="100" ContentTypesEnabled="true" Url="Lists/SDRLs" RemoveExistingContentTypes="true">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x0100436652D26F7849B1BE0106585461ADE8" Default="true"/>
+          </pnp:ContentTypeBindings>
+        </pnp:ListInstance>    
+        <pnp:ListInstance Title="Documents" Description="Documents" OnQuickLaunch="true" TemplateType="101" ContentTypesEnabled="true" Url="Lists/Shared Documents" RemoveExistingContentTypes="true">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF" Default="true"/>
+            <pnp:ContentTypeBinding ContentTypeID="0x0101007352B54274B2476E925990286BFF1D9E" Default="true"/>
+            <pnp:ContentTypeBinding ContentTypeID="0x01010020783B76E0D34E6DBA0FCE40BAC982E2" Default="true"/>
+            <pnp:ContentTypeBinding ContentTypeID="0x01010006EFA81ACDC148349F81F669B27A4AC6" Default="true"/>
+          </pnp:ContentTypeBindings>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>-->
+  </pnp:Templates>
+  <pnp:Sequence ID="Sequence1" SequenceType="Synchronous">
+    <pnp:SiteCollection Language="{lcid}" PrimarySiteCollectionAdmin="{SiteCollectionAdmin}"
+                        Title="C-Port"
+                        TimeZone="{TimeZoneId}"
+                        StorageMaximumLevel="300"
+                        StorageWarningLevel="100"
+                        Url="https://{O365TenantName}.sharepoint.com{SiteCollectionPath}"  >
+      <pnp:Templates>
+        <pnp:ProvisioningTemplateReference ID="SoftractSiteCollection"/>
+        <pnp:ProvisioningTemplateReference ID="SoftractSiteCollection1"/>
+        <pnp:ProvisioningTemplateReference ID="SoftractSiteCollection2"/>
+      </pnp:Templates>
+    </pnp:SiteCollection>
+  </pnp:Sequence>
+</pnp:Provisioning>

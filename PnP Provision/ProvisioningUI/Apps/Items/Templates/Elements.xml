@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Templates" Url="Lists/Templates">
+    <File Path="Templates\ProjectSiteTemplate.json" Url="ProjectSiteTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
+      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="Title" Type="string" Value="Site Template"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="This is test site template"></Property>
+      <Property Name="TemplateType" Type="string" Value="Site"></Property>
+      <Property Name="TemplateID" Type="string" Value="SiteTemplate#1"></Property>
+    </File>
+    <File Path="Templates\FeatureTemplate.json" Url="FeatureTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
+      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="Title" Type="string" Value="Feature Template"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="This is test feature template"></Property>
+      <Property Name="TemplateType" Type="string" Value="Feature"></Property>
+      <Property Name="TemplateID" Type="string" Value="FeatureTemplate#1"></Property>
+      <Property Name="TemplateDependencies" Type="string" Value="SiteTemplate#1"></Property>
+    </File>
+    <File Path="Templates\EmailTemplates.xml" Url="EmailTemplates.xml" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
+      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="Title" Type="string" Value="Email Template Items"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="Email Templates for list"></Property>
+      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
+      <Property Name="TemplateID" Type="string" Value="EmailTemplates#1"></Property>
+    </File>
+    <File Path="Templates\CMailRibbon.xml" Url="CMailRibbon.xml" ReplaceContent="TRUE" >
+      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="Title" Type="string" Value="CMail Ribbon"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="CMail Feature Ribbon"></Property>
+      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
+      <Property Name="TemplateID" Type="string" Value="CMailRibbon"></Property>
+    </File>
+    <File Path="Templates\SoftractRibbon.xml" Url="SoftractRibbon.xml" ReplaceContent="TRUE" >
+      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="Title" Type="string" Value="Softract Ribbon"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="Softract Ribbon"></Property>
+      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
+      <Property Name="TemplateID" Type="string" Value="SoftractRibbon"></Property>
+
+    </File>
+  </Module>
+</Elements>

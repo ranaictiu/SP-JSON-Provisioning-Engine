@@ -1,0 +1,10 @@
+[
+  {
+    "outputFileName": "Artefacts/Styles/ActivExtranet-bs.min.min.css",
+    "inputFiles": [
+      "Artefacts/Styles/ActivExtranet-bs.min.css"
+    ],
+    "sourceMap": false,
+    "sourceMapRootPath": null
+  }
+]

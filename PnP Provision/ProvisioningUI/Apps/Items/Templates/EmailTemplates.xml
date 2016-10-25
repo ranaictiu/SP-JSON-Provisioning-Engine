@@ -1,0 +1,112 @@
+﻿<DataRows>
+  <DataRow>
+    <Title>COA Batch Document Template</Title>
+    <SoftractEmailSubjectContent>This is subject</SoftractEmailSubjectContent>
+    <SoftractEmailTemplateKey>CoAEMailAttachment</SoftractEmailTemplateKey>
+    <SoftractEmailTemplateContent>
+      <div>
+        <p style="text-align: right;">
+          <span>​&lt;&lt;Ref: ##DOCUMENT_REF##&gt;&gt;</span>
+          <br/>
+          <span>##Document_DATE##​</span>
+        </p>
+        <p>
+          <span>Attn:&#160; ##COA_DISPLAY_NAME##</span>
+          <br/>
+          <span>Project Manager</span>
+          <br/>
+          <span>Boats and Upgrades Branch​​​</span>
+          <br/>
+          <span>General Ships Division​</span>
+          <br/>
+          <span>Department of D​efence</span>
+          <br/>
+          <span>PO Box 7903​</span>
+          <br/>
+          <span>CANBERRA BC ACT 2610</span>
+        </p>
+        <br/>
+        <p style="color: #444444; font-weight: bold;">​PPB-R Formal Delivery</p>
+        <br/>
+        <p>
+          <span style="font-weight: bold;"> References:</span>
+        </p>
+        <ol start="1" type="A" style="margin-top: 0cm;">
+          <li style="color: blue; margin-top: 12pt; margin-bottom: 6pt; line-height: normal;">​Nil</li>
+        </ol>
+        <br/>​<br/>​​Dear ##COA_DISPLAY_NAME##,<br/>
+        <p>Softract is pleased to submit the following item(s) via C-Port, located at:</p> ##CDRLS_LIST## ​<br/>
+        <p>
+          If you have any questions regarding this letter, please contact myself on (08) 94101111 or via email at ##PM_EMAIL##  ​<br/> Kind Regards,
+        </p>
+        <p>##PM_SIGNATURE##</p>
+        ##PM_DISPLAY_NAME##<br/> PPB-R Project Manager<br/><br/>​​
+        <div style="color: black;">
+          <p style="font-weight: bold;">Courtesy copy:</p>
+          <p>
+            Katherine Oates (<span style="text-decoration: underline;">katherine.oates@defence.gov.au</span>)
+          </p>
+          <p>
+            Kelly Burnett (<span class="MsoHyperlink" style="text-decoration: underline;">kelly.burnett@defence.gov.au</span>)
+          </p>
+          <p>SEA3036@defence.gov.au</p>
+          <p style="text-decoration: underline;">PPBR@softract.com</p>
+        </div>
+      </div>
+    </SoftractEmailTemplateContent>
+  </DataRow>
+  <DataRow>
+    <Title>COA Workflow email template</Title>
+    <SoftractEmailSubjectContent>##PROJECT_NAME## - Ref: ##DOCUMENT_REF## - Document Submission</SoftractEmailSubjectContent>
+    <SoftractEmailTemplateKey>CoAEmailWorkflowEmail</SoftractEmailTemplateKey>
+    <SoftractEmailTemplateContent Type="xml">
+      <div>
+        <p>Dear ##COA_DISPLAY_NAME##,</p>
+        <p> &#160;</p>
+        <p>Ref: ##DOCUMENT_REF##</p>
+        <p>Softract is pleased to submit some items via C-Port. Please see the attached document for more details.</p>
+        <p> &#160;</p>
+        <p>Kind Regards,</p>
+        <p>##PM_DISPLAY_NAME##</p>
+        <p>PPB-R Project Manager</p>
+      </div>    
+    </SoftractEmailTemplateContent>
+  </DataRow>
+  <DataRow>
+    <Title>Task Assignment Workflow email template</Title>
+    <SoftractEmailSubjectContent>Task '##TASK_TITLE##' has been assigned to you</SoftractEmailSubjectContent>
+    <SoftractEmailTemplateKey>TaskAssignmentWorkflowEmail</SoftractEmailTemplateKey>
+    <SoftractEmailTemplateContent Type="xml">
+      <div style="margin: 0px auto; width: 588px; background-color: #ffffff;">
+        <table style="width: 100%; font-size: 30pt; border-top: 12px solid #00547e; border-bottom: 12px solid #00547e;">
+          <tbody>
+            <tr>
+              <td style="width: 100px;">
+                <img src="http://softract.com/sites/default/files/email/EmailIcon.jpg" alt="" style="margin-right: 20px;"/>
+              </td>
+              <td>PPBR</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <img src="http://softract.com/sites/default/files/email/EmailHeading1.jpg" alt=""/>
+        </p>
+        <p style="padding: 10px 40px; color: #ffffff; font-size: 20pt; font-weight: bold; background-color: #006993;"> Task Assignment </p>
+        <div style="padding: 10px 40px; line-height: 16.86px; font-family: calibri, sans-serif; font-size: 14.66px;">
+          <p>
+            <span>Hi ##ASSIGNEE##,</span>
+            <br/>​<br/>
+          </p>
+          <p>The following task has been assigned to you by ##ASSIGNED_BY_DISPLAY_NAME##:</p>
+          <p> Link:##TASKS_LIST## </p>
+          <p> If you have any questions pelase contact ##ASSIGNED_BY_DISPLAY_NAME## (##ASSIGNED_BY_EMAIL##) </p>
+          <p>
+            <br/>​
+            <span style="font-size: 14.66px; line-height: 16.86px;">Regards,</span><br/>
+          </p>
+          <p>PPBR Team</p>
+        </div>
+      </div>​
+      ​</SoftractEmailTemplateContent>
+  </DataRow>  
+</DataRows>

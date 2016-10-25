@@ -1,0 +1,143 @@
+﻿body
+{
+}
+.ms-formbody .softract-loading {
+    background-image: url("/_layouts/15/images/gears_anv4.gif?rev=43");
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    min-height: 24px;
+}
+.ms-formbody .softract-loading select{
+    display: none;
+}
+
+.softract-home-layout{
+    
+}
+.softract-home-layout .ms-WPBorder{
+    border:none;
+}
+.softract-home-layout .row{
+    box-sizing:border-box;
+}
+
+.softract-home-layout .row .column{
+    float:left;
+    width:75%;
+}
+.softract-home-layout .row .column.col-right{
+    float:right;
+    width:24%;
+}
+
+.softract-action-row{
+    margin:10px 0;
+    display:inline-block;
+}
+
+.softract-btn{
+    padding:10px;
+    margin:0 10px 0 0;
+    display:inline-block;
+    vertical-align:middle;
+    cursor:pointer;
+    border-radius:.25rem;
+    border:solid 1px transparent;
+}
+.softract-btn:hover{
+    text-decoration:none;
+}
+.softract-btn.primary{
+    color:#fff;
+    background-color:#19789d;
+    border-color:#19789d;
+}
+.softract-btn.primary:hover{
+    color:#fff;
+    background-color:#006993;
+    border-color:#006993;
+}
+
+.softract-btn.primary.warning{
+    color:#fff;
+    background-color:#f0ad4e;
+    border-color:#f0ad4e;
+}
+.softract-btn.primary.warning:hover{
+    color:#fff;
+    background-color:#ec971f;
+    border-color:#ec971f;
+}
+
+.softract-btn.cancel{
+    color:#000;
+    background-color:#dedee0;
+    border-color:#dedee0;
+}
+.softract-btn.cancel:hover{
+    color:#000;
+    background-color:#c5c5c7;
+    border-color:#c5c5c7;
+}
+.softract-home-layout .col-left .ms-webpart-chrome h2.ms-webpart-titleText{
+    background-color:#19789d;
+    padding: 2px 0 2px 10px;
+    color:#fff;
+}
+.softract-home-layout .col-left .ms-webpart-chrome h2.ms-webpart-titleText >a {
+    color: #fff;
+}
+
+
+.softract-home-layout .col-right .ms-webpart-chrome h2.ms-webpart-titleText{
+    border-bottom:solid 1px #19789d;
+    color:#19789d;
+}
+
+.softract-home-layout .col-right .ms-webpart-chrome h2.ms-webpart-titleText > a {
+    color:#19789d;
+}
+
+
+
+
+.ms-dlgTitle {/*dialog header*/
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #d8d8d8;
+}
+.ms-vb a.ms-listlink, .ms-vb2 a.ms-listlink, .ms-vb-user a.ms-listlink, .ms-vb a.ms-listlink:visited, .ms-vb a.ms-listlink:visited:hover {
+    color: #0072C6;
+}
+
+/*Quick Launch CSS*/
+.ms-core-listMenu-verticalBox ul.root > li > a,
+.ms-core-listMenu-verticalBox ul.root > li > span {
+    background-color: #4c96b3; color: white;
+    margin: 1px;
+}
+.ms-core-listMenu-verticalBox ul.root > li > ul > li > a{
+    background-color: #e5f0f4;
+    margin: 1px;
+}
+.ms-core-listMenu-verticalBox ul.root > li  > a.selected {
+    font-size: 105%;
+    background-color: #3287a8;
+    font-weight: 800;
+}
+.ms-core-listMenu-verticalBox ul.root > li > ul > li > a.selected {
+    background-color: #cce1e9;
+    font-weight: bold;
+    font-size: 105%;
+}
+.ms-core-listMenu-verticalBox ul.root > li > ul > li > a:hover {
+    background-color: #cce1e9;
+}
+#sideNavBox .ms-listMenu-editLink,#DeltaTopNavigation .ms-listMenu-editLink{
+    display: none;/*hide left nav edit link*/
+}
+/*Listview styles*/
+table.ms-listviewtable > thead {
+    background-color: #cee7f8;
+}
+
+/*#cee7f8*/

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema id="NECPnPExtensions"
+    targetNamespace="http://schemas.nec.com.au/PnP/AustalExtensibilityHandler"
+    elementFormDefault="qualified"
+    xmlns="http://schemas.nec.com.au/PnP/AustalExtensibilityHandler"
+    xmlns:nec="http://schemas.nec.com.au/PnP/AustalExtensibilityHandler"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:simpleType name="GUID">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        The description of a Global Unique IDentifier
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="(\{)?[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}(\})?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name='ContentTypeId' id='ContentTypeId'>
+    <xsd:restriction base='xsd:string'>
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          A Content Type ID
+        </xsd:documentation>
+      </xsd:annotation>
+      <xsd:pattern value='0x[a-zA-Z0-9]*'/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:complexType name="RemoveFieldRefBase">
+    <xsd:attribute name="ID" type="nec:GUID" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The value of the field ID to bind, required attribute.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="RemoveFieldRefFull">
+    <xsd:complexContent>
+      <xsd:extension base="nec:RemoveFieldRefBase">
+        <xsd:attributeGroup ref="nec:RemoveFieldRefAttributes" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:attributeGroup name="RemoveFieldRefAttributes">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Common set of attributes for any FieldRef element.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:attribute name="Name" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The name of the field used in the field reference. This is for reference/readibility only.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="Required" type="xsd:boolean" use="optional" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The Required flag for the field to bind, optional attribute.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="Hidden" type="xsd:boolean" use="optional" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The Hidden flag for the field to bind, optional attribute.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+  </xsd:attributeGroup>
+  <xsd:complexType name="ContentTypeFieldRef">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Defines the binding between a ContentType and a Field.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nec:RemoveFieldRefFull" />
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="ContentType">
+    <xsd:all>
+      <xsd:element name="RemoveFieldRefs" minOccurs="0">
+        
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RemoveFieldRef" type="nec:ContentTypeFieldRef"
+                         minOccurs="1" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="ID"  type="nec:ContentTypeId" use="required"></xsd:attribute>
+    <xsd:attribute name="Name" type="xsd:string" use="required"></xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="ContentTypes">
+    <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+      <xsd:element name="ContentType" type="nec:ContentType" minOccurs="0"  maxOccurs="unbounded">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

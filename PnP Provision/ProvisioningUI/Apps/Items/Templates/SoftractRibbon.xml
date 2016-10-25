@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <CustomAction Id="Softract.Project.CustomAction" 
+                Title="Softract"
+                Description="Softract Project Ribbon"
+                RegistrationType="List"
+                RegistrationId="101"
+                Location="CommandUI.Ribbon.ListView"
+                Sequence="10001">
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition
+          Location="Ribbon.Tabs._children">
+          <Tab Id="Softract.ProjectTab" Title="Softract" Description="Softract Actions" Sequence="501">
+            <Scaling Id="Softract.ProjectTab.Scaling">
+              <MaxSize Id="Softract.ProjectTab.TabTwoMaxSize" GroupId="Softract.ProjectTab.SubmitForReviewGroup" Size="TwoLarge" />
+              <MaxSize Id="Softract.ProjectTab.TabOneMaxSize" GroupId="Softract.ProjectTab.InteralApprovalGroup" Size="OneLarge" />
+              <MaxSize Id="Softract.ProjectTab.TabOneMaxSize1" GroupId="Softract.ProjectTab.ExternalApprovalGroup" Size="OneLarge" />
+              <Scale Id="Softract.ProjectTab.Scaling.SubmitForReviewScaling" GroupId="Softract.ProjectTab.SubmitForReviewGroup" Size="TwoLarge" />
+              <Scale Id="Softract.ProjectTab.Scaling.SubmitForPMApprovalScaling" GroupId="Softract.ProjectTab.InteralApprovalGroup" Size="OneLarge" />
+            </Scaling>
+            <Groups Id="Softract.ProjectTab.Groups">
+              <Group
+                Id="Softract.ProjectTab.SubmitForReviewGroup"
+                Description="Reviwe Workflow Actions"
+                Title="Peer Review"
+                Sequence="53"
+                Template="Softract.Ribbon.ProjectTemplate">
+                <Controls Id="Softract.ProjectTab.SubmitForReviewGroup.Controls">
+                  <Button Id="Softract.ProjectTab.SubmitForReviewGroup.Submit" Command="Softract.ProjectTab.SubmitForReviewCommand"
+                    Sequence="15" Image32by32="{SiteUrl}/_layouts/15/1033/Images/formatmap32x32.png?rev=23"
+                    Image32by32Top="-171" Image32by32Left="-443" Description="Start 'Submit for Review' Workflow"
+                    LabelText="Submit"
+                    TemplateAlias="LOR"/>
+                  <Button
+                   Id="Softract.ProjectTab.SubmitForReviewGroup.Cancel"
+                   Command="Softract.ProjectTab.CancelReviewCommand"
+                   Sequence="15"
+                   Image32by32="{SiteUrl}/_layouts/15/1033/Images/formatmap32x32.png?rev=23"
+                   Image32by32Top="-0" Image32by32Left="-34"
+                   Description="Cancel Peer Review"
+                   LabelText="Cancel"
+                   TemplateAlias="LORS"/>
+                </Controls>
+              </Group>
+              <Group Id="Softract.ProjectTab.InteralApprovalGroup"
+                Description="PM Approval Workflow"
+                Title="PM Approval"
+                Sequence="53"
+                Template="Softract.Ribbon.ProjectTemplate">
+                <Controls Id="Softract.ProjectTab.PMApprovalGroup.Controls">
+                  <Button Id="Softract.ProjectTab.PMApprovalGroup.Submit" Command="Softract.ProjectTab.PMApprovalGroupCommand"
+                    Sequence="15" Image32by32="{SiteUrl}/_layouts/15/1033/Images/formatmap32x32.png?rev=23"
+                    Image32by32Top="0" Image32by32Left="-443" Description="Start 'Project Manager Approval' Workflow"
+                    LabelText="Submit"
+                    TemplateAlias="LOR"/>
+                </Controls>
+              </Group>
+              <Group Id="Softract.ProjectTab.ExternalApprovalGroup"
+                Description="Commonwealth Workflow"
+                Title="COA Submission"
+                Sequence="53"
+                Template="Softract.Ribbon.ProjectTemplate">
+                <Controls Id="Softract.ProjectTab.CommonwealthApprovalGroup.Controls">
+                  <Button Id="Softract.ProjectTab.CommonwealthApprovalGroup.Submit" Command="Softract.ProjectTab.CommonwealthApprovalGroupCommand"
+                    Sequence="15" Image32by32="{SiteUrl}/_layouts/15/1033/Images/formatmap32x32.png?rev=23"
+                    Image32by32Top="-410" Image32by32Left="-475" Description="Start 'Commonwealth Approval' Workflow"
+                    LabelText="Submit"
+                    TemplateAlias="LOR"/>
+                </Controls>
+              </Group>
+            </Groups>
+          </Tab>
+        </CommandUIDefinition>
+        <CommandUIDefinition Location="Ribbon.Templates._children">
+          <GroupTemplate Id="Softract.Ribbon.ProjectTemplate">
+            <Layout Title="TwoLarge" LayoutTitle="TwoLarge">
+              <Section Alignment="Top" Type="OneRow">
+                <Row>
+                  <ControlRef DisplayMode="Large" TemplateAlias="LOR" />
+                </Row>
+              </Section>
+              <Section Alignment="Top" Type="OneRow">
+                <Row>
+                  <ControlRef DisplayMode="Large" TemplateAlias="LORS" />
+                </Row>
+              </Section>
+            </Layout>
+            <Layout Title="OneLarge" LayoutTitle="OneLarge">
+              <Section Alignment="Top" Type="OneRow">
+                <Row>
+                  <ControlRef DisplayMode="Large" TemplateAlias="LOR" />
+                </Row>
+              </Section>
+            </Layout>
+          </GroupTemplate>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler
+          Command="Softract.ProjectTab.SubmitForReviewCommand" EnabledScript="javascript:Softract.customactions.canSubmitForReview()"
+          CommandAction="javascript:Softract.customactions.submitForReview();"/>
+        <CommandUIHandler
+          Command="Softract.ProjectTab.CancelReviewCommand" EnabledScript="javascript:Softract.customactions.canCancelReview()"
+          CommandAction="javascript:Softract.customactions.cancelReview()"/>
+        <CommandUIHandler
+          Command="Softract.ProjectTab.PMApprovalGroupCommand" EnabledScript="javascript:Softract.customactions.canSubmitForPMApproval()"
+          CommandAction="javascript:Softract.customactions.submitForPMApproval()"/>
+        <CommandUIHandler
+          Command="Softract.ProjectTab.CommonwealthApprovalGroupCommand" EnabledScript="javascript:Softract.customactions.canSubmitForCWApproval()"
+          CommandAction="javascript:Softract.customactions.submitForCWApproval();"/>
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+
+</Elements>
