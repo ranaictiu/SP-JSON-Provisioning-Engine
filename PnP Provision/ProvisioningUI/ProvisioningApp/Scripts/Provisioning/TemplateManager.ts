@@ -36,7 +36,7 @@ export enum ProgressSteps {
 }
 
 export interface ProgressListenerInteface {
-    progressUpdate: (stepName: ProgressSteps, message: string, status: OperationStatus) => void;
+    progressUpdate: (stepName: ProgressSteps, status: OperationStatus, message?: string) => void;
 }
 
 
@@ -98,6 +98,7 @@ export class TemplateManager {
         var promises = $.when(1);
         let activatedWebFeatures: Array<FeatureInfo>;
         var featuresToActivate;
+        this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.inProgress, 'Activating Features');
         promises = promises.then(() => {
             return this.spHelper.getActivatedFeatures(true, (fs) => {
                 activatedWebFeatures = fs;
@@ -107,19 +108,19 @@ export class TemplateManager {
             var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
             featuresToActivate = Utils.arrayFilter(pnpFeatures, (f) => {
                 return Utils.arrayFirst(activatedWebFeatures, (af) => {
-                    return f.DefinitionId.toLowerCase() == af.DefinitionId.toLowerCase();
+                    return f.ID.toLowerCase() == af.ID.toLowerCase();
                 }) == null;
             });
             return {};
         });
         promises = promises.then(() => {
             if (featuresToActivate == null || featuresToActivate.length == 0) return {};
-            this.progressListener.progressUpdate(ProgressSteps.Features, 'Activating Features', OperationStatus.inProgress);
+            
             return this.spHelper.activateDeactivateWebFeatures(featuresToActivate);
         });
         promises = promises.then(() => {
             if (featuresToActivate != null && featuresToActivate.length > 0) {
-                this.progressListener.progressUpdate(ProgressSteps.Features, 'Features Activated', OperationStatus.success);
+                this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.success, 'Features Activated');
             }
             return {};
         });
@@ -132,7 +133,7 @@ export class TemplateManager {
         var promises = $.when(1);
         let siteGroups: Array<SP.Group>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Creating Security Groups', OperationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, OperationStatus.inProgress, 'Creating Security Groups');
 
             return this.spHelper.getAllSiteGroups((groups) => {
                 siteGroups = groups;
@@ -156,7 +157,7 @@ export class TemplateManager {
 
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Security Groups Created', OperationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, OperationStatus.success, 'Security Groups Created');
             return {};
         });
         return promises;
@@ -166,7 +167,7 @@ export class TemplateManager {
         var promises = $.when(1);
         let availableFields: Array<SP.Field>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Columns, 'Creating Site Fields', OperationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Columns, OperationStatus.inProgress, 'Creating Site Fields');
             return this.spHelper.getAvailableFields('Id,InternalName', (flds) => {
                 availableFields = flds;
             });
@@ -183,7 +184,7 @@ export class TemplateManager {
             });
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Columns, 'Site Fields Created', OperationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Columns, OperationStatus.success, 'Site Fields Created');
             return {};
         });
         return promises;
@@ -193,7 +194,7 @@ export class TemplateManager {
         var promises = $.when(1);
         let availableContentTypes: Array<SP.ContentType>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'Creating ContentTypes', OperationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.ContentTypes, OperationStatus.inProgress, 'Creating ContentTypes');
             return this.spHelper.getAvailableContentTypes('Id,Name', (ctypes) => {
                 availableContentTypes = ctypes;
             });
@@ -210,7 +211,7 @@ export class TemplateManager {
             });
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'ContentTypes Created', OperationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.ContentTypes, OperationStatus.success, 'ContentTypes Created');
             return {};
         });
         return promises;
@@ -219,7 +220,7 @@ export class TemplateManager {
         if (template.Pages == null || template.Pages.length == 0) return {};
         var promises = $.when(1);
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Pages, 'Creating Pages', OperationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Pages, OperationStatus.inProgress, 'Creating Pages');
             return {};
         });
         promises = promises.then(() => {
@@ -227,7 +228,7 @@ export class TemplateManager {
         });
 
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Pages, 'Pages Created', OperationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Pages, OperationStatus.success, 'Pages Created');
             return {};
         });
         return promises;
@@ -237,7 +238,7 @@ export class TemplateManager {
         var promises = $.when(1);
         let allLists: Array<ListInfo>;
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Lists, 'Creating Lists', OperationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Lists, OperationStatus.inProgress, 'Creating Lists');
             return {};
         });
 
@@ -273,7 +274,7 @@ export class TemplateManager {
 
         }
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Lists, 'Lists Created', OperationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Lists, OperationStatus.success, 'Lists Created');
             return {};
         });
         return promises;
@@ -285,7 +286,7 @@ export class TemplateManager {
 
         var promises = $.when(1);
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Provisioning Workflows', OperationStatus.inProgress);
+            this.progressListener.progressUpdate(ProgressSteps.Workflows, OperationStatus.inProgress, 'Provisioning Workflows');
             return {};
         });
         for (let wfs of template.Workflows.Subscriptions) {
@@ -295,7 +296,7 @@ export class TemplateManager {
         }
 
         promises = promises.then(() => {
-            this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Workflows Provisioned', OperationStatus.success);
+            this.progressListener.progressUpdate(ProgressSteps.Workflows, OperationStatus.success, 'Workflows Provisioned');
             return {};
         });
         return promises;

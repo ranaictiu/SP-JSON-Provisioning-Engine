@@ -18,6 +18,11 @@ class ProgressStep {
     status: KnockoutObservable<OperationStatus> = ko.observable(null);
     title: KnockoutObservable<string> = ko.observable(null);
     noOfActions: number = 0;
+    statusCssClass = ko.computed(() => {
+        if (this.status()) 
+            return 'status-' + OperationStatus[this.status()];
+        return '';
+    });
 }
 export interface ProgressUIInterface {
     steps: KnockoutObservableArray<ProgressStep>;
@@ -28,7 +33,7 @@ export interface ProgressUIInterface {
 }
 export class ProgressUIModel implements ProgressUIInterface {
     steps: KnockoutObservableArray<ProgressStep>;
-   
+
     initialize(templateFile: TemplateFile) {
         this.steps = ko.observableArray([]);
         for (let templateItem of templateFile.Templates) {

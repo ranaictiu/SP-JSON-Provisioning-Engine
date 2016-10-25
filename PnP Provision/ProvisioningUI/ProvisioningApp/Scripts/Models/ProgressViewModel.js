@@ -5,10 +5,16 @@ define(["require", "exports", "../Provisioning/SharePointHelper", "../Provisioni
     var Utils = SharePointHelper.Utils;
     var ProgressStep = (function () {
         function ProgressStep(name, title, status) {
+            var _this = this;
             if (status === void 0) { status = OperationStatus.unknown; }
             this.status = ko.observable(null);
             this.title = ko.observable(null);
             this.noOfActions = 0;
+            this.statusCssClass = ko.computed(function () {
+                if (_this.status())
+                    return 'status-' + OperationStatus[_this.status()];
+                return '';
+            });
             this.name = name;
             this.title(title);
             this.status(status);

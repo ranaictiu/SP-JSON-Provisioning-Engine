@@ -16,7 +16,7 @@ define(["require", "exports"], function (require, exports) {
     exports.Constants = Constants;
     var FeatureInfo = (function () {
         function FeatureInfo(id) {
-            this.DefinitionId = id;
+            this.ID = id;
         }
         return FeatureInfo;
     }());
@@ -495,7 +495,8 @@ define(["require", "exports"], function (require, exports) {
             });
             return d;
         };
-        SpHelper.prototype.createSite = function (siteInfo) {
+        SpHelper.prototype.createSite = function (siteInfo, callback) {
+            var d = $.Deferred();
             var webCreationInfo = new SP.WebCreationInformation();
             webCreationInfo.set_title(siteInfo.Title);
             webCreationInfo.set_url(siteInfo.Name);
@@ -506,7 +507,14 @@ define(["require", "exports"], function (require, exports) {
             var newWeb = this.getWeb().get_webs().add(webCreationInfo);
             var executeContext = this.getExecuteContext();
             executeContext.load(newWeb, 'ServerRelativeUrl', 'Created');
-            return this.executeQueryPromise();
+            executeContext.executeQueryAsync(function () {
+                callback(newWeb);
+                d.resolve();
+            }, function () {
+                callback(null);
+                d.reject();
+            });
+            return d;
         };
         SpHelper.prototype.addUserToGroup = function (groupName, userKey) {
             var web = this.getWeb();
@@ -597,7 +605,7 @@ define(["require", "exports"], function (require, exports) {
             this._logger.log('activating/deactivating features');
             var promises = $.when(1); //empty promise
             var _loop_1 = function(f) {
-                promises = promises.then(function () { return _this.activateWebFeature(f.Id, f.Scope ? f.Scope : 'farm'); });
+                promises = promises.then(function () { return _this.activateWebFeature(f.ID, f.Scope ? f.Scope : 'farm'); });
             };
             for (var _i = 0, featuresToActivate_1 = featuresToActivate; _i < featuresToActivate_1.length; _i++) {
                 var f = featuresToActivate_1[_i];

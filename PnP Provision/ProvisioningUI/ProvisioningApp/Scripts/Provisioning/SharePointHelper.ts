@@ -9,10 +9,10 @@ export class Constants {
 }
 
 export class FeatureInfo {
-    DefinitionId: string;
+    ID: string;
 
     constructor(id: string) {
-        this.DefinitionId = id;
+        this.ID = id;
     }
 }
 
@@ -533,8 +533,8 @@ export class SpHelper {
         return d;
     }
 
-    createSite(siteInfo: SiteCreationInfo) {
-
+    createSite(siteInfo: SiteCreationInfo, callback: (web: SP.Web) => any): JQueryGenericPromise<{}> {
+        var d = $.Deferred();
         var webCreationInfo = new SP.WebCreationInformation();
         webCreationInfo.set_title(siteInfo.Title);
         webCreationInfo.set_url(siteInfo.Name);
@@ -546,7 +546,14 @@ export class SpHelper {
         var newWeb = this.getWeb().get_webs().add(webCreationInfo);
         var executeContext = this.getExecuteContext();
         executeContext.load(newWeb, 'ServerRelativeUrl', 'Created');
-        return this.executeQueryPromise();
+        executeContext.executeQueryAsync(() => {
+            callback(newWeb);
+            d.resolve();
+        },() => {
+            callback(null);
+            d.reject();
+            });
+        return d;
     }
     addUserToGroup(groupName: string, userKey: string) {
         var web = this.getWeb();
@@ -635,7 +642,7 @@ export class SpHelper {
         var promises = $.when(1);//empty promise
 
         for (let f of featuresToActivate) {
-            promises = promises.then(() => this.activateWebFeature(f.Id, f.Scope ? f.Scope : 'farm'));
+            promises = promises.then(() => this.activateWebFeature(f.ID, f.Scope ? f.Scope : 'farm'));
         }
 
         promises.done(() => {

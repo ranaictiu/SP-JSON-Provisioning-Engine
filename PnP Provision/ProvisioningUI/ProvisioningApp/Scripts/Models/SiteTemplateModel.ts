@@ -69,6 +69,9 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         if (this.siteName() == '') return '';
         return this.getParentWebUrl() + `/${this.siteName()}`;
     });
+    getSiteServerRelativeUrl() {
+        return _spPageContextInfo.webServerRelativeUrl + `/${this.siteName()}`;
+    }
 
     getParentWebUrl() {
         return decodeURIComponent(utils.getQueryStringParameter('SPHostUrl'));
@@ -78,6 +81,7 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         if (!this.validateInputs()) {
             return;
         }
+        this.spHelper = new provisioning.SpHelper(SP.ClientContext.get_current());
         uiManager.showDialog('Validating Request', 'Please wait while validating request.');
         var fileUrl = this.selectedTemplate().serverRelativeUrl;
         this.spHelper.getFileContent(_spPageContextInfo.webAbsoluteUrl, fileUrl, template => {
@@ -120,19 +124,20 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         });
         promises = promises.then(() => {
             let d = $.Deferred();
+            return d.resolve();
 
-            var siteServerRelativeUrl = rootWebServerRelativeUrl + '/' + this.siteName();
-            this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl,Url', webs => {
-                var web = utils.arrayFirst<SP.Web>(webs, (w) => {
-                    return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
-                });
-                if (web) {
-                    uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.',
-                        true);
-                    d.reject();
-                } else d.resolve();
-            });
-            return d;
+            //var siteServerRelativeUrl = rootWebServerRelativeUrl + '/' + this.siteName();
+            //this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl,Url', webs => {
+            //    var web = utils.arrayFirst<SP.Web>(webs, (w) => {
+            //        return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
+            //    });
+            //    if (web) {
+            //        uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.',
+            //            true);
+            //        d.reject();
+            //    } else d.resolve();
+            //});
+            //return d;
         });
         promises = promises.then(() => {
             var d = $.Deferred();
@@ -195,9 +200,17 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         siteCreationInfo.Description = this.siteDescription();
         siteCreationInfo.Name = this.siteName();
         var parentWebContext = this.spHelper.getHelperContextFromUrl(this.getParentWebUrl());
-        parentWebContext.createSite(siteCreationInfo)
+        let createdWeb: SP.Web;
+        //let serverRelativeUrl: string='/sites/devbld/dd';
+        parentWebContext.createSite(siteCreationInfo, (w) => {
+            createdWeb = w;
+        })
             .then(() => {
-                this.spHelper = this.spHelper.getHelperContextFromUrl(this.getSiteUrl());
+                this.progressUI.setStatus(ProgressSteps.SiteCreation, OperationStatus.success, 'Site Created');
+                let createdWebContext = new SP.ClientContext(createdWeb.get_serverRelativeUrl());
+                createdWebContext.set_requestTimeout(300000);
+                this.spHelper = new provisioning.SpHelper(createdWebContext);
+
                 var templatePromises = $.when(1);
                 for (var i = 0; i < siteTemplate.Templates.length; i++) {
                     var template = siteTemplate.Templates[i];
@@ -231,8 +244,8 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
             uiManager.showStickyNotification('Error', 'Failed to create site', true);
         }
     }
-    progressUpdate(stepName: ProgressSteps, message: string, status: OperationStatus): void {
-
+    progressUpdate(stepName: ProgressSteps, status: OperationStatus, message?: string): void {
+        this.progressUI.setStatus(stepName, status, message);
     }
 }
 

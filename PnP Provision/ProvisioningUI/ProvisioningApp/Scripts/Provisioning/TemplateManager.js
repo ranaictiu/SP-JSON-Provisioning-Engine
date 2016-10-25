@@ -85,6 +85,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var activatedWebFeatures;
             var featuresToActivate;
+            this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.inProgress, 'Activating Features');
             promises = promises.then(function () {
                 return _this.spHelper.getActivatedFeatures(true, function (fs) {
                     activatedWebFeatures = fs;
@@ -94,7 +95,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
                 featuresToActivate = Utils.arrayFilter(pnpFeatures, function (f) {
                     return Utils.arrayFirst(activatedWebFeatures, function (af) {
-                        return f.DefinitionId.toLowerCase() == af.DefinitionId.toLowerCase();
+                        return f.ID.toLowerCase() == af.ID.toLowerCase();
                     }) == null;
                 });
                 return {};
@@ -102,12 +103,11 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             promises = promises.then(function () {
                 if (featuresToActivate == null || featuresToActivate.length == 0)
                     return {};
-                _this.progressListener.progressUpdate(ProgressSteps.Features, 'Activating Features', OperationStatus.inProgress);
                 return _this.spHelper.activateDeactivateWebFeatures(featuresToActivate);
             });
             promises = promises.then(function () {
                 if (featuresToActivate != null && featuresToActivate.length > 0) {
-                    _this.progressListener.progressUpdate(ProgressSteps.Features, 'Features Activated', OperationStatus.success);
+                    _this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.success, 'Features Activated');
                 }
                 return {};
             });
@@ -121,7 +121,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var siteGroups;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Creating Security Groups', OperationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, OperationStatus.inProgress, 'Creating Security Groups');
                 return _this.spHelper.getAllSiteGroups(function (groups) {
                     siteGroups = groups;
                 });
@@ -143,7 +143,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_1(g);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, 'Security Groups Created', OperationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.SecurityGroups, OperationStatus.success, 'Security Groups Created');
                 return {};
             });
             return promises;
@@ -155,7 +155,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var availableFields;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Columns, 'Creating Site Fields', OperationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Columns, OperationStatus.inProgress, 'Creating Site Fields');
                 return _this.spHelper.getAvailableFields('Id,InternalName', function (flds) {
                     availableFields = flds;
                 });
@@ -177,7 +177,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_2(sf);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Columns, 'Site Fields Created', OperationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Columns, OperationStatus.success, 'Site Fields Created');
                 return {};
             });
             return promises;
@@ -189,7 +189,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var availableContentTypes;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'Creating ContentTypes', OperationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.ContentTypes, OperationStatus.inProgress, 'Creating ContentTypes');
                 return _this.spHelper.getAvailableContentTypes('Id,Name', function (ctypes) {
                     availableContentTypes = ctypes;
                 });
@@ -210,7 +210,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_3(ct);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.ContentTypes, 'ContentTypes Created', OperationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.ContentTypes, OperationStatus.success, 'ContentTypes Created');
                 return {};
             });
             return promises;
@@ -221,14 +221,14 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 return {};
             var promises = $.when(1);
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Pages, 'Creating Pages', OperationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Pages, OperationStatus.inProgress, 'Creating Pages');
                 return {};
             });
             promises = promises.then(function () {
                 return _this.spHelper.provisionPublishingPages(template.Pages);
             });
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Pages, 'Pages Created', OperationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Pages, OperationStatus.success, 'Pages Created');
                 return {};
             });
             return promises;
@@ -240,7 +240,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var allLists;
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Lists, 'Creating Lists', OperationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Lists, OperationStatus.inProgress, 'Creating Lists');
                 return {};
             });
             promises = promises.then(function () {
@@ -275,7 +275,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_4(listInstance);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Lists, 'Lists Created', OperationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Lists, OperationStatus.success, 'Lists Created');
                 return {};
             });
             return promises;
@@ -287,7 +287,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 return {};
             var promises = $.when(1);
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Provisioning Workflows', OperationStatus.inProgress);
+                _this.progressListener.progressUpdate(ProgressSteps.Workflows, OperationStatus.inProgress, 'Provisioning Workflows');
                 return {};
             });
             var _loop_5 = function(wfs) {
@@ -300,7 +300,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 _loop_5(wfs);
             }
             promises = promises.then(function () {
-                _this.progressListener.progressUpdate(ProgressSteps.Workflows, 'Workflows Provisioned', OperationStatus.success);
+                _this.progressListener.progressUpdate(ProgressSteps.Workflows, OperationStatus.success, 'Workflows Provisioned');
                 return {};
             });
             return promises;

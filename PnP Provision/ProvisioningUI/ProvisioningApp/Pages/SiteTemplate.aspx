@@ -57,7 +57,7 @@
     </div>
     <div id="siteCreationStatus" style="display: none;" class="progress-steps">
         <ul data-bind="foreach: steps()">
-            <li data-bind="css: 'status-' + status()">
+            <li data-bind="css: statusCssClass()">
                 <span class="status-icon"></span>
                 <span class="status-title" data-bind="text: title"></span>
             </li>

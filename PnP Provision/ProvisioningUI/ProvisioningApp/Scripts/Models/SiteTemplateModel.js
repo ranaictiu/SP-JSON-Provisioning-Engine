@@ -53,6 +53,9 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper", ".
                 });
             });
         };
+        SiteTemplateViewModel.prototype.getSiteServerRelativeUrl = function () {
+            return _spPageContextInfo.webServerRelativeUrl + ("/" + this.siteName());
+        };
         SiteTemplateViewModel.prototype.getParentWebUrl = function () {
             return decodeURIComponent(utils.getQueryStringParameter('SPHostUrl'));
         };
@@ -61,6 +64,7 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper", ".
             if (!this.validateInputs()) {
                 return;
             }
+            this.spHelper = new provisioning.SpHelper(SP.ClientContext.get_current());
             uiManager.showDialog('Validating Request', 'Please wait while validating request.');
             var fileUrl = this.selectedTemplate().serverRelativeUrl;
             this.spHelper.getFileContent(_spPageContextInfo.webAbsoluteUrl, fileUrl, function (template) {
@@ -102,19 +106,19 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper", ".
             });
             promises = promises.then(function () {
                 var d = $.Deferred();
-                var siteServerRelativeUrl = rootWebServerRelativeUrl + '/' + _this.siteName();
-                _this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl,Url', function (webs) {
-                    var web = utils.arrayFirst(webs, function (w) {
-                        return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
-                    });
-                    if (web) {
-                        uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.', true);
-                        d.reject();
-                    }
-                    else
-                        d.resolve();
-                });
-                return d;
+                return d.resolve();
+                //var siteServerRelativeUrl = rootWebServerRelativeUrl + '/' + this.siteName();
+                //this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl,Url', webs => {
+                //    var web = utils.arrayFirst<SP.Web>(webs, (w) => {
+                //        return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
+                //    });
+                //    if (web) {
+                //        uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.',
+                //            true);
+                //        d.reject();
+                //    } else d.resolve();
+                //});
+                //return d;
             });
             promises = promises.then(function () {
                 var d = $.Deferred();
@@ -181,9 +185,16 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper", ".
             siteCreationInfo.Description = this.siteDescription();
             siteCreationInfo.Name = this.siteName();
             var parentWebContext = this.spHelper.getHelperContextFromUrl(this.getParentWebUrl());
-            parentWebContext.createSite(siteCreationInfo)
+            var createdWeb;
+            //let serverRelativeUrl: string='/sites/devbld/dd';
+            parentWebContext.createSite(siteCreationInfo, function (w) {
+                createdWeb = w;
+            })
                 .then(function () {
-                _this.spHelper = _this.spHelper.getHelperContextFromUrl(_this.getSiteUrl());
+                _this.progressUI.setStatus(ProgressSteps.SiteCreation, OperationStatus.success, 'Site Created');
+                var createdWebContext = new SP.ClientContext(createdWeb.get_serverRelativeUrl());
+                createdWebContext.set_requestTimeout(300000);
+                _this.spHelper = new provisioning.SpHelper(createdWebContext);
                 var templatePromises = $.when(1);
                 for (var i = 0; i < siteTemplate.Templates.length; i++) {
                     var template = siteTemplate.Templates[i];
@@ -217,7 +228,8 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper", ".
                 uiManager.showStickyNotification('Error', 'Failed to create site', true);
             }
         };
-        SiteTemplateViewModel.prototype.progressUpdate = function (stepName, message, status) {
+        SiteTemplateViewModel.prototype.progressUpdate = function (stepName, status, message) {
+            this.progressUI.setStatus(stepName, status, message);
         };
         return SiteTemplateViewModel;
     }());

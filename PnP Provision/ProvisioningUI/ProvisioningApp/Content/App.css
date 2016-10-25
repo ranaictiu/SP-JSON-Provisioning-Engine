@@ -36,7 +36,7 @@
 
 .progress-steps ul li .status-title {
   display: inline-block;
-  height: 40px;
+  height: 32px;
   vertical-align: middle; }
 
 .progress-steps ul li.status-success .status-title {
@@ -46,7 +46,7 @@
   background-image: url("../Images/wait-step.png");
   background-position: 5px 7px; }
 
-.progress-steps ul li.status-progress .status-icon {
+.progress-steps ul li.status-inProgress .status-icon {
   background-image: url("/_layouts/15/images/gears_anv4.gif?rev=43"); }
 
 .progress-steps ul li.status-success .status-icon {
