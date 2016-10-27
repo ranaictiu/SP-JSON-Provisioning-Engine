@@ -22,7 +22,7 @@
                 <label class="control-label">
                     Site Name
                 </label>
-                <input id="austalSiteName" type="text" class="xlarge form-control" data-bind="value:siteName" />
+                <input type="text" class="xlarge form-control" data-bind="value:siteName" />
             </div>
             <div class="form-group">
                 <a class="btn btn-error btn-lg" href="javascript:void(0)" data-bind="click: runCleanup">Delete Site</a>
