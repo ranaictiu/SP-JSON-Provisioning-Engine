@@ -8,5 +8,7 @@
     <ProjectItemFile Source="CMailRibbon.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="SoftractRibbon.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="PMSignature.png" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="pnp-schema.json" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="SiteTemplateBasic.json" Target="Templates\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -1,0 +1,60 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Language": 1033,
+  "UseSamePermissionsAsParentSite": false,
+  "WebTemplateId": "STS#0",
+  "Templates": [
+    {
+      "Description": "Basic Site Template",
+      "Security": {
+        "AdditionalOwners": [],
+        "SiteGroups": [
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Managers",
+            "Description": "Full control to the site",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Content Creators",
+            "Description": "Can view, add, update, and delete list items and documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Customers",
+            "Description": "Can edit and approve pages, list items, and documents for External documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Suppliers",
+            "Description": "Can edit and approve pages, list items, and documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          }
+        ]
+      }
+    }
+  ]
+}

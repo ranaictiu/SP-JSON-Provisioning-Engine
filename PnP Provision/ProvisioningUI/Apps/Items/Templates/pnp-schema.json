@@ -1,0 +1,390 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Language": { "type": "integer" },
+    "TimeZone": { "type": "integer" },
+    "UseSamePermissionsAsParentSite": { "type": "boolean" },
+    "WebTemplateId": { "type": "string" },
+    "Templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Description": { "type": "string" },
+          "Security": {
+            "type": "object",
+            "properties": {
+              "AdditionalAdministrators": {
+                "type": "array",
+                "items": {}
+              },
+              "AdditionalOwners": {
+                "type": "array",
+                "items": {}
+              },
+              "AdditionalMembers": {
+                "type": "array",
+                "items": {}
+              },
+              "AdditionalVisitors": {
+                "type": "array",
+                "items": {}
+              },
+              "SiteGroups": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Members": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    },
+                    "Owner": {
+                      "type": "string"
+                    },
+                    "AllowMembersEditMembership": {
+                      "type": "boolean"
+                    },
+                    "AllowRequestToJoinLeave": {
+                      "type": "boolean"
+                    },
+                    "AutoAcceptRequestToJoinLeave": {
+                      "type": "boolean"
+                    },
+                    "OnlyAllowMembersViewMembership": {
+                      "type": "boolean"
+                    },
+                    "RequestToJoinLeaveEmailSetting": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "Members",
+                    "Title",
+                    "Description",
+                    "Owner",
+                    "AllowMembersEditMembership",
+                    "AllowRequestToJoinLeave",
+                    "AutoAcceptRequestToJoinLeave",
+                    "OnlyAllowMembersViewMembership",
+                    "RequestToJoinLeaveEmailSetting"
+                  ]
+                }
+              },
+              "SiteSecurityPermissions": {
+                "type": "object",
+                "properties": {
+                  "RoleDefinitions": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "RoleAssignments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "Principal": {
+                          "type": "string"
+                        },
+                        "RoleDefinition": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "Principal",
+                        "RoleDefinition"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "RoleDefinitions",
+                  "RoleAssignments"
+                ]
+              }
+            }
+          },
+          "SiteFields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ID": { "type": "string" },
+                "Name": { "type": "string" },
+                "DisplayName": { "type": "string" },
+                "Group": { "type": "string" },
+                "Type": { "type": "string" },
+                "List": { "type": "string" },
+                "ShowField": { "type": "string" },
+                "JSLink": { "type": "string" }
+              },
+              "required": [ "ID", "Name", "DisplayName", "Group", "Type" ]
+            }
+          },
+          "ContentTypes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ParentID": { "type": "string" },
+                "Name": { "type": "string" },
+                "Group": { "type": "string" },
+                "Description": { "type": "string" },
+                "FieldRefs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ID": { "type": "string" },
+                      "Name": { "type": "string" },
+                      "Required": { "type": "boolean" }
+                    },
+                    "required": [ "ID", "Name" ]
+                  }
+                },
+                "DocumentSetTemplate": {
+                  "type": "object",
+                  "properties": {
+                    "AllowedContentTypes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Name": { "type": "string" },
+                          "Description": { "type": "string" }
+                        },
+                        "required": [ "Name", "Description" ]
+                      }
+                    },
+                    "SharedFields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ID": { "type": "string" },
+                          "Name": { "type": "string" }
+                        },
+                        "required": [ "ID", "Name" ]
+                      }
+                    },
+                    "WelcomePageFields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ID": { "type": "string" },
+                          "Name": { "type": "string" }
+                        },
+                        "required": [ "ID", "Name" ]
+                      }
+                    }
+                  },
+                  "required": [ "AllowedContentTypes", "SharedFields", "WelcomePageFields" ]
+                }
+              },
+              "required": [ "ParentID", "Name", "Group", "Description", "FieldRefs" ]
+            }
+          },
+          "Lists": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Title": { "type": "string" },
+                "Description": { "type": "string" },
+                "DocumentTemplate": { "type": "null" },
+                "OnQuickLaunch": { "type": "boolean" },
+                "TemplateType": { "type": "integer" },
+                "Url": { "type": "string" },
+                "EnableVersioning": { "type": "boolean" },
+                "EnableMinorVersions": { "type": "boolean" },
+                "DraftVersionVisibility": { "type": "integer" },
+                "EnableModeration": { "type": "boolean" },
+                "MinorVersionLimit": { "type": "integer" },
+                "MaxVersionLimit": { "type": "integer" },
+                "ForceCheckOut": { "type": "boolean" },
+                "RemoveExistingContentTypes": { "type": "boolean" },
+                "ContentTypesEnabled": { "type": "boolean" },
+                "Hidden": { "type": "boolean" },
+                "EnableFolderCreation": { "type": "boolean" },
+                "ContentTypeBindings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Name": { "type": "string" },
+                      "Default": { "type": "boolean" },
+                      "Hidden": { "type": "boolean" }
+                    },
+                    "required": [ "Name", "Default" ]
+                  }
+                },
+                "RemoveExistingViews": { "type": "boolean" },
+                "Views": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "DisplayName": { "type": "string" },
+                      "DefaultView": { "type": "boolean" },
+                      "Type": { "type": "string" },
+                      "Paged": { "type": "boolean" },
+                      "RowLimit": { "type": "integer" },
+                      "Query": { "type": "string" },
+                      "ViewFields": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      }
+                    },
+                    "required": [ "DisplayName", "DefaultView", "Type", "Paged", "RowLimit", "Query", "ViewFields" ]
+                  }
+                },
+                "NECEnableEnterpriseKeywords": { "type": "boolean" }
+              },
+              "required": [ "Title", "Description", "Url" ]
+            }
+          },
+          "CustomActions": {
+            "type": "object",
+            "properties": {
+              "SiteCustomActions": {
+                "type": "array",
+                "items": {}
+              },
+              "WebCustomActions": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [ "SiteCustomActions", "WebCustomActions" ]
+          },
+          "Workflows": {
+            "type": "object",
+            "properties": {
+              "WorkflowSubscriptions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "DefinitionId": { "type": "string" },
+                    "Name": { "type": "string" },
+                    "Enabled": { "type": "boolean" },
+                    "WorkflowStartEvent": { "type": "boolean" },
+                    "TaskList": { "type": "string" },
+                    "HistoryList": { "type": "string" }
+                  },
+                  "required": [ "DefinitionId", "Name", "Enabled", "WorkflowStartEvent", "TaskList", "HistoryList" ]
+                }
+              }
+            },
+            "required": [ "WorkflowSubscriptions" ]
+          },
+          "Pages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Title": { "type": "string" },
+                "SEOTitle": { "type": "string" },
+                "Layout": { "type": "string" },
+                "Url": { "type": "string" },
+                "Overwrite": { "type": "boolean" },
+                "Security": {
+                  "type": "object",
+                  "properties": {
+                    "BreakRoleInheritance": {
+                      "type": "object",
+                      "properties": {
+                        "ClearSubscopes": { "type": "boolean" },
+                        "CopyRoleAssignments": { "type": "boolean" },
+                        "RoleAssignment": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "Principal": { "type": "string" },
+                              "RoleDefinition": { "type": "string" }
+                            },
+                            "required": [ "Principal", "RoleDefinition" ]
+                          }
+                        }
+                      },
+                      "required": [ "ClearSubscopes", "CopyRoleAssignments", "RoleAssignment" ]
+                    }
+                  },
+                  "required": [ "BreakRoleInheritance" ]
+                }
+              },
+              "required": [ "Title", "SEOTitle", "Layout", "Url", "Overwrite" ]
+            }
+          },
+          "Navigation": {
+            "type": "object",
+            "properties": {
+              "GlobalNavigation": {
+                "type": "object",
+                "properties": {
+                  "NavigationType": { "type": "string" },
+                  "ManagedNavigation": { "type": "null" },
+                  "StructuralNavigation": { "type": "null" }
+                },
+                "required": [ "NavigationType", "ManagedNavigation", "StructuralNavigation" ]
+              },
+              "CurrentNavigation": {
+                "type": "object",
+                "properties": {
+                  "NavigationType": { "type": "string" },
+                  "ManagedNavigation": {
+                    "anyOf": [
+                      { "type": "null" },
+                      { "type": "object" }
+                    ]
+                  },
+                  "StructuralNavigation": {
+                    "anyOf": [
+                      { "type": "null" },
+                      { "type": "object" }
+                    ],
+                    "properties": {
+                      "RemoveExistingNodes": { "type": "boolean" },
+                      "ShowPages": { "type": "boolean" },
+                      "NavigationNode": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Title": { "type": "string" },
+                            "IsExternal": { "type": "boolean" },
+                            "Url": { "type": "string" }
+                          },
+                          "required": [ "Title", "IsExternal", "Url" ]
+                        }
+                      }
+                    },
+                    "required": [ "RemoveExistingNodes", "ShowPages", "NavigationNode" ]
+                  }
+                },
+                "required": [ "NavigationType", "ManagedNavigation", "StructuralNavigation" ]
+              }
+            },
+            "required": [ "GlobalNavigation", "CurrentNavigation" ]
+          },
+          "WebSettings": {
+            "type": "object",
+            "properties": { "WelcomePage": { "type": "string" } },
+            "required": [ "WelcomePage" ]
+          }
+        },
+        "required": [ "Description" ]
+      }
+    }
+  },
+  "required": [ "Templates" ]
+}

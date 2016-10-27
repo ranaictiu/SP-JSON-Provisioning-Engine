@@ -23,26 +23,27 @@
       <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
       <Property Name="TemplateID" Type="string" Value="EmailTemplates#1"></Property>
     </File>
-    <File Path="Templates\CMailRibbon.xml" Url="CMailRibbon.xml" ReplaceContent="TRUE" >
+    <File Path="Templates\CMailRibbon.xml" Url="CMailRibbon.xml" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary" >
       <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
       <Property Name="Title" Type="string" Value="CMail Ribbon"></Property>
       <Property Name="TemplateDescription" Type="string" Value="CMail Feature Ribbon"></Property>
       <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
       <Property Name="TemplateID" Type="string" Value="CMailRibbon"></Property>
     </File>
-    <File Path="Templates\SoftractRibbon.xml" Url="SoftractRibbon.xml" ReplaceContent="TRUE" >
+    <File Path="Templates\SoftractRibbon.xml" Url="SoftractRibbon.xml" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary" >
       <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
       <Property Name="Title" Type="string" Value="Softract Ribbon"></Property>
       <Property Name="TemplateDescription" Type="string" Value="Softract Ribbon"></Property>
       <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
       <Property Name="TemplateID" Type="string" Value="SoftractRibbon"></Property>
     </File>
-    <File Path="Templates\PMSignature.png" Url="PMSignature.png" ReplaceContent="TRUE" >
+    <File Path="Templates\PMSignature.png" Url="PMSignature.png" ReplaceContent="TRUE"  Level="Published" Type="GhostableInLibrary">
       <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
       <Property Name="Title" Type="string" Value="PM Signature"></Property>
       <Property Name="TemplateDescription" Type="string" Value="PM Signature"></Property>
       <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
       <Property Name="TemplateID" Type="string" Value="PMSignature"></Property>
     </File>
+    <File Path="Templates\SiteTemplateBasic.json" Url="Templates/SiteTemplateBasic.json" ReplaceContent="TRUE" />
   </Module>
 </Elements>
