@@ -332,8 +332,7 @@ export class TemplateManager {
         var promises = $.when(1);
         for (let customAction of template.CustomActions.WebCustomActions) {
             promises = promises.then(() => {
-                var templateFileUrl = _spPageContextInfo.webServerRelativeUrl + customAction.Url;
-                return this.spHelper.addCustomAction(_spPageContextInfo.webAbsoluteUrl, templateFileUrl);
+                return this.spHelper.addCustomAction(customAction);
 
             });
         }

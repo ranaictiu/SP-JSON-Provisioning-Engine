@@ -1,0 +1,131 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Language": 1033,
+  "UseSamePermissionsAsParentSite": true,
+  "WebTemplateId": "STS#0",
+  "Description": "Site template with data imports",
+  "Templates": [
+    {
+      "Description": "Create Lists first",
+      "Features": {
+        "SiteFeatures": [],
+        "WebFeatures": [
+          {
+            "ID": "94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb",
+            "Description": "SharePoint Server Publishing",
+            "Deactivate": false
+          },
+          {
+            "ID": "ec918931-c874-4033-bd09-4f36b2e31fef",
+            "Description": "Workflows can use app permissions",
+            "Deactivate": false
+          },
+          {
+            "ID": "57311b7a-9afd-4ff0-866e-9393ad6647b1",
+            "Description": "Workflow Task Content Type",
+            "Deactivate": false
+          },
+          {
+            "ID": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
+            "Description": "Metadata Navigation and Filtering",
+            "Deactivate": false
+          }
+        ]
+      },
+      "SiteFields": [
+        {
+          "ID": "{FA0ADB68-C7F3-4BF0-8AB8-1766EE441C03}",
+          "Name": "ProvisioningAppBasicDesc",
+          "DisplayName": "PA Description",
+          "Group": "ProvisioningApp",
+          "Type": "Text"
+        },
+        {
+          "ID": "{75E7C4A5-66CC-43CC-B957-14C0E6B6D986}",
+          "Name": "PABodyContent",
+          "Xml": "<Field ID=\"{75E7C4A5-66CC-43CC-B957-14C0E6B6D986}\" Type=\"Note\" RichText=\"TRUE\" RichTextMode=\"FullHtml\"  Name=\"PABodyContent\" DisplayName=\"PA Body\" Group=\"{ProvisioningApp}\" />"
+        }
+      ],
+      "ContentTypes": [
+        {
+          "Name": "PA Basic Parent",
+          "ParentId": "0x01",
+          "Group": "ProvisioningApp",
+          "Description": "Provisioning App Basic Parent Content Type",
+          "FieldRefs": [
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title",
+              "Required": true
+            },
+            {
+              "Name": "ProvisioningAppBasicDesc",
+              "ID": "{FA0ADB68-C7F3-4BF0-8AB8-1766EE441C03}",
+              "Required": false
+            },
+            {
+              "Name": "PABodyContent",
+              "ID": "{75E7C4A5-66CC-43CC-B957-14C0E6B6D986}",
+              "Required": false
+            }
+          ]
+        }
+      ],
+      "Lists": [
+        {
+          "Title": "Parent List",
+          "Url": "Lists/ParentList",
+          "Description": "Parent List",
+          "TemplateType": 100,
+          "OnQuickLaunch": false,
+          "DraftVersionVisibility": 0,
+          "EnableAttachments": true,
+          "EnableFolderCreation": true,
+          "EnableMinorVersions": false,
+          "EnableModeration": false,
+          "EnableVersioning": false,
+          "ForceCheckOut": false,
+          "Hidden": false,
+          "MaxVersionLimit": 0,
+          "MinorVersionLimit": 0,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "PA Basic Parent",
+              "Default": true
+            }
+          ],
+          "Views": [
+            {
+              "DisplayName": "All Parent Items",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "LinkTitleNoMenu", "ProvisioningAppBasicDesc" ]
+            }
+          ],
+          "DataRows": [
+            {
+              "Title": "Title 1",
+              "ProvisioningAppBasicDesc": "Description 1",
+              "_Attachments": [
+                {
+                  "Url": "Lists/Templates/PMSignature.png",
+                  "Name": "PMSignature.png"
+                }
+              ]
+            },
+            {
+              "_url": "Lists/Templates/DataRows.xml",
+              "_type": "xml"
+            }
+          ] 
+        }
+      ]
+    }
+  ]
+}

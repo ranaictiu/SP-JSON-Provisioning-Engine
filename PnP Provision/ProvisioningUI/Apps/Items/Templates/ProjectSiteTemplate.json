@@ -1516,7 +1516,6 @@
               "ViewFields": [ "DocIcon", "LinkFilename", "Modified", "Editor", "CheckoutUser", "Peer_x0020_Review_x0020_Status", "PM_x0020_Approval_x0020_Status", "COA_x0020_Submission_x0020_Status", "ContentType" ]
             }
           ],
-          "NECEnableEnterpriseKeywords": true,
           "Security": {
             "BreakRoleInheritance": {
               "ClearSubscopes": false,

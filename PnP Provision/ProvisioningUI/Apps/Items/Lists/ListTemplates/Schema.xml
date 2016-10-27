@@ -9,6 +9,7 @@
           <FieldRef ID="{6a65aa41-b7b8-40ec-b412-8630a7565e9f}" DisplayName="Template Dependencies" Required="FALSE" Name="TemplateDependencies" />
         </FieldRefs>
       </ContentType>
+      <ContentTypeRef ID="0x0101" />
     </ContentTypes>
     <Fields>
       <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" ShowInNewForm="FALSE" ShowInFileDlg="FALSE" DisplayName="$Resources:core,Title;" Sealed="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title"></Field>
@@ -72,9 +73,6 @@
           </IfHasRights>
         </Toolbar>
         <ViewFields>
-
-
-
           <FieldRef Name="DocIcon"></FieldRef>
           <FieldRef Name="LinkFilenameNoMenu"></FieldRef>
           <FieldRef Name="Editor"></FieldRef>
@@ -87,7 +85,6 @@
         </ParameterBindings>
         <Query>
           <OrderBy>
-
             <FieldRef Name="Modified" Ascending="FALSE"></FieldRef>
           </OrderBy>
         </Query>
@@ -148,8 +145,6 @@
         <JSLink>clienttemplates.js</JSLink>
         <RowLimit Paged="TRUE">15</RowLimit>
         <ViewFields>
-
-
           <FieldRef Name="DocIcon"></FieldRef>
           <FieldRef Name="LinkFilename"></FieldRef>
         </ViewFields>
@@ -178,7 +173,6 @@
         </ParameterBindings>
         <Query>
           <OrderBy>
-
             <FieldRef Name="Modified" Ascending="FALSE"></FieldRef>
           </OrderBy>
         </Query>
@@ -210,13 +204,6 @@
         <XslLink Default="TRUE">main.xsl</XslLink>
         <RowLimit Paged="TRUE">30</RowLimit>
         <ViewFields>
-
-
-
-
-
-
-
           <FieldRef Name="DocIcon"></FieldRef>
           <FieldRef Name="LinkFilenameNoMenu"></FieldRef>
           <FieldRef Name="RepairDocument"></FieldRef>
@@ -231,7 +218,6 @@
         </ParameterBindings>
         <Query>
           <OrderBy>
-
             <FieldRef Name="FileLeafRef" />
           </OrderBy>
           <Where>
@@ -245,13 +231,11 @@
       <View BaseViewID="40" Type="HTML" WebPartZoneID="Main" DisplayName="assetLibTemp" DefaultView="FALSE" MobileView="FALSE" MobileDefaultView="FALSE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/15/images/dlicon.png?rev=23" Url="Forms/Thumbnails.aspx" Hidden="TRUE">
         <Toolbar Type="Standard" />
         <ViewFields>
-
           <FieldRef Name="LinkFilename"></FieldRef>
         </ViewFields>
         <RowLimit>20</RowLimit>
         <Query>
           <OrderBy>
-
             <FieldRef Name="LinkFilename" />
           </OrderBy>
         </Query>

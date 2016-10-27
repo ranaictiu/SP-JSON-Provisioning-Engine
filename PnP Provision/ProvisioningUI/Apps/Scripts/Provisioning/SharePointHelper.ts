@@ -43,8 +43,23 @@ export class Template {
         WebCustomActions: Array<CustomActionInfo>;
     }
 }
-export class CustomActionInfo {
+export class CommandUIExtension {
     Url: string;
+    Xml: string;
+}
+export class CustomActionInfo {
+    Name: string;
+    Description: string;
+    ScriptSrc: string;
+    Location: string;
+    Sequence: number;
+    CommandUIExtension: CommandUIExtension;
+    Rights: string;
+    Group: string;
+    Url:string;
+}
+class CustomActionCreationInfo extends CustomActionInfo {
+
 }
 
 export class SiteSecurityInfo {
@@ -134,6 +149,7 @@ export class FieldInfo {
     List: string;
     ShowField: string;
     DependentLookupFields: Array<DependentLookupFieldInfo>;
+    Xml: string;
 }
 export class FieldRefInfo {
     ID: string;
@@ -532,7 +548,6 @@ export class SpHelper {
         });
         return d;
     }
-
     createSite(siteInfo: SiteCreationInfo, callback: (web: SP.Web) => any): JQueryGenericPromise<{}> {
         var d = $.Deferred();
         var webCreationInfo = new SP.WebCreationInformation();
@@ -742,7 +757,6 @@ export class SpHelper {
 
         return promises;
     }
-
     private processListContentTypes(listInstance: ListCreationInfo) {
         var listTitle = listInstance.Title;
         var removeExistingContentTypes = listInstance.RemoveExistingContentTypes;
@@ -776,7 +790,6 @@ export class SpHelper {
         }
         return promises;
     }
-
     private processListFields(listInstance) {
         var listTitle = listInstance.Title;
         var pnpFields = listInstance.FieldRefs;
@@ -806,7 +819,6 @@ export class SpHelper {
         }
         return promises;
     }
-
     createViews(pnpListInstance: ListCreationInfo) {
         if (pnpListInstance.Views == null || pnpListInstance.Views.length == 0) return {};
         var web = this.getWeb();
@@ -971,16 +983,21 @@ export class SpHelper {
         return this.executeQueryPromise();
     };
     createWebField(webServerRelativeUrl: string, pnpField: FieldInfo) {
-        var promises = $.when(1);
+        let promises = $.when(1);
         var web = this.getWeb();
         var executeContext = this.getExecuteContext();
         let lists: Array<ListInfo>;
 
-        var idPart = pnpField.ID == null ? "" : "ID='" + pnpField.ID + "'";
-        var requiredPart = pnpField.Required ? " Required='TRUE' " : " Required='FALSE' ";
-        var jsLinkPart = pnpField.JSLink ? ` JSLink='${pnpField.JSLink}' ` : "";
-        let xml: string = `<Field ${idPart}  Name='${pnpField.Name}' DisplayName='${pnpField.DisplayName}' Type='${pnpField.Type}' ${requiredPart}  ${jsLinkPart}  Group='${pnpField.Group}' />`;
-        var fieldCreated;
+        const idPart = pnpField.ID == null ? "" : "ID='" + pnpField.ID + "'";
+        const requiredPart = pnpField.Required ? " Required='TRUE' " : " Required='FALSE' ";
+        const jsLinkPart = pnpField.JSLink ? ` JSLink='${pnpField.JSLink}' ` : "";
+        let xml: string;
+        if (pnpField.Xml) {
+            xml = pnpField.Xml;
+        } else {
+            xml = `<Field ${idPart}  Name='${pnpField.Name}' DisplayName='${pnpField.DisplayName}' Type='${pnpField.Type}' ${requiredPart}  ${jsLinkPart}  Group='${pnpField.Group}' />`;
+        }
+        var fieldCreated: SP.Field;
 
         promises = promises.then(() => {
             executeContext.load(web, 'ServerRelativeUrl');
@@ -1543,23 +1560,25 @@ export class SpHelper {
         });
         return d;
     }
-    getCustomActionXmlNode(xml: string) {
-        var actionxml = $.parseXML(xml);
-        var ca = $(actionxml).find('CustomAction');
-        return ca;
+
+    private mapAndGetCustomActionRights(rights:string) {
+            var basePermission = new SP.BasePermissions();
+            for (var v in SP.PermissionKind) {
+                if (SP.PermissionKind.hasOwnProperty(v) && v.toLowerCase() == rights.toLowerCase()) {
+                    var d = SP.PermissionKind[v];
+                    basePermission.set(SP.PermissionKind[d]);
+                    break;
+                }
+            }
+        return basePermission;
     }
-    addCustomAction(webUrl: string, fileServerRelativeUrl: string) {
+    addCustomAction(customAction: CustomActionInfo) {
         var executeContext = this.getExecuteContext();
         var promises = $.when(1);
         var ribbonXml = null;
         var customActions = null;
-        var customActionNodes;
-        promises = promises.then(() => {
-            return this.getFileContent(webUrl, fileServerRelativeUrl, (xml) => {
-                ribbonXml = xml;
-                customActionNodes = this.getCustomActionXmlNode(ribbonXml);
-            });
-        });
+        var customActionNodes = new Array<any>();
+        let actionsToCreate = new Array<SP.UserCustomAction>();
 
         promises = promises.then(() => {
             var web = this.getWeb();
@@ -1567,12 +1586,12 @@ export class SpHelper {
             executeContext.load(customActions);
             return this.executeQueryPromise();
         });
+
         promises = promises.then(() => {
             var actions = this.getEnumerationList<SP.UserCustomAction>(customActions);
-            for (var i = 0; i < customActionNodes.length; i++) {
-                var customActionName = $(customActionNodes[i]).attr('Id');
+            for (let ca of customActionNodes) {
                 var existingAction = Utils.arrayFirst<SP.UserCustomAction>(actions, a => {
-                    return a.get_name() == customActionName;
+                    return a.get_name() == $(ca).attr('Id');
                 });
                 if (existingAction) {
                     existingAction.deleteObject();
@@ -1581,6 +1600,43 @@ export class SpHelper {
             return this.executeQueryPromise();
         });
 
+        if (customAction.CommandUIExtension == null) { //inline custom action, not an url
+            promises = promises.then(() => {
+                var web = this.getWeb();
+                var newAction = web.get_userCustomActions().add();
+                //var newAction = new SP.UserCustomAction();
+                newAction.set_name(customAction.Name);
+                newAction.set_description(customAction.Description);
+                newAction.set_sequence(customAction.Sequence);
+                newAction.set_location(customAction.Location);
+                var scriptSrc = this.getPageContextFullUrl(customAction.ScriptSrc);
+                newAction.set_scriptSrc(scriptSrc);
+                if(customAction.Group)
+                    newAction.set_group(customAction.Group);
+                if (customAction.Rights)
+                    newAction.set_rights(this.mapAndGetCustomActionRights(customAction.Rights));
+                if (customAction.Url) {
+                    newAction.set_url(customAction.Url);
+                }
+                actionsToCreate.push(newAction);
+                newAction.update();
+                return this.executeQueryPromise();
+            });
+            return promises;
+        }
+
+        //custom action is url, so load the file from url and process it
+        promises = promises.then(() => {
+            if (customAction.CommandUIExtension.Xml) {
+                customActionNodes.push(customAction.CommandUIExtension.Xml);
+            }
+            var templateFileUrl = this.getPageContextFullUrl(customAction.CommandUIExtension.Url);
+            return this.getFileContent(_spPageContextInfo.webServerRelativeUrl, templateFileUrl, (xml) => {
+                ribbonXml = xml;
+                var actionxml = $.parseXML(ribbonXml);
+                customActionNodes = <any>$(actionxml).find('CustomAction');
+            });
+        });
 
         promises = promises.then(() => {
             var d = $.Deferred();
@@ -1638,15 +1694,7 @@ export class SpHelper {
                         customAction.set_group(groupId);
 
                     if (rights) {
-                        var basePermission = new SP.BasePermissions();
-                        for (var v in SP.PermissionKind) {
-                            if (SP.PermissionKind.hasOwnProperty(v) && v.toLowerCase() == rights.toLowerCase()) {
-                                var d = SP.PermissionKind[v];
-                                basePermission.set(SP.PermissionKind[d]);
-                                break;
-                            }
-                        }
-                        customAction.set_rights(basePermission);
+                        customAction.set_rights(this.mapAndGetCustomActionRights(rights));
                     }
 
 
@@ -1681,7 +1729,6 @@ export class SpHelper {
         return promises;
     }
     addWorkflowSubscription(pnpWFSubscription: WFSubscriptionInfo) {
-
         var promises = $.when(1);
         let allLists: Array<ListInfo>;
         var historyList, taskList;
@@ -1856,7 +1903,6 @@ export class SpHelper {
         return d;
     }
     private provisionNavigationInternal(pnpNavigation) {
-
         var promises = $.when(1);
         var pnpGlobalNavigation = pnpNavigation.GlobalNavigation;
         var pnpCurrentNavigation = pnpNavigation.CurrentNavigation;
@@ -2101,9 +2147,6 @@ export class SpHelper {
         }
         return promises;
     }
-
-
-
     getRESTRequest(url, callback) {
         return $.ajax({
             url: url,
@@ -2277,6 +2320,9 @@ export class SpHelper {
 
         return promises;
     }
+    private getPageContextFullUrl(url) {
+        return url.startsWith('/') ? url : _spPageContextInfo.webServerRelativeUrl + '/' + url;
+    }
     private parseDataRows(dataRows: Array<any>, callback) {
         var promises = $.when(1);
         var rowsToAdd = [];
@@ -2290,7 +2336,7 @@ export class SpHelper {
             //data row is an url, so load rows from url
 
             promises = promises.then(() => {
-                var fileUrl = dr._url.startsWith('/') ? dr._url : _spPageContextInfo.webServerRelativeUrl + '/' + dr._url;
+                var fileUrl = this.getPageContextFullUrl(dr._url);
                 return this.getFileContent(_spPageContextInfo.webAbsoluteUrl, fileUrl, (c) => {
                     if (dr._type != 'xml') return; //support xml only now, will support json if I get paid.
                     var xmlResponse = $.parseXML(c);
@@ -2320,7 +2366,6 @@ export class SpHelper {
 
         return promises;
     }
-
     setupPermissionForList(listTitle: string, pnpSecurity: ObjectSecurityInfo) {
         var web = this.getWeb();
         var list = web.get_lists().getByTitle(listTitle);

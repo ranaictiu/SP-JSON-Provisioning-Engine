@@ -4,11 +4,14 @@
     <ProjectItemFile Source="Elements.xml" Target="Templates\" Type="ElementManifest" />
     <ProjectItemFile Source="FeatureTemplate.json" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="ProjectSiteTemplate.json" Target="Templates\" Type="ElementFile" />
-    <ProjectItemFile Source="EmailTemplates.xml" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="DataRows.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="CMailRibbon.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="SoftractRibbon.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="PMSignature.png" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="pnp-schema.json" Target="Templates\" Type="ElementFile" />
-    <ProjectItemFile Source="SiteTemplateBasic.json" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="1STBasic.json" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="2STWithColsCTsViews.json" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="3STWithDataImport.json" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="4STWithUserActionSecurity.json" Target="Templates\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -338,8 +338,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var promises = $.when(1);
             var _loop_6 = function(customAction) {
                 promises = promises.then(function () {
-                    var templateFileUrl = _spPageContextInfo.webServerRelativeUrl + customAction.Url;
-                    return _this.spHelper.addCustomAction(_spPageContextInfo.webAbsoluteUrl, templateFileUrl);
+                    return _this.spHelper.addCustomAction(customAction);
                 });
             };
             for (var _i = 0, _a = template.CustomActions.WebCustomActions; _i < _a.length; _i++) {

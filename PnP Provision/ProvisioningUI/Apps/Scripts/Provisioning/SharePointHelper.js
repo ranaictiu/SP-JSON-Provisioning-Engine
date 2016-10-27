@@ -33,12 +33,25 @@ define(["require", "exports"], function (require, exports) {
         return Template;
     }());
     exports.Template = Template;
+    var CommandUIExtension = (function () {
+        function CommandUIExtension() {
+        }
+        return CommandUIExtension;
+    }());
+    exports.CommandUIExtension = CommandUIExtension;
     var CustomActionInfo = (function () {
         function CustomActionInfo() {
         }
         return CustomActionInfo;
     }());
     exports.CustomActionInfo = CustomActionInfo;
+    var CustomActionCreationInfo = (function (_super) {
+        __extends(CustomActionCreationInfo, _super);
+        function CustomActionCreationInfo() {
+            _super.apply(this, arguments);
+        }
+        return CustomActionCreationInfo;
+    }(CustomActionInfo));
     var SiteSecurityInfo = (function () {
         function SiteSecurityInfo() {
         }
@@ -947,7 +960,13 @@ define(["require", "exports"], function (require, exports) {
             var idPart = pnpField.ID == null ? "" : "ID='" + pnpField.ID + "'";
             var requiredPart = pnpField.Required ? " Required='TRUE' " : " Required='FALSE' ";
             var jsLinkPart = pnpField.JSLink ? " JSLink='" + pnpField.JSLink + "' " : "";
-            var xml = "<Field " + idPart + "  Name='" + pnpField.Name + "' DisplayName='" + pnpField.DisplayName + "' Type='" + pnpField.Type + "' " + requiredPart + "  " + jsLinkPart + "  Group='" + pnpField.Group + "' />";
+            var xml;
+            if (pnpField.Xml) {
+                xml = pnpField.Xml;
+            }
+            else {
+                xml = "<Field " + idPart + "  Name='" + pnpField.Name + "' DisplayName='" + pnpField.DisplayName + "' Type='" + pnpField.Type + "' " + requiredPart + "  " + jsLinkPart + "  Group='" + pnpField.Group + "' />";
+            }
             var fieldCreated;
             promises = promises.then(function () {
                 executeContext.load(web, 'ServerRelativeUrl');
@@ -1486,24 +1505,25 @@ define(["require", "exports"], function (require, exports) {
             });
             return d;
         };
-        SpHelper.prototype.getCustomActionXmlNode = function (xml) {
-            var actionxml = $.parseXML(xml);
-            var ca = $(actionxml).find('CustomAction');
-            return ca;
+        SpHelper.prototype.mapAndGetCustomActionRights = function (rights) {
+            var basePermission = new SP.BasePermissions();
+            for (var v in SP.PermissionKind) {
+                if (SP.PermissionKind.hasOwnProperty(v) && v.toLowerCase() == rights.toLowerCase()) {
+                    var d = SP.PermissionKind[v];
+                    basePermission.set(SP.PermissionKind[d]);
+                    break;
+                }
+            }
+            return basePermission;
         };
-        SpHelper.prototype.addCustomAction = function (webUrl, fileServerRelativeUrl) {
+        SpHelper.prototype.addCustomAction = function (customAction) {
             var _this = this;
             var executeContext = this.getExecuteContext();
             var promises = $.when(1);
             var ribbonXml = null;
             var customActions = null;
-            var customActionNodes;
-            promises = promises.then(function () {
-                return _this.getFileContent(webUrl, fileServerRelativeUrl, function (xml) {
-                    ribbonXml = xml;
-                    customActionNodes = _this.getCustomActionXmlNode(ribbonXml);
-                });
-            });
+            var customActionNodes = new Array();
+            var actionsToCreate = new Array();
             promises = promises.then(function () {
                 var web = _this.getWeb();
                 customActions = web.get_userCustomActions();
@@ -1512,21 +1532,61 @@ define(["require", "exports"], function (require, exports) {
             });
             promises = promises.then(function () {
                 var actions = _this.getEnumerationList(customActions);
-                for (var i = 0; i < customActionNodes.length; i++) {
-                    var customActionName = $(customActionNodes[i]).attr('Id');
-                    var existingAction = Utils.arrayFirst(actions, function (a) {
-                        return a.get_name() == customActionName;
+                var _loop_8 = function(ca) {
+                    existingAction = Utils.arrayFirst(actions, function (a) {
+                        return a.get_name() == $(ca).attr('Id');
                     });
                     if (existingAction) {
                         existingAction.deleteObject();
                     }
+                };
+                var existingAction;
+                for (var _i = 0, customActionNodes_1 = customActionNodes; _i < customActionNodes_1.length; _i++) {
+                    var ca = customActionNodes_1[_i];
+                    _loop_8(ca);
                 }
                 return _this.executeQueryPromise();
+            });
+            if (customAction.CommandUIExtension == null) {
+                promises = promises.then(function () {
+                    var web = _this.getWeb();
+                    var newAction = web.get_userCustomActions().add();
+                    //var newAction = new SP.UserCustomAction();
+                    newAction.set_name(customAction.Name);
+                    newAction.set_description(customAction.Description);
+                    newAction.set_sequence(customAction.Sequence);
+                    newAction.set_location(customAction.Location);
+                    var scriptSrc = _this.getPageContextFullUrl(customAction.ScriptSrc);
+                    newAction.set_scriptSrc(scriptSrc);
+                    if (customAction.Group)
+                        newAction.set_group(customAction.Group);
+                    if (customAction.Rights)
+                        newAction.set_rights(_this.mapAndGetCustomActionRights(customAction.Rights));
+                    if (customAction.Url) {
+                        newAction.set_url(customAction.Url);
+                    }
+                    actionsToCreate.push(newAction);
+                    newAction.update();
+                    return _this.executeQueryPromise();
+                });
+                return promises;
+            }
+            //custom action is url, so load the file from url and process it
+            promises = promises.then(function () {
+                if (customAction.CommandUIExtension.Xml) {
+                    customActionNodes.push(customAction.CommandUIExtension.Xml);
+                }
+                var templateFileUrl = _this.getPageContextFullUrl(customAction.CommandUIExtension.Url);
+                return _this.getFileContent(_spPageContextInfo.webServerRelativeUrl, templateFileUrl, function (xml) {
+                    ribbonXml = xml;
+                    var actionxml = $.parseXML(ribbonXml);
+                    customActionNodes = $(actionxml).find('CustomAction');
+                });
             });
             promises = promises.then(function () {
                 var d = $.Deferred();
                 var iPromies = $.when(1);
-                var _loop_8 = function(customActionNode) {
+                var _loop_9 = function(customActionNode) {
                     iPromies = iPromies.then(function () {
                         var customActionName = $(customActionNode).attr('Id');
                         var xmlContent = null, url = null, registrationType = null;
@@ -1573,15 +1633,7 @@ define(["require", "exports"], function (require, exports) {
                         if (groupId)
                             customAction.set_group(groupId);
                         if (rights) {
-                            var basePermission = new SP.BasePermissions();
-                            for (var v in SP.PermissionKind) {
-                                if (SP.PermissionKind.hasOwnProperty(v) && v.toLowerCase() == rights.toLowerCase()) {
-                                    var d = SP.PermissionKind[v];
-                                    basePermission.set(SP.PermissionKind[d]);
-                                    break;
-                                }
-                            }
-                            customAction.set_rights(basePermission);
+                            customAction.set_rights(_this.mapAndGetCustomActionRights(rights));
                         }
                         if (xmlContent)
                             customAction.set_commandUIExtension(xmlContent); // CommandUIExtension xml
@@ -1596,9 +1648,9 @@ define(["require", "exports"], function (require, exports) {
                         return _this.executeQueryPromise();
                     });
                 };
-                for (var _i = 0, customActionNodes_1 = customActionNodes; _i < customActionNodes_1.length; _i++) {
-                    var customActionNode = customActionNodes_1[_i];
-                    _loop_8(customActionNode);
+                for (var _i = 0, customActionNodes_2 = customActionNodes; _i < customActionNodes_2.length; _i++) {
+                    var customActionNode = customActionNodes_2[_i];
+                    _loop_9(customActionNode);
                 }
                 iPromies.done(function () {
                     d.resolve();
@@ -1875,7 +1927,7 @@ define(["require", "exports"], function (require, exports) {
                 });
             });
             var webServerRelativeUrl = web.get_serverRelativeUrl();
-            var _loop_9 = function(pnpPage) {
+            var _loop_10 = function(pnpPage) {
                 promises = promises.then(function () {
                     var pageServerRelativeUrl = webServerRelativeUrl + '/' + pnpPage.Url;
                     pageExists = Utils.arrayFirst(publishingPages, function (pp) {
@@ -1926,7 +1978,7 @@ define(["require", "exports"], function (require, exports) {
             var newPage, pageExists;
             for (var _i = 0, pnpPages_1 = pnpPages; _i < pnpPages_1.length; _i++) {
                 var pnpPage = pnpPages_1[_i];
-                _loop_9(pnpPage);
+                _loop_10(pnpPage);
             }
             return promises;
         };
@@ -1957,7 +2009,7 @@ define(["require", "exports"], function (require, exports) {
                 siteGroups = _this.getEnumerationList(siteGroupCollection);
                 return {};
             });
-            var _loop_10 = function(pnpRoleAssignment) {
+            var _loop_11 = function(pnpRoleAssignment) {
                 promises = promises.then(function () {
                     var roleDefinitionName = pnpRoleAssignment.RoleDefinition;
                     var roleDefinition = web.get_roleDefinitions().getByName(roleDefinitionName);
@@ -1993,7 +2045,7 @@ define(["require", "exports"], function (require, exports) {
             };
             for (var _i = 0, _a = pnpPermission.RoleAssignment; _i < _a.length; _i++) {
                 var pnpRoleAssignment = _a[_i];
-                _loop_10(pnpRoleAssignment);
+                _loop_11(pnpRoleAssignment);
             }
             return promises;
         };
@@ -2125,7 +2177,7 @@ define(["require", "exports"], function (require, exports) {
                 var d = $.Deferred();
                 var list = web.get_lists().getByTitle(listTitle);
                 var iPromises = $.when(1);
-                var _loop_11 = function(dr) {
+                var _loop_12 = function(dr) {
                     iPromises = iPromises.then(function () {
                         var liCreationInfo = new SP.ListItemCreationInformation();
                         listItem = list.addItem(liCreationInfo);
@@ -2138,7 +2190,7 @@ define(["require", "exports"], function (require, exports) {
                         return _this.executeQueryPromise();
                     });
                     if (dr._Attachments && dr._Attachments.length > 0) {
-                        var _loop_12 = function(attachment) {
+                        var _loop_13 = function(attachment) {
                             iPromises = iPromises.then(function () {
                                 var fileUrl = attachment.Url.startsWith('/') ? attachment.Url : _spPageContextInfo.webServerRelativeUrl + '/' + attachment.Url;
                                 var content = null;
@@ -2151,14 +2203,14 @@ define(["require", "exports"], function (require, exports) {
                         };
                         for (var _i = 0, _a = dr._Attachments; _i < _a.length; _i++) {
                             var attachment = _a[_i];
-                            _loop_12(attachment);
+                            _loop_13(attachment);
                         }
                     }
                 };
                 var listItem;
                 for (var _b = 0, rowsToAdd_1 = rowsToAdd; _b < rowsToAdd_1.length; _b++) {
                     var dr = rowsToAdd_1[_b];
-                    _loop_11(dr);
+                    _loop_12(dr);
                 }
                 iPromises.done(function () {
                     d.resolve();
@@ -2169,18 +2221,21 @@ define(["require", "exports"], function (require, exports) {
             });
             return promises;
         };
+        SpHelper.prototype.getPageContextFullUrl = function (url) {
+            return url.startsWith('/') ? url : _spPageContextInfo.webServerRelativeUrl + '/' + url;
+        };
         SpHelper.prototype.parseDataRows = function (dataRows, callback) {
             var _this = this;
             var promises = $.when(1);
             var rowsToAdd = [];
-            var _loop_13 = function(dr) {
+            var _loop_14 = function(dr) {
                 if (dr._url == null) {
                     rowsToAdd.push(dr);
                     return "continue";
                 }
                 //data row is an url, so load rows from url
                 promises = promises.then(function () {
-                    var fileUrl = dr._url.startsWith('/') ? dr._url : _spPageContextInfo.webServerRelativeUrl + '/' + dr._url;
+                    var fileUrl = _this.getPageContextFullUrl(dr._url);
                     return _this.getFileContent(_spPageContextInfo.webAbsoluteUrl, fileUrl, function (c) {
                         if (dr._type != 'xml')
                             return; //support xml only now, will support json if I get paid.
@@ -2203,8 +2258,8 @@ define(["require", "exports"], function (require, exports) {
             };
             for (var _i = 0, dataRows_1 = dataRows; _i < dataRows_1.length; _i++) {
                 var dr = dataRows_1[_i];
-                var state_13 = _loop_13(dr);
-                if (state_13 === "continue") continue;
+                var state_14 = _loop_14(dr);
+                if (state_14 === "continue") continue;
             }
             promises = promises.then(function () {
                 callback(rowsToAdd);

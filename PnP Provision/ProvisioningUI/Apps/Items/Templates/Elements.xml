@@ -2,48 +2,64 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <Module Name="Templates" Url="Lists/Templates">
     <File Path="Templates\ProjectSiteTemplate.json" Url="ProjectSiteTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
-      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
       <Property Name="Title" Type="string" Value="Site Template"></Property>
       <Property Name="TemplateDescription" Type="string" Value="This is test site template"></Property>
       <Property Name="TemplateType" Type="string" Value="Site"></Property>
       <Property Name="TemplateID" Type="string" Value="SiteTemplate#1"></Property>
     </File>
     <File Path="Templates\FeatureTemplate.json" Url="FeatureTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
-      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
       <Property Name="Title" Type="string" Value="Feature Template"></Property>
       <Property Name="TemplateDescription" Type="string" Value="This is test feature template"></Property>
       <Property Name="TemplateType" Type="string" Value="Feature"></Property>
       <Property Name="TemplateID" Type="string" Value="FeatureTemplate#1"></Property>
       <Property Name="TemplateDependencies" Type="string" Value="SiteTemplate#1"></Property>
     </File>
-    <File Path="Templates\EmailTemplates.xml" Url="EmailTemplates.xml" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
-      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+    <File Path="Templates\1STBasic.json" Url="1STBasic.json" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary">
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
+      <Property Name="Title" Type="string" Value="Site Template - Basic"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="Basic Site Template. Creates a site, activate features and create security groups"></Property>
+      <Property Name="TemplateType" Type="string" Value="Site"></Property>
+      <Property Name="TemplateID" Type="string" Value="STBasic"></Property>
+    </File>
+    <File Path="Templates\2STWithColsCTsViews.json" Url="2STWithColsCTsViews.json" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary">
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
+      <Property Name="Title" Type="string" Value="Site Template - Columns and Content Types"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="This Site Template creates site columns, conten types, lists"></Property>
+      <Property Name="TemplateType" Type="string" Value="Site"></Property>
+      <Property Name="TemplateID" Type="string" Value="STWithColsAndContentTypes"></Property>      
+    </File>
+    <File Path="Templates\3STWithDataImport.json" Url="3STWithDataImport.json" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary" >
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
+      <Property Name="Title" Type="string" Value="Site Template - Data Import"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="This Site Template creates lists and imports data in the lists from json and xml sources"></Property>
+      <Property Name="TemplateType" Type="string" Value="Site"></Property>
+      <Property Name="TemplateID" Type="string" Value="STWithDataImport"></Property>
+    </File>
+    <File Path="Templates\4STWithUserActionSecurity.json" Url="4STWithUserActionSecurity.json" ReplaceContent="TRUE" >
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
+      <Property Name="Title" Type="string" Value="Site Template - User Actions and Security"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="This Site Template provision user actions as well as apply security to lists"></Property>
+      <Property Name="TemplateType" Type="string" Value="Site"></Property>
+      <Property Name="TemplateID" Type="string" Value="STWithUserActionSecurity"></Property>
+    </File>
+
+    <File Path="Templates\DataRows.xml" Url="DataRows.xml" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
+      <Property Name="ContentType" Type="string" Value="Document"></Property>
       <Property Name="Title" Type="string" Value="Email Template Items"></Property>
-      <Property Name="TemplateDescription" Type="string" Value="Email Templates for list"></Property>
-      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
-      <Property Name="TemplateID" Type="string" Value="EmailTemplates#1"></Property>
     </File>
     <File Path="Templates\CMailRibbon.xml" Url="CMailRibbon.xml" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary" >
-      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="ContentType" Type="string" Value="Document"></Property>
       <Property Name="Title" Type="string" Value="CMail Ribbon"></Property>
-      <Property Name="TemplateDescription" Type="string" Value="CMail Feature Ribbon"></Property>
-      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
-      <Property Name="TemplateID" Type="string" Value="CMailRibbon"></Property>
-    </File>
-    <File Path="Templates\SoftractRibbon.xml" Url="SoftractRibbon.xml" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary" >
-      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
-      <Property Name="Title" Type="string" Value="Softract Ribbon"></Property>
-      <Property Name="TemplateDescription" Type="string" Value="Softract Ribbon"></Property>
-      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
-      <Property Name="TemplateID" Type="string" Value="SoftractRibbon"></Property>
     </File>
     <File Path="Templates\PMSignature.png" Url="PMSignature.png" ReplaceContent="TRUE"  Level="Published" Type="GhostableInLibrary">
-      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="ContentType" Type="string" Value="Document"></Property>
       <Property Name="Title" Type="string" Value="PM Signature"></Property>
-      <Property Name="TemplateDescription" Type="string" Value="PM Signature"></Property>
-      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
-      <Property Name="TemplateID" Type="string" Value="PMSignature"></Property>
     </File>
-    <File Path="Templates\SiteTemplateBasic.json" Url="Templates/SiteTemplateBasic.json" ReplaceContent="TRUE" />
+    <File Path="Templates\SoftractRibbon.xml" Url="SoftractRibbon.xml" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary" >
+      <Property Name="ContentType" Type="string" Value="Document"></Property>
+      <Property Name="Title" Type="string" Value="Softract Ribbon"></Property>
+    </File>
   </Module>
 </Elements>

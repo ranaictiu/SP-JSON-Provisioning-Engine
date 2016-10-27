@@ -4,6 +4,7 @@
   "properties": {
     "Language": { "type": "integer" },
     "TimeZone": { "type": "integer" },
+    "Description": { "type": "string" },
     "UseSamePermissionsAsParentSite": { "type": "boolean" },
     "WebTemplateId": { "type": "string" },
     "Templates": {
@@ -123,9 +124,10 @@
                 "Type": { "type": "string" },
                 "List": { "type": "string" },
                 "ShowField": { "type": "string" },
-                "JSLink": { "type": "string" }
+                "JSLink": { "type": "string" },
+                "Xml": { "type": "string" }
               },
-              "required": [ "ID", "Name", "DisplayName", "Group", "Type" ]
+              "required": [ "ID", "Name" ]
             }
           },
           "ContentTypes": {
@@ -133,7 +135,7 @@
             "items": {
               "type": "object",
               "properties": {
-                "ParentID": { "type": "string" },
+                "ParentId": { "type": "string" },
                 "Name": { "type": "string" },
                 "Group": { "type": "string" },
                 "Description": { "type": "string" },
@@ -189,7 +191,7 @@
                   "required": [ "AllowedContentTypes", "SharedFields", "WelcomePageFields" ]
                 }
               },
-              "required": [ "ParentID", "Name", "Group", "Description", "FieldRefs" ]
+              "required": [ "ParentId", "Name", "Group", "Description", "FieldRefs" ]
             }
           },
           "Lists": {
@@ -245,8 +247,7 @@
                     },
                     "required": [ "DisplayName", "DefaultView", "Type", "Paged", "RowLimit", "Query", "ViewFields" ]
                   }
-                },
-                "NECEnableEnterpriseKeywords": { "type": "boolean" }
+                }
               },
               "required": [ "Title", "Description", "Url" ]
             }
@@ -260,7 +261,28 @@
               },
               "WebCustomActions": {
                 "type": "array",
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Name": { "type": "string" },
+                    "Description": { "type": "string" },
+                    "Sequence": { "type": "integer" },
+                    "Location": { "type": "string" },
+                    "ScriptSrc": { "type": "string" },
+                    "Group": { "type": "string" },
+                    "Rights": { "type": "string" },
+                    "Url": { "type": "string" },
+                    "CommandUIExtension": {
+                      "type": "object",
+                      "properties": {
+                        "Url": { "type": "string" },
+                        "Xml": { "type": "string" }
+                      },
+                      "required": [ "Url" ]
+                    }
+                  },
+                  "required": [ "Name" ]
+                }
               }
             },
             "required": [ "SiteCustomActions", "WebCustomActions" ]
