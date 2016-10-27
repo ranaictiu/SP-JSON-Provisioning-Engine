@@ -355,7 +355,7 @@ export class SpHelper {
         return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
     }
     getHelperContextFromUrl(fullUrl: string): SpHelper {
-        if (SpHelper.isCurrentContextWebApp()) {
+        if (SpHelper.isCurrentContextWebApp() && !fullUrl.startsWith('/')) { //if full url and app site, use proxy
             var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
             var factory = new SP.ProxyWebRequestExecutorFactory(_spPageContextInfo.webAbsoluteUrl);
             context.set_webRequestExecutorFactory(factory);
@@ -549,10 +549,10 @@ export class SpHelper {
         executeContext.executeQueryAsync(() => {
             callback(newWeb);
             d.resolve();
-        },() => {
+        }, () => {
             callback(null);
             d.reject();
-            });
+        });
         return d;
     }
     addUserToGroup(groupName: string, userKey: string) {
@@ -1601,7 +1601,8 @@ export class SpHelper {
                         url = $(customActionNode).find('UrlAction').attr('Url');
                     } else {
                         if (window['XMLSerializer']) {//jQuery parsing in IE doesn't work so need to use window.XMLSerializer for IE
-                            xmlContent = new ((<any>window).XMLSerializer()).serializeToString($(cmdExtension).get(0));
+                            var serializer = <XMLSerializer>new (<any>window).XMLSerializer;
+                            xmlContent = serializer.serializeToString($(cmdExtension).get(0));
                         } else {
                             xmlContent = $(customActionNode).find('CommandUIExtension')[0].outerHTML;
                         }
@@ -2010,8 +2011,6 @@ export class SpHelper {
                 return this.executeQueryPromise();
             });
 
-            this.applySecurity(newPage.get_listItem(), pnpPage.Security);
-
             promises = promises.then(() => {
                 if (!pageExists && pnpPage.Security != null) {
                     var d = $.Deferred();
@@ -2184,9 +2183,10 @@ export class SpHelper {
                     break;
                 }
             }
-            return contentNode;
+            return (<Element>contentNode).innerHTML;
         }
-        return (new (<any>window).XMLSerializer()).serializeToString(elementNode);
+        var serializer = <XMLSerializer>(new (<any>window).XMLSerializer);
+        return serializer.serializeToString(elementNode);
     }
     addAttachmentToListItem(siteUrl: string, listTitle: string, listItemId: string, fileName: string, content: any) {
         var d = $.Deferred();

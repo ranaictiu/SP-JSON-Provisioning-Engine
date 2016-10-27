@@ -193,7 +193,7 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper", ".
                 .then(function () {
                 _this.progressUI.setStatus(ProgressSteps.SiteCreation, OperationStatus.success, 'Site Created');
                 var createdWebContext = new SP.ClientContext(createdWeb.get_serverRelativeUrl());
-                createdWebContext.set_requestTimeout(300000);
+                createdWebContext.set_requestTimeout(600000); //set timeout to six mins, required for some feature activation like publishing feature
                 _this.spHelper = new provisioning.SpHelper(createdWebContext);
                 var templatePromises = $.when(1);
                 for (var i = 0; i < siteTemplate.Templates.length; i++) {

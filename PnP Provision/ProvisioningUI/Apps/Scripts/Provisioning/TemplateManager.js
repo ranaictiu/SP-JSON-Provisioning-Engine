@@ -106,9 +106,9 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 return _this.spHelper.activateDeactivateWebFeatures(featuresToActivate);
             });
             promises = promises.then(function () {
-                if (featuresToActivate != null && featuresToActivate.length > 0) {
-                    _this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.success, 'Features Activated');
-                }
+                //if (featuresToActivate != null && featuresToActivate.length > 0) {
+                _this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.success, 'Features Activated');
+                //}
                 return {};
             });
             return promises;

@@ -48,17 +48,6 @@
           },
           {
             "Members": [],
-            "Title": "{{SiteTitle}} Customer Users (Not used)",
-            "Description": "Can edit and approve pages, list items, and documents for External documents",
-            "Owner": "",
-            "AllowMembersEditMembership": false,
-            "AllowRequestToJoinLeave": false,
-            "AutoAcceptRequestToJoinLeave": false,
-            "OnlyAllowMembersViewMembership": false,
-            "RequestToJoinLeaveEmailSetting": null
-          },
-          {
-            "Members": [],
             "Title": "{{SiteTitle}} Suppliers",
             "Description": "Can edit and approve pages, list items, and documents",
             "Owner": "",
@@ -287,7 +276,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitle", "SofTractCDRLAbbreviation" ]
+              "ViewFields": [ "LinkTitle", "SoftractCDRLAbbreviation" ]
             }
           ],
           "FieldRefs": [
@@ -470,43 +459,38 @@
           ],
           "DataRows": [
             {
-              "SofTractSiteConfigKey": "ServiceEndPoint",
-              "SofTractSiteConfigValue": "https://SofTractservice.azurewebsites.net",
+              "SoftractSiteConfigKey": "ServiceEndPoint",
+              "SoftractSiteConfigValue": "https://Softractservice.azurewebsites.net",
               "Title": "Azure Service Endpoint"
             },
             {
-              "SofTractSiteConfigKey": "ProjectName",
-              "SofTractSiteConfigValue": "",
+              "SoftractSiteConfigKey": "ProjectName",
+              "SoftractSiteConfigValue": "",
               "Title": "Project Name"
             },
             {
-              "SofTractSiteConfigKey": "CustomerAdminGroupId",
-              "SofTractSiteConfigValue": "",
+              "SoftractSiteConfigKey": "CustomerAdminGroupId",
+              "SoftractSiteConfigValue": "",
               "Title": "Customers Group Id "
             },
             {
-              "SofTractSiteConfigKey": "CustomerUserGroupId",
-              "SofTractSiteConfigValue": "",
-              "Title": "Customer User Group Id (Not used)"
-            },
-            {
-              "SofTractSiteConfigKey": "PMGroupId",
-              "SofTractSiteConfigValue": "",
+              "SoftractSiteConfigKey": "PMGroupId",
+              "SoftractSiteConfigValue": "",
               "Title": "Project Manager Group Id "
             },
             {
-              "SofTractSiteConfigKey": "Environment",
-              "SofTractSiteConfigValue": "",
+              "SoftractSiteConfigKey": "Environment",
+              "SoftractSiteConfigValue": "",
               "Title": "Environemnt (Dev/Test/Prod)"
             },
             {
-              "SofTractSiteConfigKey": "PMEmail",
-              "SofTractSiteConfigValue": "",
+              "SoftractSiteConfigKey": "PMEmail",
+              "SoftractSiteConfigValue": "",
               "Title": "Project Manager Email"
             },
             {
-              "SofTractSiteConfigKey": "PMSignature",
-              "SofTractSiteConfigValue": "",
+              "SoftractSiteConfigKey": "PMSignature",
+              "SoftractSiteConfigValue": "",
               "Title": "Project Manager Signature",
               "_Attachments": [
                 {
@@ -632,7 +616,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitleNoMenu", "SofTractPlainDescription", "SofTractVcrmOcdlToFps" ]
+              "ViewFields": [ "LinkTitleNoMenu", "SoftractPlainDescription", "SoftractVcrmOcdlToFps" ]
             }
           ]
         },
@@ -862,9 +846,9 @@
       "SiteFields": [
         {
           "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-          "Name": "SofTractCDRLLookup",
+          "Name": "SoftractCDRLLookup",
           "DisplayName": "CDRL",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "Lookup",
           "List": "Lists/CDRLs",
           "Required": true,
@@ -872,70 +856,70 @@
         },
         {
           "ID": "{DE42175C-3FB3-47DD-8DC6-C925B1A4EB26}",
-          "Name": "SofTractSDRLLookup",
+          "Name": "SoftractSDRLLookup",
           "DisplayName": "SDRL",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "Lookup",
           "List": "Lists/SDRLs",
           "ShowField": "Title"
         },
         {
           "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
-          "Name": "SofTractWFStatusLookup",
+          "Name": "SoftractWFStatusLookup",
           "DisplayName": "Workflow Status",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "Lookup",
           "List": "Lists/WorkflowStatus",
           "ShowField": "Title",
           "DependentLookupFields": [
             {
               "DisplayName": "Peer Review Status",
-              "ShowField": "SofTractWFStatusPR"
+              "ShowField": "SoftractWFStatusPR"
             },
             {
               "DisplayName": "PM Approval Status",
-              "ShowField": "SofTractWFStatusPMA"
+              "ShowField": "SoftractWFStatusPMA"
             },
             {
               "DisplayName": "COA Submission Status",
-              "ShowField": "SofTractWFStatusCOA"
+              "ShowField": "SoftractWFStatusCOA"
             }
           ]
         },
         {
           "ID": "{6C6E5ADF-EC79-4736-80E5-293372615292}",
-          "Name": "SofTractOCDLLookup",
+          "Name": "SoftractOCDLLookup",
           "DisplayName": "OCDLs",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "LookupMulti",
           "List": "Lists/OCDLs",
           "ShowField": "Title",
-          "JSLink": "~siteCollection/_catalogs/masterpage/SofTract/Scripts/CSR_VCRM.js"
+          "JSLink": "~siteCollection/_catalogs/masterpage/Softract/Scripts/CSR_VCRM.js"
         },
         {
           "ID": "{35FF43FA-0631-464B-9B33-C80D8D0D95D7}",
-          "Name": "SofTractFPSLookup",
+          "Name": "SoftractFPSLookup",
           "DisplayName": "FPS",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "LookupMulti",
           "List": "Lists/FPSs",
           "ShowField": "Title",
-          "JSLink": "~siteCollection/_catalogs/masterpage/SofTract/Scripts/CSR_VCRM.js"
+          "JSLink": "~siteCollection/_catalogs/masterpage/Softract/Scripts/CSR_VCRM.js"
         },
         {
           "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-          "Name": "SofTractMSSLLookup",
+          "Name": "SoftractMSSLLookup",
           "DisplayName": "MSSs",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "LookupMulti",
           "List": "Lists/MSSs",
           "ShowField": "Title"
         },
         {
           "ID": "{287D43F6-E17A-485D-AACB-B590FDE4060C}",
-          "Name": "SofTractTestPlanLLookup",
+          "Name": "SoftractTestPlanLLookup",
           "DisplayName": "Test Plan",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Type": "LookupMulti",
           "List": "Lists/TestPlans",
           "ShowField": "Title"
@@ -943,9 +927,9 @@
       ],
       "ContentTypes": [
         {
-          "ParentID": "0x010800440874A0E71F4BE7A2F09DE230DC3DBE",
+          "ParentId": "0x010800440874A0E71F4BE7A2F09DE230DC3DBE",
           "Name": "CDRL Task",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "CDRL Task Content Type",
           "FieldRefs": [
             {
@@ -983,27 +967,27 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "SofTractCDRLLookup",
+              "Name": "SoftractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{B03829BB-0C33-4A99-A71B-EEF9DFB33CE9}",
-              "Name": "SofTractTaskDocNo"
+              "Name": "SoftractTaskDocNo"
             },
             {
               "ID": "{429DCF87-8271-4C67-810F-3173FE9AED47}",
-              "Name": "SofTractTaskDIDDocNo"
+              "Name": "SoftractTaskDIDDocNo"
             },
             {
               "ID": "{916D684C-AF66-4040-BA3F-90AE880F3554}",
-              "Name": "SofTractTaskDelivery"
+              "Name": "SoftractTaskDelivery"
             }
           ]
         },
         {
-          "ParentID": "0x0101007352B54274B2476E925990286BFF1D9E",
+          "ParentId": "0x0101007352B54274B2476E925990286BFF1D9E",
           "Name": "SDRL",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "SDRL Document",
           "FieldRefs": [
             {
@@ -1016,19 +1000,19 @@
             },
             {
               "ID": "{DE42175C-3FB3-47DD-8DC6-C925B1A4EB26}",
-              "Name": "SofTractSDRLLookup",
+              "Name": "SoftractSDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "SofTractAssetHierarchy"
+              "Name": "SoftractAssetHierarchy"
             }
           ]
         },
         {
-          "ParentID": "0x01010020783B76E0D34E6DBA0FCE40BAC982E2",
+          "ParentId": "0x01010020783B76E0D34E6DBA0FCE40BAC982E2",
           "Name": "Asset Hierarchies",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "Asset Hierarchies Document",
           "FieldRefs": [
             {
@@ -1041,20 +1025,20 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "SofTractCDRLLookup",
+              "Name": "SoftractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "SofTractAssetHierarchy"
+              "Name": "SoftractAssetHierarchy"
             }
 
           ]
         },
         {
-          "ParentID": "0x01010006EFA81ACDC148349F81F669B27A4AC6",
+          "ParentId": "0x01010006EFA81ACDC148349F81F669B27A4AC6",
           "Name": "Miscellaneous",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "Miscellaneous Document",
           "FieldRefs": [
             {
@@ -1067,19 +1051,19 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "SofTractCDRLLookup",
+              "Name": "SoftractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "SofTractAssetHierarchy"
+              "Name": "SoftractAssetHierarchy"
             }
           ]
         },
         {
-          "ParentID": "0x0100ECCB789EADDB4F45951DA9B5E6C15482",
+          "ParentId": "0x0100ECCB789EADDB4F45951DA9B5E6C15482",
           "Name": "FPS",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "FPS",
           "FieldRefs": [
             {
@@ -1088,27 +1072,27 @@
             },
             {
               "ID": "{27545995-BE93-478A-A726-5DB12B0E109E}",
-              "Name": "SofTractPlainDescription"
+              "Name": "SoftractPlainDescription"
             },
             {
               "ID": "{0F787965-8691-466A-BBEA-FD9844C02FEA}",
-              "Name": "SofTractOcdlInLinks"
+              "Name": "SoftractOcdlInLinks"
             },
             {
               "ID": "{95558EB2-EF86-47B6-B1DB-ABD63CD56D7E}",
-              "Name": "SofTractVcrmFpsToMss"
+              "Name": "SoftractVcrmFpsToMss"
             },
             {
               "ID": "{6C6E5ADF-EC79-4736-80E5-293372615292}",
-              "Name": "SofTractOCDLLookup",
+              "Name": "SoftractOCDLLookup",
               "Required": true
             }
           ]
         },
         {
-          "ParentID": "0x01009EBA3FE1E8D146D8938E163E0E473D6B",
+          "ParentId": "0x01009EBA3FE1E8D146D8938E163E0E473D6B",
           "Name": "MSS",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "MSS",
           "FieldRefs": [
             {
@@ -1118,39 +1102,39 @@
             },
             {
               "ID": "{A9ECD81E-5FEC-4FF5-B7A4-175A6B1970FE}",
-              "Name": "SofTractRtmSystemHeading"
+              "Name": "SoftractRtmSystemHeading"
             },
             {
               "ID": "{27545995-BE93-478A-A726-5DB12B0E109E}",
-              "Name": "SofTractPlainDescription"
+              "Name": "SoftractPlainDescription"
             },
             {
               "ID": "{8D658C8A-DF5E-4E1B-A0A7-714D4B1F571C}",
-              "Name": "SofTractVcrmVerificationMethod"
+              "Name": "SoftractVcrmVerificationMethod"
             },
             {
               "ID": "{B71BF472-96B0-4B62-83D8-DB222738605C}",
-              "Name": "SofTractVcrmAuthority"
+              "Name": "SoftractVcrmAuthority"
             },
             {
               "ID": "{4881216C-4EEE-4C2C-B2C0-34F8B0602185}",
-              "Name": "SofTractVcrmMSSType"
+              "Name": "SoftractVcrmMSSType"
             },
             {
               "ID": "{98F98161-1F37-43E8-B57A-75227C0F17E2}",
-              "Name": "SofTractRTMTaxField"
+              "Name": "SoftractRTMTaxField"
             },
             {
               "ID": "{35FF43FA-0631-464B-9B33-C80D8D0D95D7}",
-              "Name": "SofTractFPSLookup",
+              "Name": "SoftractFPSLookup",
               "Required": true
             }
           ]
         },
         {
-          "ParentID": "0x010100DD640FA3D60149EDBEF10FBFFBFA31D9",
+          "ParentId": "0x010100DD640FA3D60149EDBEF10FBFFBFA31D9",
           "Name": "Test Plan",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "Test Plan",
           "FieldRefs": [
             {
@@ -1163,55 +1147,55 @@
             },
             {
               "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-              "Name": "SofTractMSSLLookup",
+              "Name": "SoftractMSSLLookup",
               "Required": false
             },
             {
               "ID": "{4977F45D-1472-4D95-882F-1E80D1EB60D0}",
-              "Name": "SofTractVcrmStandard"
+              "Name": "SoftractVcrmStandard"
             },
             {
               "ID": "{4A437D06-F8AE-4D57-9655-34E0FB4D272A}",
-              "Name": "SofTractVcrmApplicability"
+              "Name": "SoftractVcrmApplicability"
             },
             {
               "ID": "{81EFFCD9-5A54-4B26-B887-02144CC07D25}",
-              "Name": "SofTractVcrmResponsibility"
+              "Name": "SoftractVcrmResponsibility"
             },
             {
               "ID": "{65979DE8-F278-4295-AFE9-64A0379F2215}",
-              "Name": "SofTractVcrmSystem"
+              "Name": "SoftractVcrmSystem"
             },
             {
               "ID": "{F7A71C0B-B55C-4497-A4AD-1D567262C804}",
-              "Name": "SofTractVcrmPhase"
+              "Name": "SoftractVcrmPhase"
             },
             {
               "ID": "{22808C2F-FCE6-4596-823D-2E99DD55FBAE}",
-              "Name": "SofTractVcrmVerifArtefact"
+              "Name": "SoftractVcrmVerifArtefact"
             },
             {
               "ID": "{EDBA60C7-760F-43AE-BA4E-4361AB8E5BF5}",
-              "Name": "SofTractVcrmVerifMethodDesc"
+              "Name": "SoftractVcrmVerifMethodDesc"
             },
             {
               "ID": "{C1C1B1FF-348F-4F2C-B782-6E5041FEAC29}",
-              "Name": "SofTractVcrmDrawingNo"
+              "Name": "SoftractVcrmDrawingNo"
             },
             {
               "ID": "{1ACBE700-4AA7-4896-962F-697306F37C71}",
-              "Name": "SofTractVcrmDocRefNo"
+              "Name": "SoftractVcrmDocRefNo"
             },
             {
               "ID": "{12A60127-E490-4F8A-B01A-4FD3F6460251}",
-              "Name": "SofTractVcrmInspectionProcedure"
+              "Name": "SoftractVcrmInspectionProcedure"
             }
           ]
         },
         {
-          "ParentID": "0x0101002EB198CEC44D4A0AB8B2F971A2166EA8",
+          "ParentId": "0x0101002EB198CEC44D4A0AB8B2F971A2166EA8",
           "Name": "Test Result",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "Test Result",
           "FieldRefs": [
             {
@@ -1224,19 +1208,19 @@
             },
             {
               "ID": "{287D43F6-E17A-485D-AACB-B590FDE4060C}",
-              "Name": "SofTractTestPlanLLookup",
+              "Name": "SoftractTestPlanLLookup",
               "Required": false
             },
             {
               "ID": "{8BB43C51-C259-42DB-9A42-D830DFCE3922}",
-              "Name": "SofTractVcrmPassFailStatus"
+              "Name": "SoftractVcrmPassFailStatus"
             }
           ]
         },
         {
-          "ParentID": "0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF",
+          "ParentId": "0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF",
           "Name": "CDRL",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "CDRL Document",
           "FieldRefs": [
             {
@@ -1249,31 +1233,31 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "SofTractCDRLLookup",
+              "Name": "SoftractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
-              "Name": "SofTractWFStatusLookup",
+              "Name": "SoftractWFStatusLookup",
               "Required": false,
               "Hidden": true
             },
             {
               "ID": "{0BC2FEB6-9FA5-44EB-9FF7-D461DCE3A9DF}",
-              "Name": "SofTractCoAVersion",
+              "Name": "SoftractCoAVersion",
               "Required": false
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "SofTractAssetHierarchy",
+              "Name": "SoftractAssetHierarchy",
               "Required": false
             }
           ]
         },
         {
-          "ParentID": "0x0120D52000DF7EEDA66222417CA6D69ADC1F6FA294",
+          "ParentId": "0x0120D52000DF7EEDA66222417CA6D69ADC1F6FA294",
           "Name": "CDRL Document Set",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "CDRL Document Set",
           "FieldRefs": [
             {
@@ -1287,17 +1271,17 @@
             },
             {
               "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-              "Name": "SofTractCDRLLookup",
+              "Name": "SoftractCDRLLookup",
               "Required": true
             },
             {
               "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-              "Name": "SofTractAssetHierarchy",
+              "Name": "SoftractAssetHierarchy",
               "Required": false
             },
             {
               "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
-              "Name": "SofTractWFStatusLookup",
+              "Name": "SoftractWFStatusLookup",
               "Required": false,
               "Hidden": true
             }
@@ -1324,29 +1308,29 @@
             "SharedFields": [
               {
                 "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-                "Name": "SofTractAssetHierarchy"
+                "Name": "SoftractAssetHierarchy"
               },
               {
                 "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-                "Name": "SofTractCDRLLookup"
+                "Name": "SoftractCDRLLookup"
               }
             ],
             "WelcomePageFields": [
               {
                 "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
-                "Name": "SofTractAssetHierarchy"
+                "Name": "SoftractAssetHierarchy"
               },
               {
                 "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
-                "Name": "SofTractCDRLLookup"
+                "Name": "SoftractCDRLLookup"
               }
             ]
           }
         },
         {
-          "ParentID": "0x0120D52000CBE51A31EE614A4E8E1E6967321374DB",
+          "ParentId": "0x0120D52000CBE51A31EE614A4E8E1E6967321374DB",
           "Name": "Test Result Document Set",
-          "Group": "SofTract",
+          "Group": "Softract",
           "Description": "Test Result Document Set",
           "FieldRefs": [
             {
@@ -1359,7 +1343,7 @@
             },
             {
               "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-              "Name": "SofTractMSSLLookup",
+              "Name": "SoftractMSSLLookup",
               "Required": true
             }
           ],
@@ -1373,13 +1357,13 @@
             "SharedFields": [
               {
                 "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-                "Name": "SofTractMSSLLookup"
+                "Name": "SoftractMSSLLookup"
               }
             ],
             "WelcomePageFields": [
               {
                 "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
-                "Name": "SofTractMSSLLookup"
+                "Name": "SoftractMSSLLookup"
               }
             ]
           }
@@ -1403,7 +1387,7 @@
             },
             {
               "ContentTypeId": "0x0108003365C4474CAE8C42BCE396314E88E51F0021D5C9C5C1C64AAABE2D8F0ABE9480B5",
-              "Name": "SofTract Task",
+              "Name": "Softract Task",
               "Default": false
             },
             {
@@ -1434,7 +1418,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitleNoMenu", "SofTractPlainDescription", "SofTractOCDLLookup", "SofTractVcrmFpsToMss" ]
+              "ViewFields": [ "LinkTitleNoMenu", "SoftractPlainDescription", "SoftractOCDLLookup", "SoftractVcrmFpsToMss" ]
             }
           ]
         },
@@ -1459,7 +1443,7 @@
               "Paged": true,
               "RowLimit": 50,
               "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
-              "ViewFields": [ "LinkTitleNoMenu", "SofTractRtmSystemHeading", "SofTractPlainDescription", "SofTractVcrmVerificationMethod", "SofTractVcrmAuthority", "SofTractVcrmMSSType", "SofTractFPSLookup" ]
+              "ViewFields": [ "LinkTitleNoMenu", "SoftractRtmSystemHeading", "SoftractPlainDescription", "SoftractVcrmVerificationMethod", "SoftractVcrmAuthority", "SoftractVcrmMSSType", "SoftractFPSLookup" ]
             }
           ]
         },
@@ -1552,7 +1536,7 @@
         "SiteCustomActions": [],
         "WebCustomActions": [
           {
-            "Url": "Lists/Templates/SofTractRibbon.xml"
+            "Url": "Lists/Templates/SoftractRibbon.xml"
           }
         ]
       },
@@ -1583,7 +1567,7 @@
         {
           "Title": "Home",
           "SEOTitle": "{{SiteTitle}} Home",
-          "Layout": "Site Home Page",
+          "Layout": "Softract Home Page",
           "Url": "Pages/Home.aspx",
           "Overwrite": false
         }

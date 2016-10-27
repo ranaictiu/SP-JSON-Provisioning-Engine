@@ -19,7 +19,7 @@ class ProgressStep {
     title: KnockoutObservable<string> = ko.observable(null);
     noOfActions: number = 0;
     statusCssClass = ko.computed(() => {
-        if (this.status()) 
+        if (this.status())
             return 'status-' + OperationStatus[this.status()];
         return '';
     });
@@ -34,8 +34,12 @@ export interface ProgressUIInterface {
 export class ProgressUIModel implements ProgressUIInterface {
     steps: KnockoutObservableArray<ProgressStep>;
 
-    initialize(templateFile: TemplateFile) {
+    constructor() {
         this.steps = ko.observableArray([]);
+    }
+
+    initialize(templateFile: TemplateFile) {
+        this.steps([]);
         for (let templateItem of templateFile.Templates) {
             if (templateItem.Features && ((templateItem.Features.SiteFeatures && templateItem.Features.SiteFeatures.length > 0) || (templateItem.Features.WebFeatures && templateItem.Features.WebFeatures.length > 0))) {
                 this.addOrUpdateStep(ProgressSteps.Features, 'Feature Activation');

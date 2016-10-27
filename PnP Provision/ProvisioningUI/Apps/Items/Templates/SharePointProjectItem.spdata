@@ -7,5 +7,6 @@
     <ProjectItemFile Source="EmailTemplates.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="CMailRibbon.xml" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="SoftractRibbon.xml" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="PMSignature.png" Target="Templates\" Type="ElementFile" />
   </Files>
 </ProjectItem>

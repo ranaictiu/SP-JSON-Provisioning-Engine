@@ -36,7 +36,13 @@
       <Property Name="TemplateDescription" Type="string" Value="Softract Ribbon"></Property>
       <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
       <Property Name="TemplateID" Type="string" Value="SoftractRibbon"></Property>
-
+    </File>
+    <File Path="Templates\PMSignature.png" Url="PMSignature.png" ReplaceContent="TRUE" >
+      <Property Name="ContentTypeId" Type="string" Value="0x01010061237BECC2D44CFC98CA2B3781B36F31"></Property>
+      <Property Name="Title" Type="string" Value="PM Signature"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="PM Signature"></Property>
+      <Property Name="TemplateType" Type="string" Value="Miscellaneous"></Property>
+      <Property Name="TemplateID" Type="string" Value="PMSignature"></Property>
     </File>
   </Module>
 </Elements>

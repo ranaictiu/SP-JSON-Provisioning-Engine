@@ -115,13 +115,13 @@ export class TemplateManager {
         });
         promises = promises.then(() => {
             if (featuresToActivate == null || featuresToActivate.length == 0) return {};
-            
+
             return this.spHelper.activateDeactivateWebFeatures(featuresToActivate);
         });
         promises = promises.then(() => {
-            if (featuresToActivate != null && featuresToActivate.length > 0) {
-                this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.success, 'Features Activated');
-            }
+            //if (featuresToActivate != null && featuresToActivate.length > 0) {
+            this.progressListener.progressUpdate(ProgressSteps.Features, OperationStatus.success, 'Features Activated');
+            //}
             return {};
         });
         return promises;

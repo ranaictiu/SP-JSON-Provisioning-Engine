@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/PnP Provision/ProvisioningUI/Apps/Items/Templates/Thumbs.db

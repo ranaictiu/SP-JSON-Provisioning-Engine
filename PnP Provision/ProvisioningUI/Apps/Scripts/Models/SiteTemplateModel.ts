@@ -208,7 +208,7 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
             .then(() => {
                 this.progressUI.setStatus(ProgressSteps.SiteCreation, OperationStatus.success, 'Site Created');
                 let createdWebContext = new SP.ClientContext(createdWeb.get_serverRelativeUrl());
-                createdWebContext.set_requestTimeout(300000);
+                createdWebContext.set_requestTimeout(600000); //set timeout to six mins, required for some feature activation like publishing feature
                 this.spHelper = new provisioning.SpHelper(createdWebContext);
 
                 var templatePromises = $.when(1);

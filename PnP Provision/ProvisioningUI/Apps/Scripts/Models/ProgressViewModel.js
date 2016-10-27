@@ -23,9 +23,10 @@ define(["require", "exports", "../Provisioning/SharePointHelper", "../Provisioni
     }());
     var ProgressUIModel = (function () {
         function ProgressUIModel() {
+            this.steps = ko.observableArray([]);
         }
         ProgressUIModel.prototype.initialize = function (templateFile) {
-            this.steps = ko.observableArray([]);
+            this.steps([]);
             for (var _i = 0, _a = templateFile.Templates; _i < _a.length; _i++) {
                 var templateItem = _a[_i];
                 if (templateItem.Features && ((templateItem.Features.SiteFeatures && templateItem.Features.SiteFeatures.length > 0) || (templateItem.Features.WebFeatures && templateItem.Features.WebFeatures.length > 0))) {

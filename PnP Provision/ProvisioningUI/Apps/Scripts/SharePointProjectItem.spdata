@@ -19,12 +19,14 @@
     <ProjectItemFile Source="typings\jqueryui\jqueryui.d.ts" Target="Scripts\typings\jqueryui\" Type="ElementFile" />
     <ProjectItemFile Source="lib\jquery-1.12.4.min.js" Target="Scripts\lib\" Type="ElementFile" />
     <ProjectItemFile Source="lib\jquery-ui-1.12.1.min.js" Target="Scripts\lib\" Type="ElementFile" />
-    <ProjectItemFile Source="Provisioning\Provisioning.d.ts" Target="Scripts\Provisioning\" Type="ElementFile" />
     <ProjectItemFile Source="Config.ts" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="Config.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="Models\ProgressViewModel.js" Target="Scripts\Models\" Type="ElementFile" />
     <ProjectItemFile Source="Models\SiteTemplateModel.js" Target="Scripts\Models\" Type="ElementFile" />
     <ProjectItemFile Source="Provisioning\TemplateManager.js" Target="Scripts\Provisioning\" Type="ElementFile" />
     <ProjectItemFile Source="Provisioning\SharePointHelper.js" Target="Scripts\Provisioning\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\CleanupModel.ts" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\CleanupModel.js" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Provisioning\Provisioning.d.ts" Target="Scripts\Provisioning\" Type="ElementFile" />
   </Files>
 </ProjectItem>

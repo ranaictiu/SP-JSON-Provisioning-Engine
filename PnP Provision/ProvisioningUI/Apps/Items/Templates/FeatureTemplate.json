@@ -69,7 +69,7 @@
       ],
       "ContentTypes": [
         {
-          "ParentID": "0x010100C0D2066864CA4A11942B175F78E9782F",
+          "ParentId": "0x010100C0D2066864CA4A11942B175F78E9782F",
           "Name": "Correspondence",
           "Group": "SofTract",
           "Description": "Correspondence",

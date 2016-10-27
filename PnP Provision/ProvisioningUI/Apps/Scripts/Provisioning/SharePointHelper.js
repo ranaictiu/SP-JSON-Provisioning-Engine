@@ -327,7 +327,7 @@ define(["require", "exports"], function (require, exports) {
             return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
         };
         SpHelper.prototype.getHelperContextFromUrl = function (fullUrl) {
-            if (SpHelper.isCurrentContextWebApp()) {
+            if (SpHelper.isCurrentContextWebApp() && !fullUrl.startsWith('/')) {
                 var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
                 var factory = new SP.ProxyWebRequestExecutorFactory(_spPageContextInfo.webAbsoluteUrl);
                 context.set_webRequestExecutorFactory(factory);
@@ -1541,7 +1541,8 @@ define(["require", "exports"], function (require, exports) {
                         }
                         else {
                             if (window['XMLSerializer']) {
-                                xmlContent = new (window.XMLSerializer()).serializeToString($(cmdExtension).get(0));
+                                var serializer = new window.XMLSerializer;
+                                xmlContent = serializer.serializeToString($(cmdExtension).get(0));
                             }
                             else {
                                 xmlContent = $(customActionNode).find('CommandUIExtension')[0].outerHTML;
@@ -1909,7 +1910,6 @@ define(["require", "exports"], function (require, exports) {
                     pageListItem.get_file().publish("Publishing after creation");
                     return _this.executeQueryPromise();
                 });
-                this_1.applySecurity(newPage.get_listItem(), pnpPage.Security);
                 promises = promises.then(function () {
                     if (!pageExists && pnpPage.Security != null) {
                         var d = $.Deferred();
@@ -1923,7 +1923,6 @@ define(["require", "exports"], function (require, exports) {
                     return {};
                 });
             };
-            var this_1 = this;
             var newPage, pageExists;
             for (var _i = 0, pnpPages_1 = pnpPages; _i < pnpPages_1.length; _i++) {
                 var pnpPage = pnpPages_1[_i];
@@ -2076,9 +2075,10 @@ define(["require", "exports"], function (require, exports) {
                         break;
                     }
                 }
-                return contentNode;
+                return contentNode.innerHTML;
             }
-            return (new window.XMLSerializer()).serializeToString(elementNode);
+            var serializer = (new window.XMLSerializer);
+            return serializer.serializeToString(elementNode);
         };
         SpHelper.prototype.addAttachmentToListItem = function (siteUrl, listTitle, listItemId, fileName, content) {
             var d = $.Deferred();

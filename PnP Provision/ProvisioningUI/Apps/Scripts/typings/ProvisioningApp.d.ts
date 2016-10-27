@@ -19,11 +19,13 @@ declare namespace SP {
         updateAndPushChanges();
     }
 }
-//declare namespace SP.WorkflowServices {
-//    export class WorkflowSubscription extends SP.WorkflowServices.WorkflowSubscription {
-//        constructor(context: SP.ClientRuntimeContext);
-//    }
-//}
-interface window {
-    XMLSerializer: any;
+interface String {
+    replaceAll(search: string, replacement: string): string;
 }
+
+//interface serializer {
+//    serializeToString: (elemtn: HTMLElement) => string;
+//}
+//interface window{
+//    XMLSerializer: any;
+//}

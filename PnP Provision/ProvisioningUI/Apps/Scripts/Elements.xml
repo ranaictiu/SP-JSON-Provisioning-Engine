@@ -10,12 +10,14 @@
     <File Path="Scripts\typings\jqueryui\jqueryui.d.ts" Url="Scripts/typings/jqueryui/jqueryui.d.ts" ReplaceContent="TRUE" />
     <File Path="Scripts\lib\jquery-1.12.4.min.js" Url="Scripts/lib/jquery-1.12.4.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\lib\jquery-ui-1.12.1.min.js" Url="Scripts/lib/jquery-ui-1.12.1.min.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\Provisioning\Provisioning.d.ts" Url="Scripts/Provisioning/Provisioning.d.ts" ReplaceContent="TRUE" />
     <File Path="Scripts\Config.ts" Url="Scripts/Config.ts" ReplaceContent="TRUE" />
     <File Path="Scripts\Config.js" Url="Scripts/Config.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Models\ProgressViewModel.js" Url="Scripts/Models/ProgressViewModel.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Models\SiteTemplateModel.js" Url="Scripts/Models/SiteTemplateModel.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Provisioning\TemplateManager.js" Url="Scripts/Provisioning/TemplateManager.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Provisioning\SharePointHelper.js" Url="Scripts/Provisioning/SharePointHelper.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\CleanupModel.ts" Url="Scripts/Models/CleanupModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\CleanupModel.js" Url="Scripts/Models/CleanupModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Provisioning\Provisioning.d.ts" Url="Scripts/Provisioning/Provisioning.d.ts" ReplaceContent="TRUE" />
   </Module>
 </Elements>

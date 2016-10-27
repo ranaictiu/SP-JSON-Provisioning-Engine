@@ -3,5 +3,6 @@
   <Module Name="Pages">
     <File Path="Pages\Default.aspx" Url="Pages/Default.aspx" ReplaceContent="TRUE" />
     <File Path="Pages\SiteTemplate.aspx" Url="Pages/SiteTemplate.aspx" ReplaceContent="TRUE" />
+    <File Path="Pages\Cleanup.aspx" Url="Pages/Cleanup.aspx" ReplaceContent="TRUE" />
   </Module>
 </Elements>

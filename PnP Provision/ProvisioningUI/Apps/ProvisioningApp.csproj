@@ -170,10 +170,12 @@
     <Content Include="Items\Lists\ListTemplates\Schema.xml" />
     <Content Include="Items\Lists\ListTemplates\TemplatesInstance\Elements.xml" />
     <Content Include="Items\Lists\ListTemplates\Upload.aspx" />
+    <Content Include="Items\Templates\PMSignature.png" />
     <Content Include="Items\Templates\SoftractRibbon.xml" />
     <Content Include="Items\Templates\CMailRibbon.xml" />
     <Content Include="Items\Templates\Elements.xml" />
     <Content Include="Items\Templates\EmailTemplates.xml" />
+    <Content Include="Pages\Cleanup.aspx" />
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />
     <None Include="SharePointProjectItem.spdata">
@@ -185,12 +187,15 @@
       <SharePointProjectItemId>{47eedfe5-728e-4e26-a911-19db3bf6cea7}</SharePointProjectItemId>
     </None>
     <Content Include="Pages\SiteTemplate.aspx" />
-    <Content Include="Scripts\Config.js" />
+    <Content Include="Scripts\Config.js">
+      <DependentUpon>config.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\lib\jquery-1.12.4.min.js" />
     <Content Include="Scripts\lib\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\lib\bootstrap.min.js" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\lib\knockout-3.4.0.min.js" />
+    <Content Include="Scripts\Models\CleanupModel.js" />
     <Content Include="Scripts\Models\ProgressViewModel.js">
       <DependentUpon>ProgressViewModel.ts</DependentUpon>
     </Content>
@@ -243,6 +248,7 @@
   <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Config.ts" />
+    <TypeScriptCompile Include="Scripts\Models\CleanupModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\ProgressViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\SiteTemplateModel.ts" />
     <TypeScriptCompile Include="Scripts\Provisioning\Provisioning.d.ts" />

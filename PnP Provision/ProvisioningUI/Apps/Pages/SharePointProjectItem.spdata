@@ -4,5 +4,6 @@
     <ProjectItemFile Source="Elements.xml" Target="Pages\" Type="ElementManifest" />
     <ProjectItemFile Source="Default.aspx" Target="Pages\" Type="ElementFile" />
     <ProjectItemFile Source="SiteTemplate.aspx" Target="Pages\" Type="ElementFile" />
+    <ProjectItemFile Source="Cleanup.aspx" Target="Pages\" Type="ElementFile" />
   </Files>
 </ProjectItem>
