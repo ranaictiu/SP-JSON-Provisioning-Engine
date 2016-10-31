@@ -27,7 +27,7 @@ class ProgressStep {
 export interface ProgressUIInterface {
     steps: KnockoutObservableArray<ProgressStep>;
     initialize(templateFile: TemplateFile);
-    show(elementId: string, dialogTitle: string, currentStep: ProgressSteps, width?: number, height?: number);
+    show(elementId: string, dialogTitle: string, currentStep?: ProgressSteps, width?: number, height?: number);
     setStatus(stepName: ProgressSteps, status: OperationStatus, message?: string);
     setFailed();
 }
@@ -87,8 +87,8 @@ export class ProgressUIModel implements ProgressUIInterface {
             step.title(message);
         }
     }
-    show(elementId: string, dialogTitle: string, currentStep: ProgressSteps, width?: number, height?: number) {
-        if (currentStep == ProgressSteps.SiteCreation) {
+    show(elementId: string, dialogTitle: string, currentStep?: ProgressSteps, width?: number, height?: number) {
+        if (currentStep != null && currentStep == ProgressSteps.SiteCreation) {
             this.steps.unshift(new ProgressStep(currentStep, 'Creating Site', OperationStatus.inProgress));
         }
         var existingBinding = ko.dataFor(document.getElementById(elementId));

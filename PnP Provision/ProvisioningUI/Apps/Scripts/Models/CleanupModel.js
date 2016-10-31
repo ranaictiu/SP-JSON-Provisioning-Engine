@@ -77,7 +77,7 @@ define(["require", "exports", "../Provisioning/SharePointHelper", 'knockout'], f
             });
             promises = promises.then(function () {
                 _this.logToDiv('Deleting web');
-                var helper = _this.spHelper.getHelperContextFromUrl(_this.siteServerRelativeUrl);
+                var helper = SharePointHelper.SpHelper.getHelperContextFromUrl(_this.siteServerRelativeUrl);
                 helper.getWeb().deleteObject();
                 return helper.executeQueryPromise();
             });

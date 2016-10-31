@@ -13,5 +13,6 @@
     <ProjectItemFile Source="2STWithColsCTsViews.json" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="3STWithDataImport.json" Target="Templates\" Type="ElementFile" />
     <ProjectItemFile Source="4STWithUserActionSecurity.json" Target="Templates\" Type="ElementFile" />
+    <ProjectItemFile Source="1FTBasic.json" Target="Templates\" Type="ElementFile" />
   </Files>
 </ProjectItem>

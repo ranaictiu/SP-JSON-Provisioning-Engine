@@ -78,7 +78,7 @@ define(["require", "exports", "../Provisioning/SharePointHelper", "../Provisioni
             }
         };
         ProgressUIModel.prototype.show = function (elementId, dialogTitle, currentStep, width, height) {
-            if (currentStep == ProgressSteps.SiteCreation) {
+            if (currentStep != null && currentStep == ProgressSteps.SiteCreation) {
                 this.steps.unshift(new ProgressStep(currentStep, 'Creating Site', OperationStatus.inProgress));
             }
             var existingBinding = ko.dataFor(document.getElementById(elementId));

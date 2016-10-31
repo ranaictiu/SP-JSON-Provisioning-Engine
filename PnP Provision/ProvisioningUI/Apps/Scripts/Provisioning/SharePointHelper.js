@@ -21,6 +21,12 @@ define(["require", "exports"], function (require, exports) {
         return FeatureInfo;
     }());
     exports.FeatureInfo = FeatureInfo;
+    var SiteFeatureTemplate = (function () {
+        function SiteFeatureTemplate() {
+        }
+        return SiteFeatureTemplate;
+    }());
+    exports.SiteFeatureTemplate = SiteFeatureTemplate;
     var TemplateFile = (function () {
         function TemplateFile() {
         }
@@ -339,7 +345,7 @@ define(["require", "exports"], function (require, exports) {
         SpHelper.isCurrentContextWebApp = function () {
             return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
         };
-        SpHelper.prototype.getHelperContextFromUrl = function (fullUrl) {
+        SpHelper.getHelperContextFromUrl = function (fullUrl) {
             if (SpHelper.isCurrentContextWebApp() && !fullUrl.startsWith('/')) {
                 var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
                 var factory = new SP.ProxyWebRequestExecutorFactory(_spPageContextInfo.webAbsoluteUrl);
@@ -351,6 +357,7 @@ define(["require", "exports"], function (require, exports) {
                 return new SpHelper(new SP.ClientContext(fullUrl));
             }
         };
+        //Returns the current executing context. If it's an app site, this returns the app context.
         SpHelper.prototype.getExecuteContext = function () {
             if (this._context instanceof SP.ClientContext) {
                 return this._context;

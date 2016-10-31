@@ -50,5 +50,16 @@
     <File Path="Content\themes\base\all.css" Url="Content/themes/base/all.css" ReplaceContent="TRUE" />
     <File Path="Content\themes\base\accordion.css" Url="Content/themes/base/accordion.css" ReplaceContent="TRUE" />
     <File Path="Content\app.min.css" Url="Content/app.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default\throbber.gif" Url="Content/themes/default/throbber.gif" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default\style.min.css" Url="Content/themes/default/style.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default\style.css" Url="Content/themes/default/style.css" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default\40px.png" Url="Content/themes/default/40px.png" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default\32px.png" Url="Content/themes/default/32px.png" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default-dark\Thumbs.db" Url="Content/themes/default-dark/Thumbs.db" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default-dark\throbber.gif" Url="Content/themes/default-dark/throbber.gif" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default-dark\style.min.css" Url="Content/themes/default-dark/style.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default-dark\style.css" Url="Content/themes/default-dark/style.css" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default-dark\40px.png" Url="Content/themes/default-dark/40px.png" ReplaceContent="TRUE" />
+    <File Path="Content\themes\default-dark\32px.png" Url="Content/themes/default-dark/32px.png" ReplaceContent="TRUE" />
   </Module>
 </Elements>

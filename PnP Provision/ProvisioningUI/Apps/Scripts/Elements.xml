@@ -17,7 +17,14 @@
     <File Path="Scripts\Provisioning\TemplateManager.js" Url="Scripts/Provisioning/TemplateManager.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Provisioning\SharePointHelper.js" Url="Scripts/Provisioning/SharePointHelper.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Models\CleanupModel.ts" Url="Scripts/Models/CleanupModel.ts" ReplaceContent="TRUE" />
-    <File Path="Scripts\Models\CleanupModel.js" Url="Scripts/Models/CleanupModel.js" ReplaceContent="TRUE" />
     <File Path="Scripts\Provisioning\Provisioning.d.ts" Url="Scripts/Provisioning/Provisioning.d.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\FeatureTemplateModel.ts" Url="Scripts/Models/FeatureTemplateModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\FeatureTemplateModel.js" Url="Scripts/Models/FeatureTemplateModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\CleanupModel.js" Url="Scripts/Models/CleanupModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProvisioningAppModel.ts" Url="Scripts/Models/ProvisioningAppModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\jstree.min.js" Url="Scripts/lib/jstree.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\jstree.js" Url="Scripts/lib/jstree.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\typings\jstree\jstree.d.ts" Url="Scripts/typings/jstree/jstree.d.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProvisioningAppModel.js" Url="Scripts/Models/ProvisioningAppModel.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

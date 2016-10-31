@@ -8,28 +8,31 @@
 
 <%-- The markup and script in the following Content element will be placed in the <head> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderAdditionalPageHead" runat="server">
-    <SharePoint:ScriptLink name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
+    <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
     <meta name="WebPartPageExpansion" content="full" />
-
-    <!-- Add your CSS styles to the following file -->
     <link rel="Stylesheet" type="text/css" href="../Content/App.min.css" />
-
-    <!-- Add your JavaScript to the following file -->
+    <script type="text/javascript" src="../scripts/lib/require.js"></script>
+    <script type="text/javascript" src="../scripts/Config.js"></script>
+    <link rel="Stylesheet" type="text/css" href="../Content/App.min.css" />
+    <link rel="Stylesheet" type="text/css" href="../Content/themes/base/jquery-ui.min.css" />
+    <link rel="Stylesheet" type="text/css" href="../Content/themes/default/style.min.css" />
 </asp:Content>
 
 <%-- The markup in the following Content element will be placed in the TitleArea of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
-    Page Title
+    Provisioning App
 </asp:Content>
 
 <%-- The markup and script in the following Content element will be placed in the <body> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
-
-    <div>
-        <p id="message">
-            <!-- The following content will be replaced with the user name when you run the app - see App.js -->
-            initializing...
-        </p>
+    <div id="provisioningApp">
+        <div id="jsTreeSites"></div>
+        <div class="provisioning-app bs">
+            <button class="btn btn-primary" data-bind="enable: canAction, click: function () { navigateToPage('Pages/SiteTemplate.aspx'); }">Create Site</button>
+            <button class="btn btn-primary" data-bind="enable: canAction, click: function () { navigateToPage('Pages/FeatureTemplate.aspx'); }">Manage Feature Templates</button>
+        </div>
     </div>
-
+    <script type="text/javascript">
+        require(['jquery', 'jqueryui', 'knockout', 'jstree', '../scripts/models/ProvisioningAppModel']);
+    </script>
 </asp:Content>

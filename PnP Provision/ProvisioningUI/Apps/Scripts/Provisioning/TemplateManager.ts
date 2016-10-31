@@ -3,6 +3,7 @@ import Template = provisioningApp.Template;
 import ListInfo = provisioningApp.ListInfo;
 import FeatureInfo = provisioningApp.FeatureInfo;
 import Utils = provisioningApp.Utils;
+import SharePointHelper=provisioningApp.SpHelper;
 
 //interface ProgressInterface {
 //    clearSteps: () => void;
@@ -42,13 +43,11 @@ export interface ProgressListenerInteface {
 
 export class TemplateManager {
 
-    private currentContext: SP.ClientContext | SP.ClientObject;
     private currentWeb: SP.Web;
     private spHelper: provisioningApp.SpHelper;
     private progressListener: ProgressListenerInteface;
-    initialize(ctx: SP.ClientContext | SP.ClientObject, progressHandler: ProgressListenerInteface) {
-        this.currentContext = ctx;
-        this.spHelper = new provisioningApp.SpHelper(ctx);
+    initialize(spHelper:SharePointHelper, progressHandler: ProgressListenerInteface) {
+        this.spHelper = spHelper;
         this.progressListener = progressHandler;
     }
     applyTemplate(template) {
@@ -94,7 +93,9 @@ export class TemplateManager {
         return promises;
     }
 
-    private processFeatures(template: Template) {
+    private processFeatures(template: Template): JQueryPromise<{}> {
+        var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
+        if (pnpFeatures == null || pnpFeatures.length == 0) return jQuery.Deferred().resolve();
         var promises = $.when(1);
         let activatedWebFeatures: Array<FeatureInfo>;
         var featuresToActivate;
@@ -105,7 +106,7 @@ export class TemplateManager {
             });
         });
         promises = promises.then(() => {
-            var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
+
             featuresToActivate = Utils.arrayFilter(pnpFeatures, (f) => {
                 return Utils.arrayFirst(activatedWebFeatures, (af) => {
                     return f.ID.toLowerCase() == af.ID.toLowerCase();
@@ -126,10 +127,9 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processSiteGroups(template: Template) {
-        if (template.Security == null || template.Security.SiteGroups == null || template.Security.SiteGroups.length ==
-            0)
-            return {};
+    private processSiteGroups(template: Template): JQueryGenericPromise<{}> {
+        if (template.Security == null || template.Security.SiteGroups == null || template.Security.SiteGroups.length == 0)
+            return jQuery.Deferred().resolve();
         var promises = $.when(1);
         let siteGroups: Array<SP.Group>;
         promises = promises.then(() => {
@@ -162,8 +162,8 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processSiteFields(template: Template) {
-        if (template.SiteFields == null || template.SiteFields.length == 0) return {};
+    private processSiteFields(template: Template): JQueryPromise<{}> {
+        if (template.SiteFields == null || template.SiteFields.length == 0) return jQuery.Deferred().resolve();
         var promises = $.when(1);
         let availableFields: Array<SP.Field>;
         promises = promises.then(() => {
@@ -189,8 +189,8 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processContentTypes(template: Template) {
-        if (template.ContentTypes == null || template.ContentTypes.length == 0) return {};
+    private processContentTypes(template: Template): JQueryPromise<{}> {
+        if (template.ContentTypes == null || template.ContentTypes.length == 0) return jQuery.Deferred().resolve();
         var promises = $.when(1);
         let availableContentTypes: Array<SP.ContentType>;
         promises = promises.then(() => {
@@ -216,9 +216,9 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processPublishingPages(template: Template) {
-        if (template.Pages == null || template.Pages.length == 0) return {};
-        var promises = $.when(1);
+    private processPublishingPages(template: Template): JQueryPromise<{}> {
+        if (template.Pages == null || template.Pages.length == 0) return jQuery.Deferred().resolve();
+        let promises = $.when(1);
         promises = promises.then(() => {
             this.progressListener.progressUpdate(ProgressSteps.Pages, OperationStatus.inProgress, 'Creating Pages');
             return {};
@@ -233,8 +233,8 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processLists(template: Template) {
-        if (template.Lists == null || template.Lists.length == 0) return {};
+    private processLists(template: Template): JQueryPromise<{}> {
+        if (template.Lists == null || template.Lists.length == 0) return jQuery.Deferred().resolve();
         var promises = $.when(1);
         let allLists: Array<ListInfo>;
         promises = promises.then(() => {
@@ -279,10 +279,10 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processWorkflows(template: Template) {
+    private processWorkflows(template: Template): JQueryPromise<{}> {
         if (template.Workflows == null || template.Workflows.Subscriptions == null ||
             template.Workflows.Subscriptions.length == 0)
-            return {};
+            return jQuery.Deferred().resolve();
 
         var promises = $.when(1);
         promises = promises.then(() => {
@@ -301,8 +301,8 @@ export class TemplateManager {
         });
         return promises;
     }
-    private processNavigation(template: Template) {
-        return {};
+    private processNavigation(template: Template): JQueryPromise<{}> {
+        return jQuery.Deferred().resolve();
         //if (template.Navigation == null) return {};
         //var promises = $.when(1);
         //promises = promises.then(()=> {
@@ -320,14 +320,12 @@ export class TemplateManager {
         //});
         //return promises;
     }
-    private processWebSettings(template: Template) {
-        if (template.WebSettings == null) return {};
-        if (template.WebSettings.WelcomePage)
-            return this.spHelper.setWelcomePage(template.WebSettings.WelcomePage);
-        return {};
+    private processWebSettings(template: Template): JQueryPromise<{}> {
+        if (template.WebSettings == null || template.WebSettings.WelcomePage == null) return jQuery.Deferred().resolve();
+        return this.spHelper.setWelcomePage(template.WebSettings.WelcomePage);
     }
-    private processCustomActions(template: Template) {
-        if (template.CustomActions == null || template.CustomActions.WebCustomActions == null) return {};
+    private processCustomActions(template: Template): JQueryPromise<{}> {
+        if (template.CustomActions == null || template.CustomActions.WebCustomActions == null) return jQuery.Deferred().resolve();
 
         var promises = $.when(1);
         for (let customAction of template.CustomActions.WebCustomActions) {

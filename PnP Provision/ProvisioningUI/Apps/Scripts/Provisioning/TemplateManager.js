@@ -34,9 +34,8 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
     var TemplateManager = (function () {
         function TemplateManager() {
         }
-        TemplateManager.prototype.initialize = function (ctx, progressHandler) {
-            this.currentContext = ctx;
-            this.spHelper = new provisioningApp.SpHelper(ctx);
+        TemplateManager.prototype.initialize = function (spHelper, progressHandler) {
+            this.spHelper = spHelper;
             this.progressListener = progressHandler;
         };
         TemplateManager.prototype.applyTemplate = function (template) {
@@ -82,6 +81,9 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processFeatures = function (template) {
             var _this = this;
+            var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
+            if (pnpFeatures == null || pnpFeatures.length == 0)
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             var activatedWebFeatures;
             var featuresToActivate;
@@ -92,7 +94,6 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
                 });
             });
             promises = promises.then(function () {
-                var pnpFeatures = template.Features != null && template.Features.WebFeatures != null ? template.Features.WebFeatures : null;
                 featuresToActivate = Utils.arrayFilter(pnpFeatures, function (f) {
                     return Utils.arrayFirst(activatedWebFeatures, function (af) {
                         return f.ID.toLowerCase() == af.ID.toLowerCase();
@@ -115,9 +116,8 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         };
         TemplateManager.prototype.processSiteGroups = function (template) {
             var _this = this;
-            if (template.Security == null || template.Security.SiteGroups == null || template.Security.SiteGroups.length ==
-                0)
-                return {};
+            if (template.Security == null || template.Security.SiteGroups == null || template.Security.SiteGroups.length == 0)
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             var siteGroups;
             promises = promises.then(function () {
@@ -151,7 +151,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         TemplateManager.prototype.processSiteFields = function (template) {
             var _this = this;
             if (template.SiteFields == null || template.SiteFields.length == 0)
-                return {};
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             var availableFields;
             promises = promises.then(function () {
@@ -185,7 +185,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         TemplateManager.prototype.processContentTypes = function (template) {
             var _this = this;
             if (template.ContentTypes == null || template.ContentTypes.length == 0)
-                return {};
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             var availableContentTypes;
             promises = promises.then(function () {
@@ -218,7 +218,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         TemplateManager.prototype.processPublishingPages = function (template) {
             var _this = this;
             if (template.Pages == null || template.Pages.length == 0)
-                return {};
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             promises = promises.then(function () {
                 _this.progressListener.progressUpdate(ProgressSteps.Pages, OperationStatus.inProgress, 'Creating Pages');
@@ -236,7 +236,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
         TemplateManager.prototype.processLists = function (template) {
             var _this = this;
             if (template.Lists == null || template.Lists.length == 0)
-                return {};
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             var allLists;
             promises = promises.then(function () {
@@ -284,7 +284,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             var _this = this;
             if (template.Workflows == null || template.Workflows.Subscriptions == null ||
                 template.Workflows.Subscriptions.length == 0)
-                return {};
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             promises = promises.then(function () {
                 _this.progressListener.progressUpdate(ProgressSteps.Workflows, OperationStatus.inProgress, 'Provisioning Workflows');
@@ -306,7 +306,7 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             return promises;
         };
         TemplateManager.prototype.processNavigation = function (template) {
-            return {};
+            return jQuery.Deferred().resolve();
             //if (template.Navigation == null) return {};
             //var promises = $.when(1);
             //promises = promises.then(()=> {
@@ -325,16 +325,14 @@ define(["require", "exports", "./SharePointHelper"], function (require, exports,
             //return promises;
         };
         TemplateManager.prototype.processWebSettings = function (template) {
-            if (template.WebSettings == null)
-                return {};
-            if (template.WebSettings.WelcomePage)
-                return this.spHelper.setWelcomePage(template.WebSettings.WelcomePage);
-            return {};
+            if (template.WebSettings == null || template.WebSettings.WelcomePage == null)
+                return jQuery.Deferred().resolve();
+            return this.spHelper.setWelcomePage(template.WebSettings.WelcomePage);
         };
         TemplateManager.prototype.processCustomActions = function (template) {
             var _this = this;
             if (template.CustomActions == null || template.CustomActions.WebCustomActions == null)
-                return {};
+                return jQuery.Deferred().resolve();
             var promises = $.when(1);
             var _loop_6 = function(customAction) {
                 promises = promises.then(function () {

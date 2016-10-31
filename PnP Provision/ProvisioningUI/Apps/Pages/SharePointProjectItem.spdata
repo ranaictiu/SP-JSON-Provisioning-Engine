@@ -5,5 +5,6 @@
     <ProjectItemFile Source="Default.aspx" Target="Pages\" Type="ElementFile" />
     <ProjectItemFile Source="SiteTemplate.aspx" Target="Pages\" Type="ElementFile" />
     <ProjectItemFile Source="Cleanup.aspx" Target="Pages\" Type="ElementFile" />
+    <ProjectItemFile Source="FeatureTemplate.aspx" Target="Pages\" Type="ElementFile" />
   </Files>
 </ProjectItem>

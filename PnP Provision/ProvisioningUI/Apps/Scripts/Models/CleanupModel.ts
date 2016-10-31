@@ -92,7 +92,7 @@ export class CleanupModel {
 
         promises = promises.then(() => {
             this.logToDiv('Deleting web');
-            var helper = this.spHelper.getHelperContextFromUrl(this.siteServerRelativeUrl);
+            var helper = SharePointHelper.SpHelper.getHelperContextFromUrl(this.siteServerRelativeUrl);
             helper.getWeb().deleteObject();
             return helper.executeQueryPromise();
         });

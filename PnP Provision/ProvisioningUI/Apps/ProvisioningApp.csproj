@@ -72,6 +72,7 @@
     <None Include="Content\bootstrap\glyphicons-halflings-regular.ttf" />
     <None Include="Content\bootstrap\glyphicons-halflings-regular.woff" />
     <None Include="Content\bootstrap\glyphicons-halflings-regular.woff2" />
+    <None Include="Content\themes\default-dark\Thumbs.db" />
     <None Include="Items\ContentTypes\SiteFeatureTemplate\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{3a438ee7-d386-4350-934b-14f09e61cbb5}</SharePointProjectItemId>
     </None>
@@ -93,6 +94,7 @@
     <None Include="Items\Lists\ListTemplates\TemplatesInstance\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{2e17cb2b-b87a-4d79-9e64-57b6d0ff1155}</SharePointProjectItemId>
     </None>
+    <None Include="Items\Templates\1FTBasic.json" />
     <None Include="Items\Templates\4STWithUserActionSecurity.json" />
     <None Include="Items\Templates\3STWithDataImport.json" />
     <None Include="Items\Templates\FeatureTemplate.json" />
@@ -158,6 +160,16 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\themes\default-dark\32px.png" />
+    <Content Include="Content\themes\default-dark\40px.png" />
+    <Content Include="Content\themes\default-dark\style.css" />
+    <Content Include="Content\themes\default-dark\style.min.css" />
+    <Content Include="Content\themes\default-dark\throbber.gif" />
+    <Content Include="Content\themes\default\32px.png" />
+    <Content Include="Content\themes\default\40px.png" />
+    <Content Include="Content\themes\default\style.css" />
+    <Content Include="Content\themes\default\style.min.css" />
+    <Content Include="Content\themes\default\throbber.gif" />
     <Content Include="Elements.xml" />
     <Content Include="Content\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="Images\error.png" />
@@ -191,18 +203,29 @@
     <None Include="Scripts\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{47eedfe5-728e-4e26-a911-19db3bf6cea7}</SharePointProjectItemId>
     </None>
+    <Content Include="Pages\FeatureTemplate.aspx" />
     <Content Include="Pages\SiteTemplate.aspx" />
     <Content Include="Scripts\Config.js">
       <DependentUpon>config.ts</DependentUpon>
     </Content>
+    <Content Include="Scripts\lib\jstree.js" />
+    <Content Include="Scripts\lib\jstree.min.js" />
     <Content Include="Scripts\lib\jquery-1.12.4.min.js" />
     <Content Include="Scripts\lib\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\lib\bootstrap.min.js" />
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\lib\knockout-3.4.0.min.js" />
-    <Content Include="Scripts\Models\CleanupModel.js" />
+    <Content Include="Scripts\Models\CleanupModel.js">
+      <DependentUpon>CleanupModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\FeatureTemplateModel.js">
+      <DependentUpon>FeatureTemplateModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Models\ProgressViewModel.js">
       <DependentUpon>ProgressViewModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\ProvisioningAppModel.js">
+      <DependentUpon>ProvisioningAppModel.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\Models\SiteTemplateModel.js">
       <DependentUpon>SiteTemplateModel.ts</DependentUpon>
@@ -254,13 +277,16 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Config.ts" />
     <TypeScriptCompile Include="Scripts\Models\CleanupModel.ts" />
+    <TypeScriptCompile Include="Scripts\Models\FeatureTemplateModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\ProgressViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\Models\ProvisioningAppModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\SiteTemplateModel.ts" />
     <TypeScriptCompile Include="Scripts\Provisioning\Provisioning.d.ts" />
     <TypeScriptCompile Include="Scripts\Provisioning\SharePointHelper.ts" />
     <TypeScriptCompile Include="Scripts\Provisioning\TemplateManager.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jstree\jstree.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\tests\jasmine.extensions.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\microsoft-ajax\microsoft.ajax.d.ts" />

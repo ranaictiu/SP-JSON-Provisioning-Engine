@@ -15,6 +15,15 @@ export class FeatureInfo {
         this.ID = id;
     }
 }
+export class SiteFeatureTemplate {
+    itemId: number;
+    title: string;
+    description: string;
+    templateId: string;
+    templateType: string;
+    serverRelativeUrl: string;
+    fullUrl: string;
+}
 
 export class TemplateFile {
     Language: number;
@@ -370,7 +379,9 @@ export class SpHelper {
     static isCurrentContextWebApp() {
         return _spPageContextInfo && _spPageContextInfo.webTemplate == '17';
     }
-    getHelperContextFromUrl(fullUrl: string): SpHelper {
+
+
+    static getHelperContextFromUrl(fullUrl: string): SpHelper {
         if (SpHelper.isCurrentContextWebApp() && !fullUrl.startsWith('/')) { //if full url and app site, use proxy
             var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
             var factory = new SP.ProxyWebRequestExecutorFactory(_spPageContextInfo.webAbsoluteUrl);
@@ -381,12 +392,14 @@ export class SpHelper {
             return new SpHelper(new SP.ClientContext(fullUrl));
         }
     }
+    //Returns the current executing context. If it's an app site, this returns the app context.
     getExecuteContext(): SP.ClientContext {
         if (this._context instanceof SP.ClientContext) {
             return <SP.ClientContext>this._context;
         }
         return <SP.ClientContext>(<SP.ClientObject>this._context).get_context();
     }
+     
     getWeb(): SP.Web {
         if (this._context instanceof SP.ClientContext) {
             return (<SP.ClientContext>this._context).get_web();

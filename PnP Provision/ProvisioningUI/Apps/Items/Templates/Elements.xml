@@ -44,6 +44,13 @@
       <Property Name="TemplateType" Type="string" Value="Site"></Property>
       <Property Name="TemplateID" Type="string" Value="STWithUserActionSecurity"></Property>
     </File>
+    <File Path="Templates\1FTBasic.json" Url="1FTBasic.json" ReplaceContent="TRUE" >
+      <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
+      <Property Name="Title" Type="string" Value="Feature Template - Basic"></Property>
+      <Property Name="TemplateDescription" Type="string" Value="Create site columns, content types and add the content type 'FT-Basic Document' to documents list"></Property>
+      <Property Name="TemplateType" Type="string" Value="Feature"></Property>
+      <Property Name="TemplateID" Type="string" Value="FTBasic"></Property>
+    </File>
 
     <File Path="Templates\DataRows.xml" Url="DataRows.xml" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
       <Property Name="ContentType" Type="string" Value="Document"></Property>
@@ -61,5 +68,6 @@
       <Property Name="ContentType" Type="string" Value="Document"></Property>
       <Property Name="Title" Type="string" Value="Softract Ribbon"></Property>
     </File>
+    
   </Module>
 </Elements>

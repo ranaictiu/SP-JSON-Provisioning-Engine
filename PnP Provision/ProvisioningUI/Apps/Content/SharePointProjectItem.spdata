@@ -59,5 +59,16 @@
     <ProjectItemFile Source="app.scss" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="app.css" Target="Content\" Type="ElementFile" />
     <ProjectItemFile Source="app.min.css" Target="Content\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default\throbber.gif" Target="Content\themes\default\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default\style.min.css" Target="Content\themes\default\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default\style.css" Target="Content\themes\default\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default\40px.png" Target="Content\themes\default\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default\32px.png" Target="Content\themes\default\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default-dark\Thumbs.db" Target="Content\themes\default-dark\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default-dark\throbber.gif" Target="Content\themes\default-dark\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default-dark\style.min.css" Target="Content\themes\default-dark\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default-dark\style.css" Target="Content\themes\default-dark\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default-dark\40px.png" Target="Content\themes\default-dark\" Type="ElementFile" />
+    <ProjectItemFile Source="themes\default-dark\32px.png" Target="Content\themes\default-dark\" Type="ElementFile" />
   </Files>
 </ProjectItem>

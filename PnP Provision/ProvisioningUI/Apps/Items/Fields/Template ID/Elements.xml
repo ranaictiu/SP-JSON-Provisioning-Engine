@@ -5,7 +5,8 @@
        Name="TemplateID"
        DisplayName="Template ID"
        Type="Text"
-       Required="TRUE"
+       Required="TRUE" 
+       EnforceUniqueValues="TRUE"
        Group="Provisioning App">
   </Field>
 </Elements>

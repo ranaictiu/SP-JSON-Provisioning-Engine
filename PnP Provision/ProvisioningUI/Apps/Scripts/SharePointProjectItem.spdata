@@ -26,7 +26,14 @@
     <ProjectItemFile Source="Provisioning\TemplateManager.js" Target="Scripts\Provisioning\" Type="ElementFile" />
     <ProjectItemFile Source="Provisioning\SharePointHelper.js" Target="Scripts\Provisioning\" Type="ElementFile" />
     <ProjectItemFile Source="Models\CleanupModel.ts" Target="Scripts\Models\" Type="ElementFile" />
-    <ProjectItemFile Source="Models\CleanupModel.js" Target="Scripts\Models\" Type="ElementFile" />
     <ProjectItemFile Source="Provisioning\Provisioning.d.ts" Target="Scripts\Provisioning\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\FeatureTemplateModel.ts" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\FeatureTemplateModel.js" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\CleanupModel.js" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\ProvisioningAppModel.ts" Target="Scripts\Models\" Type="ElementFile" />
+    <ProjectItemFile Source="lib\jstree.min.js" Target="Scripts\lib\" Type="ElementFile" />
+    <ProjectItemFile Source="lib\jstree.js" Target="Scripts\lib\" Type="ElementFile" />
+    <ProjectItemFile Source="typings\jstree\jstree.d.ts" Target="Scripts\typings\jstree\" Type="ElementFile" />
+    <ProjectItemFile Source="Models\ProvisioningAppModel.js" Target="Scripts\Models\" Type="ElementFile" />
   </Files>
 </ProjectItem>

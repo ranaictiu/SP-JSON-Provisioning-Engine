@@ -16,17 +16,7 @@ import TemplateFile = provisioning.TemplateFile;
 import GroupCreationInfo = provisioning.GroupCreationInfo;
 import SiteCreationInfo = provisioning.SiteCreationInfo;
 import TemplateManager = TemplateMgr.TemplateManager;
-
-
-class SiteFeatureTemplate {
-    itemId: number;
-    title: string;
-    description: string;
-    templateId: string;
-    templateType: string;
-    serverRelativeUrl: string;
-    fullUrl: string;
-}
+import SiteFeatureTemplate = provisioning.SiteFeatureTemplate;
 
 class SiteTemplateViewModel implements ProgressListenerInteface {
     siteTitle: KnockoutObservable<string> = ko.observable('');
@@ -43,26 +33,26 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         this.templateManager = new TemplateManager();
         this.progressUI = progressUi;
         uiManager.showDialog('Loading...', 'Please wait while loading');
-        utils.loadRequestExecutor(() => {
-            this.spHelper.getListItems('Templates', 100, 'Id,Title,TemplateDescription,TemplateID,TemplateType,EncodedAbsUrl,File.ServerRelativeUrl', (lis) => {
-                var siteTemplateItems = ko.utils.arrayFilter(lis, li => {
-                    return li.get_item('TemplateType') == 'Site';
-                });
-                var siteTemplates = utils.arrayMap<SP.ListItem, SiteFeatureTemplate>(siteTemplateItems, li => {
-                    var st = new SiteFeatureTemplate();
-                    st.itemId = li.get_id();
-                    st.title = li.get_item('Title');
-                    st.description = li.get_item('TemplateDescription');
-                    st.templateId = li.get_item('TemplateID');
-                    st.templateType = li.get_item('TemplateType');
-                    st.serverRelativeUrl = li.get_file().get_serverRelativeUrl();
-                    st.fullUrl = li.get_item('EncodedAbsUrl');
-                    return st;
-                });
-                this.siteTemplates(siteTemplates);
-                uiManager.closeDialog();
+
+        this.spHelper.getListItems('Templates', 100, 'Id,Title,TemplateDescription,TemplateID,TemplateType,EncodedAbsUrl,File.ServerRelativeUrl', (lis) => {
+            var siteTemplateItems = ko.utils.arrayFilter(lis, li => {
+                return li.get_item('TemplateType') == 'Site';
             });
+            var siteTemplates = utils.arrayMap<SP.ListItem, SiteFeatureTemplate>(siteTemplateItems, li => {
+                var st = new SiteFeatureTemplate();
+                st.itemId = li.get_id();
+                st.title = li.get_item('Title');
+                st.description = li.get_item('TemplateDescription');
+                st.templateId = li.get_item('TemplateID');
+                st.templateType = li.get_item('TemplateType');
+                st.serverRelativeUrl = li.get_file().get_serverRelativeUrl();
+                st.fullUrl = li.get_item('EncodedAbsUrl');
+                return st;
+            });
+            this.siteTemplates(siteTemplates);
+            uiManager.closeDialog();
         });
+
 
     }
     getSiteUrl = ko.computed(() => {
@@ -70,11 +60,15 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         return this.getParentWebUrl() + `/${this.siteName()}`;
     });
     getSiteServerRelativeUrl() {
-        return _spPageContextInfo.webServerRelativeUrl + `/${this.siteName()}`;
+        return this.getParentWebRelativeUrl() + `/${this.siteName()}`;
     }
 
     getParentWebUrl() {
-        return decodeURIComponent(utils.getQueryStringParameter('SPHostUrl'));
+        return decodeURIComponent(utils.getQueryStringParameter('ParentUrl'));
+    }
+    getParentWebRelativeUrl() {
+
+        return decodeURIComponent(utils.getQueryStringParameter('ParentRelativeUrl'));
     }
 
     createSite() {
@@ -101,16 +95,15 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
     }
     validRequest(siteTemplate: TemplateFile) {
         var promises = $.when(1);
-        let rootWebServerRelativeUrl: string;
 
-        var rootWeb = this.spHelper.getSiteCollection().get_rootWeb();
+        var parentWebHelper = provisioning.SpHelper.getHelperContextFromUrl(this.getParentWebUrl());
+
+        //promises = promises.then(() => {
+        //    var ctx = this.spHelper.getExecuteContext();
+        //    ctx.load(rootWeb, 'ServerRelativeUrl');
+        //    return this.spHelper.executeQueryPromise();
+        //});
         promises = promises.then(() => {
-            var ctx = this.spHelper.getExecuteContext();
-            ctx.load(rootWeb, 'ServerRelativeUrl');
-            return this.spHelper.executeQueryPromise();
-        });
-        promises = promises.then(() => {
-            rootWebServerRelativeUrl = rootWeb.get_serverRelativeUrl();
             let d = $.Deferred();
             this.spHelper.getCurrentUser(user => {
                 if (user.get_isSiteAdmin())
@@ -124,20 +117,21 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         });
         promises = promises.then(() => {
             let d = $.Deferred();
-            return d.resolve();
-
-            //var siteServerRelativeUrl = rootWebServerRelativeUrl + '/' + this.siteName();
-            //this.spHelper.getAllwebs(rootWeb, 'ServerRelativeUrl,Url', webs => {
-            //    var web = utils.arrayFirst<SP.Web>(webs, (w) => {
-            //        return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
-            //    });
-            //    if (web) {
-            //        uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.',
-            //            true);
-            //        d.reject();
-            //    } else d.resolve();
-            //});
-            //return d;
+            //return d.resolve();
+            //var helper = provisioning.SpHelper.getHelperContextFromUrl(this.getParentWebRelativeUrl());
+            var parentWeb = parentWebHelper.getWeb();
+            var siteServerRelativeUrl = this.getSiteServerRelativeUrl();
+            parentWebHelper.getAllwebs(parentWeb, 'ServerRelativeUrl,Url', webs => {
+                var web = utils.arrayFirst<SP.Web>(webs, (w) => {
+                    return w.get_serverRelativeUrl().toLocaleLowerCase() == siteServerRelativeUrl;
+                });
+                if (web) {
+                    uiManager.showNotification('Site Exists', 'The site already exists. please use a different name.',
+                        true);
+                    d.reject();
+                } else d.resolve();
+            });
+            return d;
         });
         promises = promises.then(() => {
             var d = $.Deferred();
@@ -199,7 +193,7 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
         siteCreationInfo.WebTemplateId = siteTemplate.WebTemplateId;
         siteCreationInfo.Description = this.siteDescription();
         siteCreationInfo.Name = this.siteName();
-        var parentWebContext = this.spHelper.getHelperContextFromUrl(this.getParentWebUrl());
+        var parentWebContext = provisioning.SpHelper.getHelperContextFromUrl(this.getParentWebUrl());
         let createdWeb: SP.Web;
         //let serverRelativeUrl: string='/sites/devbld/dd';
         parentWebContext.createSite(siteCreationInfo, (w) => {
@@ -216,7 +210,7 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
                     var template = siteTemplate.Templates[i];
                     (t => {
                         templatePromises = templatePromises.then(() => {
-                            this.templateManager.initialize(this.spHelper.getExecuteContext(), this);
+                            this.templateManager.initialize(this.spHelper, this);
                             return this.templateManager.applyTemplate(t);
                         });
                     })(template);
@@ -251,8 +245,10 @@ class SiteTemplateViewModel implements ProgressListenerInteface {
 
 
 $(document).ready(() => {
-    var model = new SiteTemplateViewModel();
-    ko.applyBindings(model, document.getElementById('siteCreationContainer'));
-    var progressUi = new ProgressUiModel();
-    model.initialize(progressUi);
+    utils.loadRequestExecutor(() => {
+        var model = new SiteTemplateViewModel();
+        ko.applyBindings(model, document.getElementById('siteCreationContainer'));
+        var progressUi = new ProgressUiModel();
+        model.initialize(progressUi);
+    });
 });
