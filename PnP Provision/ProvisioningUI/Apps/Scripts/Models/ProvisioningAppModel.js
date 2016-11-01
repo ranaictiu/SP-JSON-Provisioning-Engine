@@ -28,7 +28,7 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper"], f
             promises = promises.then(function () {
                 var context = _this.spHelper.getExecuteContext();
                 context.load(rootWeb, 'Title', 'Id', 'ServerRelativeUrl', 'Url');
-                context.load(subWebs, 'Include(Id,Title,ServerRelativeUrl,Url)');
+                context.load(subWebs, 'Include(Id,Title,ServerRelativeUrl,Url,WebTemplate)');
                 return _this.spHelper.executeQueryPromise();
             });
             promises = promises.then(function () {
@@ -41,6 +41,8 @@ define(["require", "exports", 'knockout', "../Provisioning/SharePointHelper"], f
                 rootNodes.push(rootWebNode);
                 for (var _i = 0, _a = _this.spHelper.getEnumerationList(subWebs); _i < _a.length; _i++) {
                     var w = _a[_i];
+                    if (w.get_webTemplate().toLocaleLowerCase() == _this.appWebTemplateName.toLocaleLowerCase())
+                        continue;
                     rootWebNode.children.push(_this.convertWebToNode(w));
                 }
                 var jsOptions = {};

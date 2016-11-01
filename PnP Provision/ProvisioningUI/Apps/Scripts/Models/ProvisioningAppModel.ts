@@ -36,7 +36,7 @@ export class ProvisioningAppModel {
         promises = promises.then(() => {
             var context = this.spHelper.getExecuteContext();
             context.load(rootWeb, 'Title', 'Id', 'ServerRelativeUrl', 'Url');
-            context.load(subWebs, 'Include(Id,Title,ServerRelativeUrl,Url)');
+            context.load(subWebs, 'Include(Id,Title,ServerRelativeUrl,Url,WebTemplate)');
             return this.spHelper.executeQueryPromise();
         });
         promises = promises.then(() => {
@@ -48,6 +48,8 @@ export class ProvisioningAppModel {
             rootWebNode.children = new Array<TreeNode>();
             rootNodes.push(rootWebNode);
             for (let w of this.spHelper.getEnumerationList<SP.Web>(subWebs)) {
+                if (w.get_webTemplate().toLocaleLowerCase() == this.appWebTemplateName.toLocaleLowerCase())
+                    continue;
                 rootWebNode.children.push(this.convertWebToNode(w));
             }
             var jsOptions = <JSTreeStaticDefaults>{};

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <Module Name="Templates" Url="Lists/Templates">
-    <File Path="Templates\ProjectSiteTemplate.json" Url="ProjectSiteTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
+    <!--<File Path="Templates\ProjectSiteTemplate.json" Url="ProjectSiteTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
       <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
       <Property Name="Title" Type="string" Value="Site Template"></Property>
       <Property Name="TemplateDescription" Type="string" Value="This is test site template"></Property>
       <Property Name="TemplateType" Type="string" Value="Site"></Property>
       <Property Name="TemplateID" Type="string" Value="SiteTemplate#1"></Property>
-    </File>
-    <File Path="Templates\FeatureTemplate.json" Url="FeatureTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
+    </File>-->
+    <!--<File Path="Templates\FeatureTemplate.json" Url="FeatureTemplate.json" ReplaceContent="TRUE" Type="GhostableInLibrary" Level="Published">
       <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
       <Property Name="Title" Type="string" Value="Feature Template"></Property>
       <Property Name="TemplateDescription" Type="string" Value="This is test feature template"></Property>
       <Property Name="TemplateType" Type="string" Value="Feature"></Property>
       <Property Name="TemplateID" Type="string" Value="FeatureTemplate#1"></Property>
       <Property Name="TemplateDependencies" Type="string" Value="SiteTemplate#1"></Property>
-    </File>
+    </File>-->
     <File Path="Templates\1STBasic.json" Url="1STBasic.json" ReplaceContent="TRUE" Level="Published" Type="GhostableInLibrary">
       <Property Name="ContentType" Type="string" Value="Site Feature Template"></Property>
       <Property Name="Title" Type="string" Value="Site Template - Basic"></Property>

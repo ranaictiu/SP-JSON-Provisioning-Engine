@@ -7,7 +7,7 @@
      SharePointMinVersion="16.0.0.0"
 >
   <Properties>
-    <Title>ProvisioningApp</Title>
+    <Title>Provisioning App</Title>
     <StartPage>~appWebUrl/Pages/Default.aspx?{StandardTokens}</StartPage>
   </Properties>
 
