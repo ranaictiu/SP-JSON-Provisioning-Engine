@@ -1,4 +1,4 @@
-# SP-JS-ProvisioningEngine
+# SP JSON Provisioning Engine
 ##Introduction##
 The goal of this project is to develop a solution that will use json-based tempalte to create sites. The solution contains a SharePiont-hosted Add-In that needs:
 - Needs to be installed at site collection level
