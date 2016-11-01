@@ -27,7 +27,7 @@
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
     <div id="provisioningApp">
         <div id="jsTreeSites"></div>
-        <div class="provisioning-app bs">
+        <div class="provisioning-app bs actions-container">
             <button class="btn btn-primary" data-bind="enable: canAction, click: function () { navigateToPage('Pages/SiteTemplate.aspx'); }">Create Sub-Site</button>
             <button class="btn btn-primary" data-bind="enable: canAction, click: function () { navigateToPage('Pages/FeatureTemplate.aspx'); }">Manage Feature Templates</button>
         </div>

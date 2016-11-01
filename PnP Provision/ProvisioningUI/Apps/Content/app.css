@@ -4328,3 +4328,8 @@
     .provisioning-app.bs .hidden-print {
       display: none !important; } }
 
+.actions-container {
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  border-top: solid 1px #d0d0d0; }
+
