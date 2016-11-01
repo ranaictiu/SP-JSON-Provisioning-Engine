@@ -20,7 +20,9 @@ The Add-In home pages shows existings sites and subsites in treeview. Site Colle
 ###Create Sub-Site###
 In create sub-site page, user needs to provide new site details as well as select a site template. As mentioned before, these site templates are loaded from a list in Add-In site with Url like (https://{Add-in-url}/lists/templates). The following screen shows site creation page:  
 ![Create Subsite](https://github.com/ranaictiu/SP-JS-ProvisioningEngine/blob/master/Miscellaneous/Create%20SubSite.png)   
-Once user provide new site details and click 'create site' the site creation starts and show the progress in a new dialog as shown below:  ![Site Creation In Progress](https://github.com/ranaictiu/SP-JS-ProvisioningEngine/blob/master/Miscellaneous/SiteCreationInProgress.png)   
+    
+Once user provide new site details and click 'create site' the site creation starts and show the progress in a new dialog as shown below:  
+![Site Creation In Progress](https://github.com/ranaictiu/SP-JS-ProvisioningEngine/blob/master/Miscellaneous/SiteCreationInProgress.png)    
 
 ###Manange Feature Templates###
 In manage feature tempaltes page, user will be able to apply feature templates to selected site. As shown below, out of two feature templates, one feature template is applied already:
