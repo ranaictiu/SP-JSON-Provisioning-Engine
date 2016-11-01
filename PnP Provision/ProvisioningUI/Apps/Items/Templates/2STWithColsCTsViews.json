@@ -1,0 +1,240 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Language": 1033,
+  "UseSamePermissionsAsParentSite": false,
+  "WebTemplateId": "STS#0",
+  "Description": "Basic site template with site columns (lookup) and content type, views",
+  "Templates": [
+    {
+      "Description": "Create Lists first",
+      "Security": {
+        "AdditionalOwners": [],
+        "SiteGroups": [
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Owners",
+            "Description": "Full control to the site",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Contributors",
+            "Description": "Can view, add, update, and delete list items and documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Visitors",
+            "Description": "Can read and view documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          }
+        ],
+        "SiteSecurityPermissions": {
+          "RoleDefinitions": [],
+          "RoleAssignments": [
+            {
+              "Principal": "{{SiteTitle}} Owners",
+              "RoleDefinition": "Full Control"
+            },
+            {
+              "Principal": "{{SiteTitle}} Contributors",
+              "RoleDefinition": "Contribute"
+            },
+            {
+              "Principal": "{{SiteTitle}} Visitors",
+              "RoleDefinition": "View Only"
+            }
+          ]
+        }
+      },
+      "Features": {
+        "SiteFeatures": [],
+        "WebFeatures": [
+          {
+            "ID": "94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb",
+            "Description": "SharePoint Server Publishing",
+            "Deactivate": false
+          },
+          {
+            "ID": "ec918931-c874-4033-bd09-4f36b2e31fef",
+            "Description": "Workflows can use app permissions",
+            "Deactivate": false
+          },
+          {
+            "ID": "57311b7a-9afd-4ff0-866e-9393ad6647b1",
+            "Description": "Workflow Task Content Type",
+            "Deactivate": false
+          },
+          {
+            "ID": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
+            "Description": "Metadata Navigation and Filtering",
+            "Deactivate": false
+          }
+        ]
+      },
+      "SiteFields": [
+        {
+          "ID": "{FA0ADB68-C7F3-4BF0-8AB8-1766EE441C03}",
+          "Name": "ProvisioningAppBasicDesc",
+          "DisplayName": "PA Description",
+          "Group": "ProvisioningApp",
+          "Type": "Text"
+        }
+      ],
+      "ContentTypes": [
+        {
+          "Name": "PA Basic Parent",
+          "ParentId": "0x01",
+          "Group": "ProvisioningApp",
+          "Description": "Provisioning App Basic Parent Content Type",
+          "FieldRefs": [
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title",
+              "Required": true
+            },
+            {
+              "Name": "ProvisioningAppBasicDesc",
+              "ID": "{FA0ADB68-C7F3-4BF0-8AB8-1766EE441C03}",
+              "Required": false
+            }
+          ]
+        }
+      ],
+      "Lists": [
+        {
+          "Title": "Parent List",
+          "Url": "Lists/ParentList",
+          "Description": "Parent List",
+          "TemplateType": 100,
+          "OnQuickLaunch": false,
+          "DraftVersionVisibility": 0,
+          "EnableAttachments": true,
+          "EnableFolderCreation": true,
+          "EnableMinorVersions": false,
+          "EnableModeration": false,
+          "EnableVersioning": false,
+          "ForceCheckOut": false,
+          "Hidden": false,
+          "MaxVersionLimit": 0,
+          "MinorVersionLimit": 0,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": true,
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "PA Basic Parent",
+              "Default": true
+            }
+          ],
+          "Views": [
+            {
+              "DisplayName": "All Parent Items",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "LinkTitleNoMenu", "ProvisioningAppBasicDesc" ]
+            }
+          ]
+        },
+        {
+          "Title": "Child List",
+          "Description": "Child List",
+          "OnQuickLaunch": false,
+          "TemplateType": 100,
+          "Url": "Lists/ChildList",
+          "EnableVersioning": false,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": false,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": true,
+          "EnableFolderCreation": true
+        }
+      ]
+    },
+    {
+      "Description": "Creating lookup fields/content types based on previous template",
+      "SiteFields": [
+        {
+          "ID": "{858F131E-0C95-4F86-8B80-DAFCEEC4DE97}",
+          "Name": "ProvisionAppBasicLookup",
+          "DisplayName": "Parent",
+          "Group": "ProvisioningApp",
+          "Type": "Lookup",
+          "List": "Lists/ParentList",
+          "Required": true,
+          "ShowField": "Title"
+        }
+      ],
+      "ContentTypes": [
+        {
+          "Description": "Content Type with lookup field",
+          "Name": "PA Basic Child",
+          "ParentId": "0x01",
+          "Group": "ProvisioningApp",
+          "FieldRefs": [
+            {
+              "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+              "Name": "Title",
+              "DisplayName": "New Title"
+            },
+            {
+              "ID": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+              "Name": "LinkTitle",
+              "DisplayName": "New Title"
+            },
+            {
+              "ID": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+              "Name": "LinkTitleNoMenu",
+              "DisplayName": "New Title"
+            },
+            {
+              "ID": "{858F131E-0C95-4F86-8B80-DAFCEEC4DE97}",
+              "Name": "ProvisionAppBasicLookup",
+              "Required": true
+            }
+          ]
+        }
+      ],
+      "Lists": [
+        {
+          "Title": "Child List",
+          "Description": "Child List",
+          "Url": "Lists/ChildList",
+          "ContentTypesEnabled": true,
+          "RemoveExistingContentTypes": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "PA Basic Child",
+              "Default": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

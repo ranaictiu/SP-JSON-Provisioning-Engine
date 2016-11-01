@@ -1,0 +1,146 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Language": 1033,
+  "UseSamePermissionsAsParentSite": false,
+  "WebTemplateId": "STS#0",
+  "Description": "Site template with User Actions and Security",
+  "Templates": [
+    {
+      "Description": "Create List, apply security Groups and provision user custom actions for 'documents' library",
+      "Security": {
+        "AdditionalOwners": [],
+        "SiteGroups": [
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Owners",
+            "Description": "Full control to the site",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Contributors",
+            "Description": "Can view, add, update, and delete list items and documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Visitors",
+            "Description": "Can read and view documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          }
+        ],
+        "SiteSecurityPermissions": {
+          "RoleDefinitions": [],
+          "RoleAssignments": [
+            {
+              "Principal": "{{SiteTitle}} Owners",
+              "RoleDefinition": "Full Control"
+            },
+            {
+              "Principal": "{{SiteTitle}} Contributors",
+              "RoleDefinition": "Contribute"
+            },
+            {
+              "Principal": "{{SiteTitle}} Visitors",
+              "RoleDefinition": "View Only"
+            }
+          ]
+        }
+      },
+      "Features": {
+        "SiteFeatures": [],
+        "WebFeatures": [
+          {
+            "ID": "94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb",
+            "Description": "SharePoint Server Publishing",
+            "Deactivate": false
+          },
+          {
+            "ID": "ec918931-c874-4033-bd09-4f36b2e31fef",
+            "Description": "Workflows can use app permissions",
+            "Deactivate": false
+          },
+          {
+            "ID": "57311b7a-9afd-4ff0-866e-9393ad6647b1",
+            "Description": "Workflow Task Content Type",
+            "Deactivate": false
+          },
+          {
+            "ID": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
+            "Description": "Metadata Navigation and Filtering",
+            "Deactivate": false
+          }
+        ]
+      },
+
+      "Lists": [
+        {
+          "Title": "Provisioning App List",
+          "Url": "Lists/PAList",
+          "Description": "Provisioning App List",
+          "TemplateType": 100,
+          "OnQuickLaunch": false,
+          "DraftVersionVisibility": 0,
+          "EnableAttachments": true,
+          "EnableFolderCreation": true,
+          "EnableMinorVersions": false,
+          "EnableModeration": false,
+          "EnableVersioning": false,
+          "ForceCheckOut": false,
+          "Hidden": false,
+          "MaxVersionLimit": 0,
+          "MinorVersionLimit": 0,
+          "RemoveExistingViews": false,
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": true,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Owners",
+                  "RoleDefinition": "Contribute"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Contributors",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Visitors",
+                  "RoleDefinition": "View Only"
+                }
+              ]
+            }
+
+          }
+        }
+      ],
+      "CustomActions": {
+        "SiteCustomActions": [],
+        "WebCustomActions": [
+          {
+            "Name": "SoftractRibbon",
+            "CommandUIExtension": {
+              "Url": "Lists/Templates/SoftractRibbon.xml"
+            }
+          }
+        ]
+      }
+    }
+
+  ]
+}

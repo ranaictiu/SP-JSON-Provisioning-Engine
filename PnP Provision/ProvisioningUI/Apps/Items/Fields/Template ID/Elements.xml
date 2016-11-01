@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">  
+  <Field
+       ID="{097fc40e-5e96-4eb3-8b9a-6e5134872622}"
+       Name="TemplateID"
+       DisplayName="Template ID"
+       Type="Text"
+       Required="TRUE" 
+       EnforceUniqueValues="TRUE"
+       Group="Provisioning App">
+  </Field>
+</Elements>

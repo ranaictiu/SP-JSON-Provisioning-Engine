@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <!-- Parent ContentType: Document (0x0101) -->
+  <ContentType ID="0x01010061237BECC2D44CFC98CA2B3781B36F31" Name="Site Feature Template" Group="Provisioning App" Description="Template Type - Feature or Site" Inherits="TRUE" Version="0">
+    <FieldRefs>
+      <FieldRef ID="{097fc40e-5e96-4eb3-8b9a-6e5134872622}" DisplayName="Template ID" Required="TRUE" Name="TemplateID" />
+      <FieldRef ID="{563694A4-2CD6-4647-9345-ABF7824B0CB5}" DisplayName="Template Type" Required="TRUE" Name="TemplateType" />
+      <FieldRef ID="{6a65aa41-b7b8-40ec-b412-8630a7565e9f}" DisplayName="Template Dependencies" Required="FALSE" Name="TemplateDependencies" />
+      <FieldRef ID="{98a99efc-e98b-4ced-8cb6-20fed24e2549}" DisplayName="Template Description" Required="FALSE" Name="TemplateDescription" />
+    </FieldRefs>
+  </ContentType>
+</Elements>

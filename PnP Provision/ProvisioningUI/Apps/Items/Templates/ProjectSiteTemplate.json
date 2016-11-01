@@ -1,0 +1,1649 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Language": 1033,
+  "TimeZone": 73,
+  "UseSamePermissionsAsParentSite": false,
+  "WebTemplateId": "STS#0",
+  "Templates": [
+    {
+      "Description": "Create site groups, activate features and lists used in lookup or lists without any lookup fields",
+      "Security": {
+        "AdditionalAdministrators": [],
+        "AdditionalOwners": [],
+        "AdditionalMembers": [],
+        "AdditionalVisitors": [],
+        "SiteGroups": [
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Managers",
+            "Description": "Full control to the site",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Content Creators",
+            "Description": "Can view, add, update, and delete list items and documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Customers",
+            "Description": "Can edit and approve pages, list items, and documents for External documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          },
+          {
+            "Members": [],
+            "Title": "{{SiteTitle}} Suppliers",
+            "Description": "Can edit and approve pages, list items, and documents",
+            "Owner": "",
+            "AllowMembersEditMembership": false,
+            "AllowRequestToJoinLeave": false,
+            "AutoAcceptRequestToJoinLeave": false,
+            "OnlyAllowMembersViewMembership": false,
+            "RequestToJoinLeaveEmailSetting": null
+          }
+        ],
+        "SiteSecurityPermissions": {
+          "RoleDefinitions": [],
+          "RoleAssignments": [
+            {
+              "Principal": "{{SiteTitle}} Managers",
+              "RoleDefinition": "Full Control"
+            },
+            {
+              "Principal": "{{SiteTitle}} Content Creators",
+              "RoleDefinition": "Contribute"
+            },
+            {
+              "Principal": "{{SiteTitle}} Customers",
+              "RoleDefinition": "View Only"
+            },
+            {
+              "Principal": "{{SiteTitle}} Suppliers",
+              "RoleDefinition": "Restricted Read"
+            }
+          ]
+        }
+      },
+      "Features": {
+        "SiteFeatures": [],
+        "WebFeatures": [
+          {
+            "ID": "94c94ca6-b32f-4da9-a9e3-1f3d343d7ecb",
+            "Description": "SharePoint Server Publishing",
+            "Deactivate": false
+          },
+          {
+            "ID": "ec918931-c874-4033-bd09-4f36b2e31fef",
+            "Description": "Workflows can use app permissions",
+            "Deactivate": false
+          },
+          {
+            "ID": "57311b7a-9afd-4ff0-866e-9393ad6647b1",
+            "Description": "Workflow Task Content Type",
+            "Deactivate": false
+          },
+          {
+            "ID": "7201d6a4-a5d3-49a1-8c19-19c4bac6e668",
+            "Description": "Metadata Navigation and Filtering",
+            "Deactivate": false
+          },
+          {
+            "ID": "9520bd18-3606-4133-95bf-1201a5022c8a",
+            "Description": "Task Cancellation Workflow Feature",
+            "Scope": "site",
+            "Deactivate": false
+          },
+          {
+            "ID": "83bb19e5-f0c1-45ad-8607-fa6797b7bd0f",
+            "Description": "Task Assignment Workflow Feature",
+            "Scope": "site",
+            "Deactivate": false
+          }
+        ]
+      },
+      "Lists": [
+        {
+          "Title": "Reports",
+          "Description": "Reports",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 101,
+          "Url": "Lists/Reports",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": false,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": false,
+          "EnableFolderCreation": true,
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "Contribute"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Design"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "Email Templates",
+          "Description": "Email Templates",
+          "OnQuickLaunch": false,
+          "TemplateType": 100,
+          "Url": "Lists/EmailTemplates",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": true,
+          "EnableAttachments": true,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x0100B9241A38783A4E7599858B2E19604E41",
+              "Name": "Email Template",
+              "Default": true
+            }
+          ],
+          "DataRows": [
+            {
+              "_url": "Lists/Templates/EmailTemplates.xml",
+              "_type": "xml"
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "View Only"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "Announcements",
+          "Description": "Announcements",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": false,
+          "TemplateType": 104,
+          "Url": "Lists/announcements",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": false,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": false,
+          "Hidden": false,
+          "EnableAttachments": true,
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Design"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "CDRL List",
+          "Description": "CDRL List",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 100,
+          "Url": "Lists/CDRLs",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": false,
+          "EnableFolderCreation": true,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x0100436652D26F7849B1BE0106585461ACE9",
+              "Name": "CDRL Item",
+              "Default": true
+            }
+          ],
+          "RemoveExistingViews": true,
+          "Views": [
+            {
+              "DisplayName": "All CDRLs",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "LinkTitle", "SoftractCDRLAbbreviation" ]
+            }
+          ],
+          "FieldRefs": [
+            {
+              "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+              "Name": "Title",
+              "DisplayName": "CDRL Line No."
+            },
+            {
+              "ID": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+              "Name": "LinkTitle",
+              "DisplayName": "CDRL Line No."
+            },
+            {
+              "ID": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+              "Name": "LinkTitleNoMenu",
+              "DisplayName": "CDRL Line No."
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "SDRL List",
+          "Description": "SDRL List",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 100,
+          "Url": "Lists/SDRLs",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": false,
+          "EnableFolderCreation": true,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x0100436652D26F7849B1BE0106585461ADE8",
+              "Name": "SDRL Item",
+              "Default": true
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "Risks and Issues",
+          "Description": "Risks and Issues",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 100,
+          "Url": "Lists/RisksAndIssues",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": false,
+          "EnableFolderCreation": true,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x01000C5C701D745B4E3E89F13BC9F66A2E5F",
+              "Name": "Risk and Issue",
+              "Default": true
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "Contribute"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Design"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "Workflow Status",
+          "Description": "Workflow Status",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": false,
+          "TemplateType": 100,
+          "Url": "Lists/WorkflowStatus",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": true,
+          "EnableAttachments": false,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x0100D3EAC31331DE418F8AD3185A58FF905F",
+              "Name": "Workflow Status",
+              "Default": true
+            }
+          ]
+        },
+        {
+          "Title": "Site Config",
+          "Description": "Site Configuration Values",
+          "OnQuickLaunch": false,
+          "TemplateType": 100,
+          "Url": "Lists/SiteConfiguration",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "EnableAttachments": true,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": true,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x0100E4C2DD519E4D46C699F509EEB25A78D4",
+              "Name": "Site Config Item",
+              "Default": true
+            }
+          ],
+          "DataRows": [
+            {
+              "SoftractSiteConfigKey": "ServiceEndPoint",
+              "SoftractSiteConfigValue": "https://Softractservice.azurewebsites.net",
+              "Title": "Azure Service Endpoint"
+            },
+            {
+              "SoftractSiteConfigKey": "ProjectName",
+              "SoftractSiteConfigValue": "",
+              "Title": "Project Name"
+            },
+            {
+              "SoftractSiteConfigKey": "CustomerAdminGroupId",
+              "SoftractSiteConfigValue": "",
+              "Title": "Customers Group Id "
+            },
+            {
+              "SoftractSiteConfigKey": "PMGroupId",
+              "SoftractSiteConfigValue": "",
+              "Title": "Project Manager Group Id "
+            },
+            {
+              "SoftractSiteConfigKey": "Environment",
+              "SoftractSiteConfigValue": "",
+              "Title": "Environemnt (Dev/Test/Prod)"
+            },
+            {
+              "SoftractSiteConfigKey": "PMEmail",
+              "SoftractSiteConfigValue": "",
+              "Title": "Project Manager Email"
+            },
+            {
+              "SoftractSiteConfigKey": "PMSignature",
+              "SoftractSiteConfigValue": "",
+              "Title": "Project Manager Signature",
+              "_Attachments": [
+                {
+                  "Url": "Lists/Templates/PMSignature.png",
+                  "Name": "PMSignature.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Title": "CoA Submissions",
+          "Description": "CoA Submissions",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": false,
+          "TemplateType": 100,
+          "Url": "Lists/Submissions",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": true,
+          "EnableAttachments": false,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x0100A832105E32314252BE595F06ACDB1471",
+              "Name": "CDRL Submission",
+              "Default": true
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "View Only"
+                }
+              ]
+            }
+
+          }
+        },
+        {
+          "Title": "OCDL",
+          "Description": "OCDL",
+          "OnQuickLaunch": true,
+          "TemplateType": 100,
+          "Url": "Lists/OCDLs",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "EnableAttachments": true,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x01009554DE92EC414654A1ABCD37020AE369",
+              "Name": "OCDL",
+              "Default": true
+            }
+          ],
+          "FieldRefs": [
+            {
+              "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+              "Name": "Title",
+              "DisplayName": "Unique ID"
+            },
+            {
+              "ID": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+              "Name": "LinkTitle",
+              "DisplayName": "Unique ID"
+            },
+            {
+              "ID": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+              "Name": "LinkTitleNoMenu",
+              "DisplayName": "Unique ID"
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Customers",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+          },
+          "Views": [
+            {
+              "DisplayName": "All OCDLs",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "LinkTitleNoMenu", "SoftractPlainDescription", "SoftractVcrmOcdlToFps" ]
+            }
+          ]
+        },
+        {
+          "Title": "MSS",
+          "Description": "MSS",
+          "OnQuickLaunch": true,
+          "TemplateType": 100,
+          "Url": "Lists/MSSs",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "EnableAttachments": true,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": false,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "ContentTypeBindings": [],
+          "FieldRefs": [
+            {
+              "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+              "Name": "Title",
+              "DisplayName": "Unique ID"
+            },
+            {
+              "ID": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+              "Name": "LinkTitle",
+              "DisplayName": "Unique ID"
+            },
+            {
+              "ID": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+              "Name": "LinkTitleNoMenu",
+              "DisplayName": "Unique ID"
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Customers",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Title": "FPS",
+          "Description": "FPS",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 100,
+          "Url": "Lists/FPSs",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": false,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": false,
+          "EnableFolderCreation": false,
+          "FieldRefs": [
+            {
+              "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+              "Name": "Title",
+              "DisplayName": "Unique ID"
+            },
+            {
+              "ID": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+              "Name": "LinkTitle",
+              "DisplayName": "Unique ID"
+            },
+            {
+              "ID": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+              "Name": "LinkTitleNoMenu",
+              "DisplayName": "Unique ID"
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Customers",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Title": "Workflow Tasks",
+          "Description": "Workflow Tasks",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 107,
+          "Url": "WorkflowTasks",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": false,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": false,
+          "EnableFolderCreation": true,
+          "ContentTypeBindings": [],
+          "Views": [],
+          "FieldRefs": [
+            {
+              "ID": "c15b34c3-ce7d-490a-b133-3f4de8801b76",
+              "Name": "Status",
+              "DisplayName": "Status",
+              "Choices": [ "Not Started", "In Progress", "Completed", "Deferred", "Waiting on someone else", "Cancelled" ]
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": true,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Customers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "Title": "Test Plans",
+          "Description": "Test Plans",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 101,
+          "Url": "Lists/TestPlans",
+          "EnableVersioning": true,
+          "EnableMinorVersions": true,
+          "DraftVersionVisibility": 1,
+          "EnableModeration": false,
+          "MinorVersionLimit": 200,
+          "MaxVersionLimit": 200,
+          "ForceCheckOut": true,
+          "RemoveExistingContentTypes": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": []
+        },
+        {
+          "Title": "Test Results",
+          "Description": "Test Results",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": true,
+          "TemplateType": 101,
+          "Url": "Lists/TestResults",
+          "EnableVersioning": true,
+          "EnableMinorVersions": true,
+          "DraftVersionVisibility": 1,
+          "EnableModeration": false,
+          "MinorVersionLimit": 200,
+          "MaxVersionLimit": 200,
+          "ForceCheckOut": true,
+          "RemoveExistingContentTypes": true,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableFolderCreation": false
+        },
+        {
+          "Title": "Feature Templates",
+          "Description": "Feature template applied and histories",
+          "ContentTypesEnabled": true,
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "RemoveExistingContentTypes": true,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "Hidden": true,
+          "Url": "Lists/FeatureTemplates",
+          "TemplateType": 100,
+          "ContentTypeBindings": [
+            {
+              "Name": "Feature Template Info",
+              "Default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Description": "Creates CDRL/SDRL Lookup columns and associated content types. Create CDRL Task list and adds CDRL lookup fields.",
+      "SiteFields": [
+        {
+          "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+          "Name": "SoftractCDRLLookup",
+          "DisplayName": "CDRL",
+          "Group": "Softract",
+          "Type": "Lookup",
+          "List": "Lists/CDRLs",
+          "Required": true,
+          "ShowField": "Title"
+        },
+        {
+          "ID": "{DE42175C-3FB3-47DD-8DC6-C925B1A4EB26}",
+          "Name": "SoftractSDRLLookup",
+          "DisplayName": "SDRL",
+          "Group": "Softract",
+          "Type": "Lookup",
+          "List": "Lists/SDRLs",
+          "ShowField": "Title"
+        },
+        {
+          "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
+          "Name": "SoftractWFStatusLookup",
+          "DisplayName": "Workflow Status",
+          "Group": "Softract",
+          "Type": "Lookup",
+          "List": "Lists/WorkflowStatus",
+          "ShowField": "Title",
+          "DependentLookupFields": [
+            {
+              "DisplayName": "Peer Review Status",
+              "ShowField": "SoftractWFStatusPR"
+            },
+            {
+              "DisplayName": "PM Approval Status",
+              "ShowField": "SoftractWFStatusPMA"
+            },
+            {
+              "DisplayName": "COA Submission Status",
+              "ShowField": "SoftractWFStatusCOA"
+            }
+          ]
+        },
+        {
+          "ID": "{6C6E5ADF-EC79-4736-80E5-293372615292}",
+          "Name": "SoftractOCDLLookup",
+          "DisplayName": "OCDLs",
+          "Group": "Softract",
+          "Type": "LookupMulti",
+          "List": "Lists/OCDLs",
+          "ShowField": "Title",
+          "JSLink": "~siteCollection/_catalogs/masterpage/Softract/Scripts/CSR_VCRM.js"
+        },
+        {
+          "ID": "{35FF43FA-0631-464B-9B33-C80D8D0D95D7}",
+          "Name": "SoftractFPSLookup",
+          "DisplayName": "FPS",
+          "Group": "Softract",
+          "Type": "LookupMulti",
+          "List": "Lists/FPSs",
+          "ShowField": "Title",
+          "JSLink": "~siteCollection/_catalogs/masterpage/Softract/Scripts/CSR_VCRM.js"
+        },
+        {
+          "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
+          "Name": "SoftractMSSLLookup",
+          "DisplayName": "MSSs",
+          "Group": "Softract",
+          "Type": "LookupMulti",
+          "List": "Lists/MSSs",
+          "ShowField": "Title"
+        },
+        {
+          "ID": "{287D43F6-E17A-485D-AACB-B590FDE4060C}",
+          "Name": "SoftractTestPlanLLookup",
+          "DisplayName": "Test Plan",
+          "Group": "Softract",
+          "Type": "LookupMulti",
+          "List": "Lists/TestPlans",
+          "ShowField": "Title"
+        }
+      ],
+      "ContentTypes": [
+        {
+          "ParentId": "0x010800440874A0E71F4BE7A2F09DE230DC3DBE",
+          "Name": "CDRL Task",
+          "Group": "Softract",
+          "Description": "CDRL Task Content Type",
+          "FieldRefs": [
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title",
+              "Required": true
+            },
+            {
+              "ID": "{64cd368d-2f95-4bfc-a1f9-8d4324ecb007}",
+              "Name": "StartDate"
+            },
+            {
+              "ID": "{cd21b4c2-6841-4f9e-a23a-738a65f99889}",
+              "Name": "TaskDueDate"
+            },
+            {
+              "ID": "{53101f38-dd2e-458c-b245-0c236cc13d1a}",
+              "Name": "AssignedTo"
+            },
+            {
+              "ID": "{d2311440-1ed6-46ea-b46d-daa643dc3886}",
+              "Name": "PercentComplete"
+            },
+            {
+              "ID": "{7662cd2c-f069-4dba-9e35-082cf976e170}",
+              "Name": "Body"
+            },
+            {
+              "ID": "{c15b34c3-ce7d-490a-b133-3f4de8801b76}",
+              "Name": "Status"
+            },
+            {
+              "ID": "{d2a04afc-9a05-48c8-a7fa-fa98f9496141}",
+              "Name": "RelatedItems"
+            },
+            {
+              "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+              "Name": "SoftractCDRLLookup",
+              "Required": true
+            },
+            {
+              "ID": "{B03829BB-0C33-4A99-A71B-EEF9DFB33CE9}",
+              "Name": "SoftractTaskDocNo"
+            },
+            {
+              "ID": "{429DCF87-8271-4C67-810F-3173FE9AED47}",
+              "Name": "SoftractTaskDIDDocNo"
+            },
+            {
+              "ID": "{916D684C-AF66-4040-BA3F-90AE880F3554}",
+              "Name": "SoftractTaskDelivery"
+            }
+          ]
+        },
+        {
+          "ParentId": "0x0101007352B54274B2476E925990286BFF1D9E",
+          "Name": "SDRL",
+          "Group": "Softract",
+          "Description": "SDRL Document",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{DE42175C-3FB3-47DD-8DC6-C925B1A4EB26}",
+              "Name": "SoftractSDRLLookup",
+              "Required": true
+            },
+            {
+              "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+              "Name": "SoftractAssetHierarchy"
+            }
+          ]
+        },
+        {
+          "ParentId": "0x01010020783B76E0D34E6DBA0FCE40BAC982E2",
+          "Name": "Asset Hierarchies",
+          "Group": "Softract",
+          "Description": "Asset Hierarchies Document",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+              "Name": "SoftractCDRLLookup",
+              "Required": true
+            },
+            {
+              "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+              "Name": "SoftractAssetHierarchy"
+            }
+
+          ]
+        },
+        {
+          "ParentId": "0x01010006EFA81ACDC148349F81F669B27A4AC6",
+          "Name": "Miscellaneous",
+          "Group": "Softract",
+          "Description": "Miscellaneous Document",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+              "Name": "SoftractCDRLLookup",
+              "Required": true
+            },
+            {
+              "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+              "Name": "SoftractAssetHierarchy"
+            }
+          ]
+        },
+        {
+          "ParentId": "0x0100ECCB789EADDB4F45951DA9B5E6C15482",
+          "Name": "FPS",
+          "Group": "Softract",
+          "Description": "FPS",
+          "FieldRefs": [
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{27545995-BE93-478A-A726-5DB12B0E109E}",
+              "Name": "SoftractPlainDescription"
+            },
+            {
+              "ID": "{0F787965-8691-466A-BBEA-FD9844C02FEA}",
+              "Name": "SoftractOcdlInLinks"
+            },
+            {
+              "ID": "{95558EB2-EF86-47B6-B1DB-ABD63CD56D7E}",
+              "Name": "SoftractVcrmFpsToMss"
+            },
+            {
+              "ID": "{6C6E5ADF-EC79-4736-80E5-293372615292}",
+              "Name": "SoftractOCDLLookup",
+              "Required": true
+            }
+          ]
+        },
+        {
+          "ParentId": "0x01009EBA3FE1E8D146D8938E163E0E473D6B",
+          "Name": "MSS",
+          "Group": "Softract",
+          "Description": "MSS",
+          "FieldRefs": [
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title",
+              "Required": true
+            },
+            {
+              "ID": "{A9ECD81E-5FEC-4FF5-B7A4-175A6B1970FE}",
+              "Name": "SoftractRtmSystemHeading"
+            },
+            {
+              "ID": "{27545995-BE93-478A-A726-5DB12B0E109E}",
+              "Name": "SoftractPlainDescription"
+            },
+            {
+              "ID": "{8D658C8A-DF5E-4E1B-A0A7-714D4B1F571C}",
+              "Name": "SoftractVcrmVerificationMethod"
+            },
+            {
+              "ID": "{B71BF472-96B0-4B62-83D8-DB222738605C}",
+              "Name": "SoftractVcrmAuthority"
+            },
+            {
+              "ID": "{4881216C-4EEE-4C2C-B2C0-34F8B0602185}",
+              "Name": "SoftractVcrmMSSType"
+            },
+            {
+              "ID": "{98F98161-1F37-43E8-B57A-75227C0F17E2}",
+              "Name": "SoftractRTMTaxField"
+            },
+            {
+              "ID": "{35FF43FA-0631-464B-9B33-C80D8D0D95D7}",
+              "Name": "SoftractFPSLookup",
+              "Required": true
+            }
+          ]
+        },
+        {
+          "ParentId": "0x010100DD640FA3D60149EDBEF10FBFFBFA31D9",
+          "Name": "Test Plan",
+          "Group": "Softract",
+          "Description": "Test Plan",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
+              "Name": "SoftractMSSLLookup",
+              "Required": false
+            },
+            {
+              "ID": "{4977F45D-1472-4D95-882F-1E80D1EB60D0}",
+              "Name": "SoftractVcrmStandard"
+            },
+            {
+              "ID": "{4A437D06-F8AE-4D57-9655-34E0FB4D272A}",
+              "Name": "SoftractVcrmApplicability"
+            },
+            {
+              "ID": "{81EFFCD9-5A54-4B26-B887-02144CC07D25}",
+              "Name": "SoftractVcrmResponsibility"
+            },
+            {
+              "ID": "{65979DE8-F278-4295-AFE9-64A0379F2215}",
+              "Name": "SoftractVcrmSystem"
+            },
+            {
+              "ID": "{F7A71C0B-B55C-4497-A4AD-1D567262C804}",
+              "Name": "SoftractVcrmPhase"
+            },
+            {
+              "ID": "{22808C2F-FCE6-4596-823D-2E99DD55FBAE}",
+              "Name": "SoftractVcrmVerifArtefact"
+            },
+            {
+              "ID": "{EDBA60C7-760F-43AE-BA4E-4361AB8E5BF5}",
+              "Name": "SoftractVcrmVerifMethodDesc"
+            },
+            {
+              "ID": "{C1C1B1FF-348F-4F2C-B782-6E5041FEAC29}",
+              "Name": "SoftractVcrmDrawingNo"
+            },
+            {
+              "ID": "{1ACBE700-4AA7-4896-962F-697306F37C71}",
+              "Name": "SoftractVcrmDocRefNo"
+            },
+            {
+              "ID": "{12A60127-E490-4F8A-B01A-4FD3F6460251}",
+              "Name": "SoftractVcrmInspectionProcedure"
+            }
+          ]
+        },
+        {
+          "ParentId": "0x0101002EB198CEC44D4A0AB8B2F971A2166EA8",
+          "Name": "Test Result",
+          "Group": "Softract",
+          "Description": "Test Result",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{287D43F6-E17A-485D-AACB-B590FDE4060C}",
+              "Name": "SoftractTestPlanLLookup",
+              "Required": false
+            },
+            {
+              "ID": "{8BB43C51-C259-42DB-9A42-D830DFCE3922}",
+              "Name": "SoftractVcrmPassFailStatus"
+            }
+          ]
+        },
+        {
+          "ParentId": "0x010100F0F3AEF4E25C4BB28AC7055B994C2ACF",
+          "Name": "CDRL",
+          "Group": "Softract",
+          "Description": "CDRL Document",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title"
+            },
+            {
+              "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+              "Name": "SoftractCDRLLookup",
+              "Required": true
+            },
+            {
+              "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
+              "Name": "SoftractWFStatusLookup",
+              "Required": false,
+              "Hidden": true
+            },
+            {
+              "ID": "{0BC2FEB6-9FA5-44EB-9FF7-D461DCE3A9DF}",
+              "Name": "SoftractCoAVersion",
+              "Required": false
+            },
+            {
+              "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+              "Name": "SoftractAssetHierarchy",
+              "Required": false
+            }
+          ]
+        },
+        {
+          "ParentId": "0x0120D52000DF7EEDA66222417CA6D69ADC1F6FA294",
+          "Name": "CDRL Document Set",
+          "Group": "Softract",
+          "Description": "CDRL Document Set",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef",
+              "Required": true
+            },
+            {
+              "ID": "{CBB92DA4-FD46-4C7D-AF6C-3128C2A5576E}",
+              "Name": "DocumentSetDescription"
+            },
+            {
+              "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+              "Name": "SoftractCDRLLookup",
+              "Required": true
+            },
+            {
+              "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+              "Name": "SoftractAssetHierarchy",
+              "Required": false
+            },
+            {
+              "ID": "{31F2C2F2-9BEE-480E-907D-FC580F70EA54}",
+              "Name": "SoftractWFStatusLookup",
+              "Required": false,
+              "Hidden": true
+            }
+          ],
+          "DocumentSetTemplate": {
+            "AllowedContentTypes": [
+              {
+                "Name": "CDRL",
+                "Description": "CDRL Document"
+              },
+              {
+                "Name": "Internal Comments",
+                "Description": "Internal Comments Document"
+              },
+              {
+                "Name": "External Comments",
+                "Description": "External Comments Document"
+              },
+              {
+                "Name": "Miscellaneous",
+                "Description": "Miscellaneous Document"
+              }
+            ],
+            "SharedFields": [
+              {
+                "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+                "Name": "SoftractAssetHierarchy"
+              },
+              {
+                "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+                "Name": "SoftractCDRLLookup"
+              }
+            ],
+            "WelcomePageFields": [
+              {
+                "ID": "{D960D6B3-41F5-4396-948A-4FE79D11E934}",
+                "Name": "SoftractAssetHierarchy"
+              },
+              {
+                "ID": "{66EDCB28-B1AD-40E7-972F-5545FE40517F}",
+                "Name": "SoftractCDRLLookup"
+              }
+            ]
+          }
+        },
+        {
+          "ParentId": "0x0120D52000CBE51A31EE614A4E8E1E6967321374DB",
+          "Name": "Test Result Document Set",
+          "Group": "Softract",
+          "Description": "Test Result Document Set",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{CBB92DA4-FD46-4C7D-AF6C-3128C2A5576E}",
+              "Name": "DocumentSetDescription"
+            },
+            {
+              "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
+              "Name": "SoftractMSSLLookup",
+              "Required": true
+            }
+          ],
+          "DocumentSetTemplate": {
+            "AllowedContentTypes": [
+              {
+                "Name": "Test Result",
+                "Description": "Test Result"
+              }
+            ],
+            "SharedFields": [
+              {
+                "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
+                "Name": "SoftractMSSLLookup"
+              }
+            ],
+            "WelcomePageFields": [
+              {
+                "ID": "{448B39F5-8BC7-4E70-B8BF-1DDAE36612F9}",
+                "Name": "SoftractMSSLLookup"
+              }
+            ]
+          }
+        }
+      ],
+      "Lists": [
+        {
+          "Title": "Workflow Tasks",
+          "Description": "Workflow Tasks",
+          "Url": "WorkflowTasks",
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "CDRL Task",
+              "Default": false
+            },
+            {
+              "ContentTypeId": "0x0108003365C4474CAE8C42BCE396314E88E51F00AADC02A4E1BE4E32BAF3CBD364531114",
+              "Name": "Review Task",
+              "Default": false
+            },
+            {
+              "ContentTypeId": "0x0108003365C4474CAE8C42BCE396314E88E51F0021D5C9C5C1C64AAABE2D8F0ABE9480B5",
+              "Name": "Softract Task",
+              "Default": false
+            },
+            {
+              "ContentTypeId": "0x0108003365C4474CAE8C42BCE396314E88E51F0011989C546DE54A209136F3C3D1717A7D",
+              "Name": "CoA Task",
+              "Default": false
+            }
+          ]
+        },
+        {
+          "Title": "FPS",
+          "Description": "FPS",
+          "Url": "Lists/FPSs",
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "FPS",
+              "Default": true
+            }
+          ],
+          "Views": [
+            {
+              "DisplayName": "All FPSs",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "LinkTitleNoMenu", "SoftractPlainDescription", "SoftractOCDLLookup", "SoftractVcrmFpsToMss" ]
+            }
+          ]
+        },
+        {
+          "Title": "MSS",
+          "Description": "MSS",
+          "Url": "Lists/MSSs",
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "MSS",
+              "Default": true
+            }
+          ],
+          "Views": [
+            {
+              "DisplayName": "All MSSs",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "LinkTitleNoMenu", "SoftractRtmSystemHeading", "SoftractPlainDescription", "SoftractVcrmVerificationMethod", "SoftractVcrmAuthority", "SoftractVcrmMSSType", "SoftractFPSLookup" ]
+            }
+          ]
+        },
+        {
+          "Title": "Test Plans",
+          "Description": "Test Plans",
+          "Url": "Lists/TestPlans",
+          "RemoveExistingContentTypes": true,
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "Test Plan",
+              "Default": true
+            }
+          ]
+        },
+        {
+          "Title": "Test Results",
+          "Description": "Test Results",
+          "Url": "Lists/TestResults",
+          "RemoveExistingContentTypes": true,
+          "ContentTypesEnabled": true,
+          "ContentTypeBindings": [
+            {
+              "Name": "Test Result Document Set",
+              "Default": true
+            }
+          ]
+        },
+        {
+          "Title": "Documents",
+          "Description": "Documents",
+          "OnQuickLaunch": true,
+          "TemplateType": 101,
+          "Url": "Lists/Shared Documents",
+          "EnableVersioning": true,
+          "EnableMinorVersions": true,
+          "DraftVersionVisibility": 1,
+          "EnableModeration": true,
+          "MinorVersionLimit": 200,
+          "MaxVersionLimit": 200,
+          "ForceCheckOut": true,
+          "RemoveExistingContentTypes": true,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": [
+            {
+              "Name": "SDRL",
+              "Default": false
+            },
+            {
+              "Name": "Asset Hierarchies",
+              "Default": false
+            },
+            {
+              "Name": "CDRL Document Set",
+              "Default": true
+            }
+          ],
+          "RemoveExistingViews": true,
+          "Views": [
+            {
+              "DisplayName": "All Documents",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"FileLeafRef\" /></OrderBy>",
+              "ViewFields": [ "DocIcon", "LinkFilename", "Modified", "Editor", "CheckoutUser", "Peer_x0020_Review_x0020_Status", "PM_x0020_Approval_x0020_Status", "COA_x0020_Submission_x0020_Status", "ContentType" ]
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": false,
+              "CopyRoleAssignments": true,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Customers",
+                  "RoleDefinition": "View Only"
+                }
+              ]
+            }
+
+          }
+        }
+      ],
+      "CustomActions": {
+        "SiteCustomActions": [],
+        "WebCustomActions": [
+          {
+            "Url": "Lists/Templates/SoftractRibbon.xml"
+          }
+        ]
+      },
+      "Workflows": {
+        "WorkflowSubscriptions": [
+          {
+            "DefinitionId": "D685F3CF-F002-4023-8716-09817C865203",
+            "Name": "Task Assignment",
+            "Enabled": true,
+            "ListTitle": "Workflow Tasks",
+            "ItemAddedEvent": false,
+            "ItemUpdatedEvent": false,
+            "WorkflowStartEvent": true,
+            "TaskList": "Workflow Tasks",
+            "HistoryList": "Workflow History"
+          },
+          {
+            "DefinitionId": "99824898-97b1-497d-b434-40dff1248299",
+            "Name": "Task Cancellation",
+            "Enabled": true,
+            "WorkflowStartEvent": true,
+            "TaskList": "Workflow Tasks",
+            "HistoryList": "Workflow History"
+          }
+        ]
+      },
+      "Pages": [
+        {
+          "Title": "Home",
+          "SEOTitle": "{{SiteTitle}} Home",
+          "Layout": "Softract Home Page",
+          "Url": "Pages/Home.aspx",
+          "Overwrite": false
+        }
+      ],
+      "Navigation": {
+        "GlobalNavigation": {
+          "NavigationType": "Structural",
+          "ManagedNavigation": null,
+          "StructuralNavigation": null
+        },
+        "CurrentNavigation": {
+          "NavigationType": "Structural",
+          "ManagedNavigation": null,
+          "StructuralNavigation": null,
+          "_none": {
+            "RemoveExistingNodes": true,
+            "ShowPages": false,
+            "NavigationNode": [
+              {
+                "Title": "Home",
+                "IsExternal": false,
+                "Url": "/",
+                "NavigationNode": []
+              },
+              {
+                "Title": "CDRL Management",
+                "IsExternal": false,
+                "Url": "",
+                "NavigationNode": [
+                  {
+                    "Title": "CDRL Documents",
+                    "IsExternal": false,
+                    "Url": "Shared Documents/Forms/All Documents.aspx"
+                  },
+                  {
+                    "Title": "CDRL Task List",
+                    "IsExternal": false,
+                    "Url": "WorkflowTasks/MyItems.aspx"
+                  }
+                ]
+              },
+              {
+                "Title": "RTM",
+                "IsExternal": false,
+                "Url": "",
+                "NavigationNode": [
+                  {
+                    "Title": "OCDL",
+                    "IsExternal": false,
+                    "Url": "Lists/OCDLs/All OCDLs.aspx"
+                  },
+                  {
+                    "Title": "FPS",
+                    "IsExternal": false,
+                    "Url": "Lists/FPSs/All FPSs.aspx"
+                  },
+                  {
+                    "Title": "MSS",
+                    "IsExternal": false,
+                    "Url": "Lists/MSSs/All MSSs.aspx"
+                  }
+                ]
+              },
+              {
+                "Title": "Risks and Issues",
+                "IsExternal": false,
+                "Url": "Lists/RisksAndIssues/AllItems.aspx"
+              }
+            ]
+          }
+        }
+      },
+      "WebSettings": {
+        "WelcomePage": "Pages/Home.aspx"
+      }
+
+    }
+    
+  ]
+}

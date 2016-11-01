@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Field ID="{563694A4-2CD6-4647-9345-ABF7824B0CB5}" Type="Choice" 
+         Name="TemplateType" DisplayName="Template Type" Group="Provisioning App" Required="TRUE">
+    <CHOICES>
+      <CHOICE>Site</CHOICE>
+      <CHOICE>Feature</CHOICE>
+      <CHOICE>Miscellaneous</CHOICE>
+    </CHOICES>
+  </Field>
+</Elements>

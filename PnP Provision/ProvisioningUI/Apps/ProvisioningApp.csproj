@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42545A24-D92D-4274-8622-D94E472C0B64}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProvisioningApp</RootNamespace>
+    <AssemblyName>ProvisioningApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetOfficeVersion>16.1</TargetOfficeVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <MinimumOfficeToolsVersion>12.2</MinimumOfficeToolsVersion>
+    <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
+    <ProjectMode>SharePointApp</ProjectMode>
+    <AppFeaturePartId>{df7aaa8e-3fa9-4a22-bd99-1d4c2f921337}</AppFeaturePartId>
+    <WspPartId>{df243835-731b-4614-ac57-1c1265bac5b1}</WspPartId>
+    <WorkflowPartId>{149856ff-880a-4eca-a87f-0fcee0c54613}</WorkflowPartId>
+    <CspkgPartId>{a02c33fe-928a-4b71-b8f2-183f88d5eb75}</CspkgPartId>
+    <SqlPackagePartId>{47eedfe5-728e-4e26-a911-19db3bf6cea7}</SqlPackagePartId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="Content\app.scss" />
+    <None Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap\bootstrap-theme.min.css.map" />
+    <None Include="Content\bootstrap\bootstrap.css.map" />
+    <None Include="Content\bootstrap\bootstrap.min.css.map" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.woff" />
+    <None Include="Content\bootstrap\glyphicons-halflings-regular.woff2" />
+    <None Include="Content\themes\default-dark\Thumbs.db" />
+    <None Include="Items\ContentTypes\SiteFeatureTemplate\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{3a438ee7-d386-4350-934b-14f09e61cbb5}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Fields\Template Dependencies\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{1c0fc6d3-a969-46bf-a5e2-853037a4684a}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Fields\Template ID\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{2d30eab7-641d-4565-bcf0-4b7ebc29d122}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Fields\TemplateDescription\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{cbbd2432-4967-4ef3-9234-f557147b6707}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Fields\TemplateType\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{afa086ed-0658-48af-9f38-13f63efc89bc}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Lists\ListTemplates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{c832a37e-3fd2-4586-98c3-b2c3e886cd2b}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Lists\ListTemplates\TemplatesInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{2e17cb2b-b87a-4d79-9e64-57b6d0ff1155}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Templates\1FTBasic.json" />
+    <None Include="Items\Templates\4STWithUserActionSecurity.json" />
+    <None Include="Items\Templates\3STWithDataImport.json" />
+    <None Include="Items\Templates\FeatureTemplate.json" />
+    <None Include="Items\Templates\pnp-schema.json" />
+    <None Include="Items\Templates\ProjectSiteTemplate.json" />
+    <None Include="Items\Templates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{e125f493-bc85-45fd-b7d1-bb3b4ca31295}</SharePointProjectItemId>
+    </None>
+    <None Include="Items\Templates\2STWithColsCTsViews.json" />
+    <None Include="Items\Templates\1STBasic.json" />
+    <None Include="packages.config" />
+    <None Include="Pages\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{9f04b5dc-95de-4912-88d0-f7855b2a4689}</SharePointProjectItemId>
+    </None>
+    <Content Include="Content\app.css">
+      <DependentUpon>app.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\themes\default-dark\32px.png" />
+    <Content Include="Content\themes\default-dark\40px.png" />
+    <Content Include="Content\themes\default-dark\style.css" />
+    <Content Include="Content\themes\default-dark\style.min.css" />
+    <Content Include="Content\themes\default-dark\throbber.gif" />
+    <Content Include="Content\themes\default\32px.png" />
+    <Content Include="Content\themes\default\40px.png" />
+    <Content Include="Content\themes\default\style.css" />
+    <Content Include="Content\themes\default\style.min.css" />
+    <Content Include="Content\themes\default\throbber.gif" />
+    <Content Include="Elements.xml" />
+    <Content Include="Content\bootstrap\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\error.png" />
+    <Content Include="Images\tick.png" />
+    <Content Include="Images\wait-step.png" />
+    <Content Include="Items\ContentTypes\SiteFeatureTemplate\Elements.xml" />
+    <Content Include="Items\Fields\Template Dependencies\Elements.xml" />
+    <Content Include="Items\Fields\Template ID\Elements.xml" />
+    <Content Include="Items\Fields\TemplateDescription\Elements.xml" />
+    <Content Include="Items\Fields\TemplateType\Elements.xml" />
+    <Content Include="Items\Lists\ListTemplates\EditDlg.htm" />
+    <Content Include="Items\Lists\ListTemplates\Elements.xml" />
+    <Content Include="Items\Lists\ListTemplates\FileDlg.htm" />
+    <Content Include="Items\Lists\ListTemplates\Repair.aspx" />
+    <Content Include="Items\Lists\ListTemplates\Schema.xml" />
+    <Content Include="Items\Lists\ListTemplates\TemplatesInstance\Elements.xml" />
+    <Content Include="Items\Lists\ListTemplates\Upload.aspx" />
+    <Content Include="Items\Templates\PMSignature.png" />
+    <Content Include="Items\Templates\SoftractRibbon.xml" />
+    <Content Include="Items\Templates\CMailRibbon.xml" />
+    <Content Include="Items\Templates\Elements.xml" />
+    <Content Include="Items\Templates\DataRows.xml" />
+    <Content Include="Pages\Cleanup.aspx" />
+    <Content Include="Pages\Elements.xml" />
+    <Content Include="Pages\Default.aspx" />
+    <None Include="SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{12680fa7-197b-42e8-905a-964e6c97cde6}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{47eedfe5-728e-4e26-a911-19db3bf6cea7}</SharePointProjectItemId>
+    </None>
+    <Content Include="Pages\FeatureTemplate.aspx" />
+    <Content Include="Pages\SiteTemplate.aspx" />
+    <Content Include="Scripts\Config.js">
+      <DependentUpon>config.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\jstree.js" />
+    <Content Include="Scripts\lib\jstree.min.js" />
+    <Content Include="Scripts\lib\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\lib\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\lib\bootstrap.min.js" />
+    <Content Include="Scripts\Elements.xml" />
+    <Content Include="Scripts\lib\knockout-3.4.0.min.js" />
+    <Content Include="Scripts\Models\CleanupModel.js">
+      <DependentUpon>CleanupModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\FeatureTemplateModel.js">
+      <DependentUpon>FeatureTemplateModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\ProgressViewModel.js">
+      <DependentUpon>ProgressViewModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\ProvisioningAppModel.js">
+      <DependentUpon>ProvisioningAppModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Models\SiteTemplateModel.js">
+      <DependentUpon>SiteTemplateModel.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\require.js" />
+    <Content Include="Scripts\Provisioning\SharePointHelper.js">
+      <DependentUpon>SharePointHelper.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Provisioning\TemplateManager.js">
+      <DependentUpon>TemplateManager.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\_references.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{24b066d2-f026-4ff9-a9ab-1a3ee090dd5a}</SharePointProjectItemId>
+    </None>
+    <Content Include="Content\Elements.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\AppIcon.png">
+      <OpcRelationship>manifest-icon</OpcRelationship>
+    </Content>
+    <Content Include="Images\Elements.xml" />
+    <None Include="Images\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{4d41a191-bf31-42bb-81a3-4c3cdd7086f2}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Package\Package.package">
+      <PackageId>{58244a19-d337-4aeb-9745-1d7f676b5732}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="Features\Feature1\Feature1.feature">
+      <FeatureId>{7710c5ba-6011-4552-b1a9-3920c4fdd299}</FeatureId>
+    </None>
+    <None Include="Features\Feature1\Feature1.Template.xml">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <AppManifestFile Include="AppManifest.xml">
+      <SubType>Designer</SubType>
+    </AppManifestFile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Config.ts" />
+    <TypeScriptCompile Include="Scripts\Models\CleanupModel.ts" />
+    <TypeScriptCompile Include="Scripts\Models\FeatureTemplateModel.ts" />
+    <TypeScriptCompile Include="Scripts\Models\ProgressViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\Models\ProvisioningAppModel.ts" />
+    <TypeScriptCompile Include="Scripts\Models\SiteTemplateModel.ts" />
+    <TypeScriptCompile Include="Scripts\Provisioning\Provisioning.d.ts" />
+    <TypeScriptCompile Include="Scripts\Provisioning\SharePointHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Provisioning\TemplateManager.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jstree\jstree.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\knockout\tests\jasmine.extensions.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\microsoft-ajax\microsoft.ajax.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\ProvisioningApp.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\sharepoint\SharePoint.d.ts" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>

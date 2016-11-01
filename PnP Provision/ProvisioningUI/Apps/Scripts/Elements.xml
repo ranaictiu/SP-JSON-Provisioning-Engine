@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Scripts">
+    <File Path="Scripts\Provisioning\SharePointHelper.ts" Url="Scripts/Provisioning/SharePointHelper.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Provisioning\TemplateManager.ts" Url="Scripts/Provisioning/TemplateManager.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\require.js" Url="Scripts/lib/require.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\bootstrap.min.js" Url="Scripts/lib/bootstrap.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\knockout-3.4.0.min.js" Url="Scripts/lib/knockout-3.4.0.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProgressViewModel.ts" Url="Scripts/Models/ProgressViewModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\typings\jqueryui\jqueryui.d.ts" Url="Scripts/typings/jqueryui/jqueryui.d.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\jquery-1.12.4.min.js" Url="Scripts/lib/jquery-1.12.4.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\jquery-ui-1.12.1.min.js" Url="Scripts/lib/jquery-ui-1.12.1.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Config.ts" Url="Scripts/Config.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Config.js" Url="Scripts/Config.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProgressViewModel.js" Url="Scripts/Models/ProgressViewModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\SiteTemplateModel.js" Url="Scripts/Models/SiteTemplateModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Provisioning\TemplateManager.js" Url="Scripts/Provisioning/TemplateManager.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Provisioning\SharePointHelper.js" Url="Scripts/Provisioning/SharePointHelper.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\CleanupModel.ts" Url="Scripts/Models/CleanupModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Provisioning\Provisioning.d.ts" Url="Scripts/Provisioning/Provisioning.d.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\FeatureTemplateModel.ts" Url="Scripts/Models/FeatureTemplateModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\FeatureTemplateModel.js" Url="Scripts/Models/FeatureTemplateModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\CleanupModel.js" Url="Scripts/Models/CleanupModel.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProvisioningAppModel.ts" Url="Scripts/Models/ProvisioningAppModel.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\jstree.min.js" Url="Scripts/lib/jstree.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\lib\jstree.js" Url="Scripts/lib/jstree.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\typings\jstree\jstree.d.ts" Url="Scripts/typings/jstree/jstree.d.ts" ReplaceContent="TRUE" />
+    <File Path="Scripts\Models\ProvisioningAppModel.js" Url="Scripts/Models/ProvisioningAppModel.js" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

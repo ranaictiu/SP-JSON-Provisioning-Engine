@@ -1,0 +1,55 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Description": "Basic feature template",
+  "Templates": [
+    {
+      "Description": "Create site columns, content types and add the content type to documents list",
+
+      "SiteFields": [
+        {
+          "ID": "{C511E01B-78EA-4B97-9237-9CA5A14577D2}",
+          "Name": "PADocVersion",
+          "Xml": "<Field ID=\"{C511E01B-78EA-4B97-9237-9CA5A14577D2}\" Type=\"Choice\" Name=\"PADocVersion\" DisplayName=\"FT Version\" Required=\"TRUE\" Group=\"Austal\" ><Default>Draft</Default><CHOICES><CHOICE>Draft</CHOICE><CHOICE>Initial</CHOICE><CHOICE>Updates</CHOICE><CHOICE>Final</CHOICE></CHOICES></Field>"
+        }
+      ],
+      "ContentTypes": [
+        {
+          "Name": "FT-Basic Document",
+          "ParentId": "0x0101",
+          "Group": "ProvisioningApp",
+          "Description": "Content Type added by Basic Feature Template",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title",
+              "Required": true
+            },
+            {
+              "Name": "PADocVersion",
+              "ID": "{FA0ADB68-C7F3-4BF0-8AB8-1766EE441C03}",
+              "Required": false
+            }
+          ]
+        }
+      ],
+      "Lists": [
+        {
+          "Title": "Documents",
+          "Description": "Documents",
+          "Url": "Lists/Shared Documents",
+          "ContentTypeBindings": [
+            {
+              "Name": "FT-Basic Document",
+              "Default": false
+            }
+          ]
+
+        }
+      ]
+    }
+  ]
+}

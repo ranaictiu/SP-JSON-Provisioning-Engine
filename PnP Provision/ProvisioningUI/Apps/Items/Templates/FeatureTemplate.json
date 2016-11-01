@@ -1,0 +1,208 @@
+﻿{
+  "$schema": "./pnp-schema.json",
+  "Title": "Feature Template",
+  "Id": "FeatureTemplate",
+  "Templates": [
+    {
+      "Description": "Create site groups, activate features and lists used in lookup or lists without any lookup fields",
+
+      "Lists": [
+        {
+          "Title": "Correspondence Templates",
+          "Description": "Correspondence Templates",
+          "DocumentTemplate": null,
+          "OnQuickLaunch": false,
+          "TemplateType": 100,
+          "Url": "Lists/CorrespondenceTemplates",
+          "EnableVersioning": true,
+          "EnableMinorVersions": false,
+          "DraftVersionVisibility": 0,
+          "EnableModeration": false,
+          "MinorVersionLimit": 0,
+          "MaxVersionLimit": 0,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": false,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableAttachments": false,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": [
+            {
+              "ContentTypeId": "0x01007614A38682FD42738A3FFB630FF717C4",
+              "Name": "Correspondence Template",
+              "Default": true
+            }
+          ],
+          "Security": {
+            "BreakRoleInheritance": {
+              "ClearSubscopes": true,
+              "CopyRoleAssignments": false,
+              "RoleAssignment": [
+                {
+                  "Principal": "{{SiteTitle}} Content Creators",
+                  "RoleDefinition": "View Only"
+                },
+                {
+                  "Principal": "{{SiteTitle}} Managers",
+                  "RoleDefinition": "Contribute"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Description": "Creates CDRL/SDRL Lookup columns and associated content types. Create CDRL Task list and adds CDRL lookup fields.",
+      "SiteFields": [
+        {
+          "ID": "{136C79BA-E70E-4985-AA06-13C2EE4FBF47}",
+          "Name": "SofTractFeatureTemplateLookup",
+          "DisplayName": "Correspondence Template",
+          "Group": "SofTract",
+          "Type": "Lookup",
+          "List": "Lists/CorrespondenceTemplates",
+          "ShowField": "Title",
+          "JSLink": "~siteCollection/_catalogs/masterpage/SofTract/Scripts/CSR_Feature.js"
+        }
+      ],
+      "ContentTypes": [
+        {
+          "ParentId": "0x010100C0D2066864CA4A11942B175F78E9782F",
+          "Name": "Correspondence",
+          "Group": "SofTract",
+          "Description": "Correspondence",
+          "FieldRefs": [
+            {
+              "ID": "{8553196d-ec8d-4564-9861-3dbe931050c8}",
+              "Name": "FileLeafRef"
+            },
+            {
+              "ID": "{fa564e0f-0c70-4ab9-b863-0177e6ddd247}",
+              "Name": "Title",
+              "Required": true
+            },
+            {
+              "ID": "{EC02D10D-839A-4021-94F9-39117B89317A}",
+              "Name": "SofTractCorsPndncFrom",
+              "Required": true
+            },
+            {
+              "ID": "{AD6364E0-91B8-48B6-B2DA-D2540A73B034}",
+              "Name": "SofTractCorsPndncTo",
+              "Required": true
+            },
+            {
+              "ID": "{136C79BA-E70E-4985-AA06-13C2EE4FBF47}",
+              "Name": "SofTractFeatureTemplateLookup",
+              "Required": false
+            },
+            {
+              "ID": "{1D95E296-1A8E-4EF8-AACE-BE98E99467F1}",
+              "Name": "SofTractCorsPndncMessage",
+              "Required": true
+            },
+            {
+              "ID": "{5B419DC4-B5B9-4CD9-A0E1-C482874310B8}",
+              "Name": "SofTractCorsPndnStatus",
+              "Required": false,
+              "Hidden": false
+            },
+            {
+              "ID": "{9B657A4B-1D5F-451B-AB82-8B5947AA7F65}",
+              "Name": "SofTractFeatureSentBy",
+              "Required": false,
+              "Hidden": false
+            },
+            {
+              "ID": "{163F0727-9C9B-4C6C-82D8-63380AA88820}",
+              "Name": "SofTractFeatureSentDate",
+              "Required": false,
+              "Hidden": false
+            }
+          ]
+        }
+      ],
+      "Lists": [
+        {
+          "Title": "Correspondences",
+          "Description": "Correspondences",
+          "OnQuickLaunch": false,
+          "TemplateType": 101,
+          "Url": "Lists/Correspondences",
+          "EnableVersioning": true,
+          "EnableMinorVersions": true,
+          "DraftVersionVisibility": 1,
+          "EnableModeration": true,
+          "MinorVersionLimit": 200,
+          "MaxVersionLimit": 200,
+          "ForceCheckOut": false,
+          "RemoveExistingContentTypes": true,
+          "RemoveExistingViews": true,
+          "ContentTypesEnabled": true,
+          "Hidden": false,
+          "EnableFolderCreation": false,
+          "ContentTypeBindings": [
+            {
+              "Name": "Correspondence",
+              "Default": true
+            },
+            {
+              "Name": "Correspondence Document Set",
+              "Default": false,
+              "Hidden": true
+            }
+          ],
+          "Views": [
+            {
+              "DisplayName": "All Correspondences",
+              "DefaultView": true,
+              "Type": "HTML",
+              "Paged": true,
+              "RowLimit": 50,
+              "Query": "<OrderBy><FieldRef Name=\"ID\" /></OrderBy>",
+              "ViewFields": [ "DocIcon", "LinkFilename", "SofTractCorsPndncFrom", "SofTractCorsPndncTo", "SofTractCorsPndnStatus", "SofTractFeatureSentDate", "SofTractFeatureViewDate" ],
+              "FieldRefs": [
+                {
+                  "ID": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+                  "Name": "Title",
+                  "DisplayName": "Title/Subject"
+                },
+                {
+                  "ID": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+                  "Name": "LinkTitle",
+                  "DisplayName": "Title/Subject"
+                },
+                {
+                  "ID": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+                  "Name": "LinkTitleNoMenu",
+                  "DisplayName": "Title/Subject"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Title": "Email Templates",
+          "Description": "Email Templates",
+          "Url": "Lists/EmailTemplates",
+          "DataRows": [
+            {
+              "_url": "Lists/Templates/FeatureEmailTemplates.xml",
+              "_type": "xml"
+            }
+          ]
+        }
+      ],
+      "CustomActions": {
+        "SiteCustomActions": [],
+        "WebCustomActions": [
+          {
+            "Url": "Lists/Templates/FeatureRibbon.xml"
+          }
+        ]
+      }
+    }
+  ]
+}

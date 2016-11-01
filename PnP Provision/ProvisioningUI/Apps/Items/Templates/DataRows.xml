@@ -1,0 +1,49 @@
+﻿<DataRows>
+  <DataRow>
+    <Title>Title 2</Title>
+    <ProvisioningAppBasicDesc>Description 2</ProvisioningAppBasicDesc>
+    <PABodyContent>
+      <div>
+        <p style="text-align: right;">
+          <span>Title</span>
+          <br/>
+          <span>Current Date​</span>
+        </p>
+        <p>
+          <span>Attn:Sohel Rana</span>
+          <br/>
+          <span>Project Manager</span>
+          <br/>
+          <span>Dept and Division​​​</span>
+          <br/>
+          <span>PO Box 0101​</span>
+          <br/>
+          <span>Perth, WA</span>
+        </p>
+        <br/>
+        <p style="color: #444444; font-weight: bold;">​Formal Communication</p>
+        <br/>
+        <p>
+          <span style="font-weight: bold;"> References:</span>
+        </p>
+      </div>
+    </PABodyContent>
+  </DataRow>
+  <DataRow>
+    <Title>Title 3</Title>
+    <ProvisioningAppBasicDesc>Description 2</ProvisioningAppBasicDesc>
+    <PABodyContent>
+      <div>
+        <p>Dear User,</p>
+        <p> &#160;</p>
+        <p>Ref: 1101P1</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rutrum laoreet nisl nec elementum. Aenean vehicula lorem placerat turpis malesuada, vitae laoreet metus interdum. Nullam egestas consectetur lobortis. Phasellus vitae commodo nibh, id facilisis mauris. Quisque vitae ipsum suscipit nisl cursus accumsan. Vestibulum vulputate ex risus, ac lacinia purus tempor at. Maecenas at tempus dolor. Quisque ut dictum nunc.</p>
+        <p> &#160;</p>
+        <p>Kind Regards,</p>
+        <p>Sohel Rana</p>
+        <p>Project Manager</p>
+      </div>    
+    </PABodyContent>
+  </DataRow>
+
+</DataRows>
